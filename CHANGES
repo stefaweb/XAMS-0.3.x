@@ -6,7 +6,7 @@ Key:
      * Something changed / fixed
 
 2016-04-21 Stephane Leclerc  sleclerc@actionweb.fr
-    * Version 0.2.5
+    * Version 0.3.0
     * Works with Debian 8.4 Jessie
     - Do not work with Debian 7 or previous (due to many system change)
     + Changes to work with Apache 2.4
