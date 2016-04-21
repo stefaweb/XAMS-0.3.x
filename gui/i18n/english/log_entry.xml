@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="View Log-Entry" />
+        <msg id="View Log-Entry" />
+    </msgs>
+</i18n>

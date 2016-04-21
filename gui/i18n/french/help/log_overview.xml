@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Vue générale des logs" xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        L'écran de vue générale des logs permet de consulter l'ensemble des actions survenues sur
+        le système XAMS. Ceci est très utile pour surveiller l'activité du système et détecter des
+        erreurs d'utilisation. Cette option n'est accessible qu'a l'administrateur principal de XAMS.
+    </information>
+    <section>
+        <head>Date (JJ/MM/AAAA)</head>
+        <description>
+            Dans ce champ vous pouvez saisir une date permettant de restreindre l'affichage à une date donnée.
+        </description>
+    </section>
+    <section>
+        <head>Type d'utilisateur</head>
+        <description>
+            Avec cette option, vous pouvez restreindre l'affichage à un certain type d'utilisateur (administrateur,
+            revendeur, client ou utilisateur).
+        </description>
+    </section>
+    <section>
+        <head>Nom</head>
+        <description>
+            Si vous voulez restreindre l'affichage à un utilisateur spécifique, saisissez ici son nom (login).
+        </description>
+    </section>
+    <section>
+        <head>Ressource</head>
+        <description>
+            Vous poivez sélectionner avec cette option le type de ressource à afficher (XAMS, SMTP, POP, IMAP
+            PAM ou FTP). Actuellement seul une recherche sur la ressource XAMS est implémenté.
+        </description>
+    </section>
+    <section>
+        <head>Type</head>
+        <description>
+            Avec cette option, vous pouvez restreindre l'affichage à un certain type d'action.
+        </description>
+    </section>
+    <section>
+        <head>Statut</head>
+        <description>
+            Il y a actuellement deux types de statut possible : OK ou ÉCHOUÉ. Le statut est ÉCHOUÉ
+            si une connexion au système à échouée.
+        </description>
+    </section>
+    <section>
+        <head>Evénement</head>
+        <description>
+            Avec cette option, vous pouvez effectuer une sélection sur une partie d'un événement.
+        </description>
+    </section>
+</help>

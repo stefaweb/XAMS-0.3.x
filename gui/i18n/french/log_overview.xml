@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.1.0" file-revision="1" date="2006-10-21">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Log Overview">Vue générale des logs</title>
+        <msg id="Log Overview">Vue générale des logs</msg>
+        <msg id="Date (MM/DD/YYYY)">Date (JJ/MM/AAAA)</msg>
+        <msg id="Resource">Ressource</msg>
+        <msg id="Search">Rechercher</msg>
+        <msg id="UserType">Type d'utilisateur</msg>
+        <msg id="Admin">Administrateur</msg>
+        <msg id="Reseller">Revendeur</msg>
+        <msg id="Customer">Client</msg>
+        <msg id="User">Utilisateur</msg>
+        <msg id="Type">Type d'action</msg>
+        <msg id="Login">Login</msg>
+        <msg id="Selection">Sélection</msg>
+        <msg id="Update">Mise à jour</msg>
+        <msg id="Insertion">Insertion</msg>
+        <msg id="Deletion">Effacement</msg>
+        <msg id="Username">Nom</msg>
+        <msg id="Status">Statut</msg>
+        <msg id="OK">OK</msg>
+        <msg id="FAILED">ÉCHOUÉ</msg>
+        <msg id="Event">Événement</msg>
+        <msg id="Selection contains %d entries">La sélection contient %s entrée(s)</msg>
+        <msg id="Showing maximum %d entries per page">Afficher %d entrées par page</msg>
+        <msg id="Page: %d / %d">Page : %d / %d</msg>
+        <msg id="Entries per page">Entrées par page </msg>
+        <msg id="Refresh">Rafraîchir</msg>
+        <msg id="Date">Date</msg>
+        <msg id="Time">Heure</msg>
+        <msg id="No log entries found">Aucune entrée de log trouvée</msg>
+        <msg id="Delete Log-Entries older than">Supprimer les entrées de log plus ancienne que</msg>
+    </msgs>
+</i18n>

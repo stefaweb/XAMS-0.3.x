@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2003-02-09">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="DNS Management">DNS Verwaltung</title>
+        <msg id="DNS Management">DNS Verwaltung</msg>
+        <msg id="Select a Zone from below or">Wählen Sie eine der unten aufgeführten Zonen, oder</msg>
+        <msg id="create a new Zone">erstellen Sie eine Neue</msg>
+        <msg id="seconds">Sekunden</msg>
+        <msg id="minutes">Minuten</msg>
+        <msg id="hours">Stunden</msg>
+        <msg id="days">Tage</msg>
+        <msg id="weeks">Wochen</msg>
+        <msg id="months">Monate</msg>
+        <msg id="Zone Type">Zonen-Typ</msg>
+        <msg id="Zone" />
+        <msg id="Primary DNS">Primärer DNS</msg>
+        <msg id="Zone Admin (eMail)">Zonen-Admin (eMail)</msg>
+        <msg id="Serial">Serien-Nr.</msg>
+        <msg id="Automatic">Automatisch</msg>
+        <msg id="Time to Live (TTL)">Lebensdauer (TTL)</msg>
+        <msg id="Refresh">Aktualisierung</msg>
+        <msg id="Retry">Erneuter Versuch</msg>
+        <msg id="Expire">Abgelaufen</msg>
+        <msg id="Negative TTL" />
+        <msg id="Zone records">Zoneneinträgen</msg>
+        <msg id="Zone created">Zone angelegt</msg>
+        <msg id="Zone last updated">Zone zuletzt aktualisiert</msg>
+        <msg id="Name" />
+        <msg id="Type">Typ</msg>
+        <msg id="Parameter" />
+        <msg id="Comment">Kommentar</msg>
+        <msg id="No records for this zone yet. Use the form below to add some.">Es existieren keine Einträge für diese Zone. Benutzen Sie das Formular unten zum hinzufügen.</msg>
+        <msg id="Back to Zone menu">Zurück zum Zonen-menü</msg>
+
+        <!-- Status-Meldungen -->
+        <msg id="Zone '%s' was added successfully.">Die Zone '%s' wurde erfolgreich hinzugefügt.</msg>
+        <msg id="Zone '%s' was updated successfully.">Die Zone '%s' wurde erfolgreich aktualisiert.</msg>
+        <msg id="Zone '%s' was deleted successfully.">Die Zone '%s' wurde erfolgreich gelöscht.</msg>
+        <msg id="Zone '%s' could not be added.">Die Zone '%s' konnte nicht hinzugefügt werden.</msg>
+        <msg id="Zone '%s' could not be updated.">Die Zone '%s' konnte nicht aktualisiert werden.</msg>
+        <msg id="Zone '%s' could not be deleted.">Die Zone '%s' konnte nicht gelöscht werden.</msg>
+    </msgs>
+</i18n>

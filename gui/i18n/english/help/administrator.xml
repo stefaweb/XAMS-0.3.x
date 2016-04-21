@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Administrator Management" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        An Administrator can take up changes on all data without
+        any limitations. He has total access to every function of XAMS and thus
+        can administrate all Resellers and where required even whose Customers.
+    </information>
+    <section>
+        <head>Administrator Name</head>
+        <description>
+            This is the Name of the Administrator as it is e.g. shown
+            in the Event-Log. At login this name has to be prefixed by
+            "adm_", so that XAMS knows wich kind of user it has to
+            validate.
+        </description>
+    </section>
+    <section>
+        <head>Administrator Password</head>
+        <description>
+            In conjunction with the Name and this Password, the Administrator
+            can login to the XAMS GUI.
+        </description>
+    </section>
+    <section>
+        <head>Account locked</head>
+        <condition>not_himself</condition>
+        <description>
+            Using this option, an Administrator can lock other
+            Administrators. Thereby he can't login the XAMS
+            GUI anymore.
+        </description>
+    </section>
+</help>

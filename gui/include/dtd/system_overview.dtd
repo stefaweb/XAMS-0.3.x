@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT i18nfile (#PCDATA)>
+<!ELEMENT skindir (#PCDATA)>
+<!ELEMENT info (#PCDATA)>
+<!ELEMENT domain (#PCDATA)>
+<!ELEMENT field (#PCDATA)>
+<!ELEMENT target (#PCDATA)>
+<!ELEMENT user (#PCDATA)>
+<!ATTLIST system
+    xams-release CDATA #REQUIRED
+    file-version CDATA #REQUIRED
+    date CDATA #REQUIRED
+>
+<!ELEMENT system (i18nfile, skindir, (reseller+ | info))>
+<!ATTLIST i18nfile
+    language CDATA #REQUIRED
+>
+<!ATTLIST reseller
+    id CDATA #IMPLIED
+    name CDATA #REQUIRED
+    maxsites CDATA #REQUIRED
+    maxdomains CDATA #REQUIRED
+    maxusers CDATA #REQUIRED
+    maxaliases CDATA #REQUIRED
+    addressbook (false | true) "false"
+>
+<!ELEMENT reseller (site+)>
+<!ATTLIST site
+    id CDATA #REQUIRED
+    status (default | locked | lockedbounce) "default"
+    name CDATA #REQUIRED
+    maxusers CDATA #REQUIRED
+    maxaliases CDATA #REQUIRED
+    maxquota CDATA #REQUIRED
+    maxuserquota CDATA #REQUIRED
+    addrtype CDATA #REQUIRED
+    viruscheckin (false | true) "false"
+    viruscheckout (false | true) "false"
+    spamcheckin (false | true) "false"
+    spamcheckout (false | true) "false"
+    spamscore #REQUIRED
+    highspamscore #REQUIRED
+    addressbook (false | true) "false"
+>
+<!ELEMENT site (domains, users, aliases)>
+<!ELEMENT domains (domain*)>
+<!ATTLIST domain
+    id CDATA #REQUIRED
+    zoneid CDATA #IMPLIED
+>
+<!ELEMENT users (user*)>
+<!ATTLIST user
+    id CDATA #REQUIRED
+    status (default | locked | lockedbounce) "default"
+    name CDATA #REQUIRED
+    relaytype CDATA #REQUIRED
+    uquota CDATA #REQUIRED
+    quota CDATA #REQUIRED
+    addrtype CDATA #REQUIRED
+    viruscheckin (false | true | site) "site"
+    viruscheckout (false | true | site) "site"
+    spamcheckin (false | true | site) "site"
+    spamcheckout (false | true | site) "site"
+    spamscore #REQUIRED
+    highspamscore #REQUIRED
+    autoreply (false | true) "false"
+    addressbook (false | true) "false"
+>
+<!ELEMENT aliases (alias*)>
+<!ATTLIST alias
+    id CDATA #REQUIRED
+    name CDATA #REQUIRED
+    bounceforward (false | true) "false"
+    addressbook (false | true) "false"
+>
+<!ELEMENT alias (targets)>
+<!ELEMENT targets (target+)>

@@ -1,0 +1,240 @@
+body {
+	font-family: Verdana, Arial, sans-serif;
+	color: #FFF;
+	font-size: 10pt;
+	margin: 0;
+	padding:0;
+	background-image: url(../img/bg_general.jpg);
+	background-repeat: repeat-y;
+	background-position: center top;
+	background-color: #216cb3;
+}
+
+a, a:hover {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10pt;
+	color: #FFF;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+}
+
+a { text-decoration: none; }
+
+a:hover { text-decoration: underline; }
+
+a:link img, a:visited img, a:active img { border: none; }
+
+table, td {
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 10pt;
+    color: #2370b8;
+    padding: 0px;
+    background-color: #ebf2f8;
+    border-style: none;
+    border-spacing: 0px; /* IE <= 6.0 ignores that - so cellspacing is still needed */
+}
+
+table {
+	 padding-left: 10px;
+	}
+	
+td {
+	padding:0;
+	color: #666;
+	background:none;
+	}
+
+th {
+    text-align: left;
+    vertical-align: middle;
+    font-weight:normal;
+}
+
+tr {  }
+
+td.addressbook {
+    padding-right: 4px;
+}
+
+ul {
+    list-style-type: square;
+}
+
+h1, h2, h3 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 { font-size: 15pt; }
+h2 { font-size: 10pt; }
+
+h3 {
+	font-size: 12pt;
+	background-color: #216cb3;
+	color: #FFF;
+	border: 1px solid #FFF;
+	padding-left:5px;
+}
+
+#header {
+	background-color:#216cb3;
+}
+
+.hsite{
+	border-collapse:collapse;
+}
+
+.hsite_cell {
+        width:100px;
+        height:20px;
+        border: 1px solid white;
+        margin:5px;
+        padding-left:20px;
+        background-color: rgb(218, 234, 247);
+}
+
+#header a, #header a:hover {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10pt;
+	color: #216cb3;
+	font-style: bold;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+}
+
+#version {
+	font-size: 7pt;
+	height: 30px;
+	vertical-align: top;
+	text-align: center;
+}
+
+.menu1, .menu2, .menu3, .menu1n, .menu2n, .menu3n {
+	width: 700px;
+	background-color: #ebf2f8;
+	padding:0px;
+}
+
+.menu1n, .menu2n, .menu3n { 
+	padding-left: 10px;
+}
+
+.lienbleu table,.lienbleu td  {
+	font-size:8pt;
+}
+.lienbleu td a, .lienbleu td a:hover {
+	font-family: Verdana, Arial, sans-serif;
+	color: #216cb3;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+}
+
+.lienbleu td a:link {
+	text-decoration: none;
+	font-size:8pt;
+}
+
+.lienbleu td a:hover {
+	font-size:8pt;
+	text-decoration: underline;
+}
+
+.tbl_global {
+	 padding: 10px;
+}
+
+.align_head {
+    vertical-align : top;
+}
+
+.align_result {
+    text-align: right;
+    white-space: nowrap;
+}
+
+#sysoverview_sitelist th, td {
+	padding: 2px 4px 2px 4px;
+}
+
+#sysoverview_sitelist th {
+	text-align: left;
+}
+
+#sysoverview_sitelist a {
+	color: #216cb3;
+}
+
+.tooltip
+{
+  position: relative;
+  cursor: help;
+  display: inline-block;
+  text-decoration: none;
+  color: #222;
+  outline: none;
+}
+
+.tooltip span
+{
+	font-size:8pt;
+	visibility: hidden;
+	position: absolute;
+	bottom: 30px;
+	left: 50%;
+	z-index: 999;
+	width: 230px;
+	margin-left: -225px;
+	padding: 5px;
+	border: 2px solid #fff;
+	opacity: .9;
+	background-color: #226cb3;
+	background-image: -webkit-linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,0));
+	background-image: -moz-linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,0));
+	background-image: -ms-linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,0));
+	background-image: -o-linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,0));
+	background-image: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,0));
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.4), 0 1px 0 rgba(255,255,255,.5) inset;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.4), 0 1px 0 rgba(255,255,255,.5) inset;
+	box-shadow: 0 1px 2px rgba(0,0,0,.4), 0 1px 0 rgba(255,255,255,.5) inset;
+	text-shadow: 0 1px 0 rgba(255,255,255,.4);
+}
+
+.tooltip:hover
+{
+	border: 0; /* IE6 fix */
+}
+
+.tooltip:hover span
+{
+	visibility: visible;
+}
+
+.tooltip span:before,
+.tooltip span:after
+{
+	content: "";
+	position: absolute;
+	z-index: 1000;
+	bottom: -8px;
+	left: 92%;
+	margin-left: -8px;
+	border-top: 8px solid #fff;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 0;
+}
+
+.tooltip span:before
+{
+	border-top-color: #fff;
+	bottom: -8px;
+}

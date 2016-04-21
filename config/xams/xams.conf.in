@@ -1,0 +1,89 @@
+; Configuration file for XAMS @VERSION@
+; comments are only lines that start with a semicolon ';'
+; Sections are between [] brackets
+
+; Here is the Database configuration for the XAMS-GUI
+; The user of the DB must have rights to select, insert,
+; delete and update in the DB
+[GUI]
+DBType = mysql
+DBHost = @XAMS_SQL_HOST@
+DBUser = @XAMS_SQL_USER@    
+DBPass = @XAMS_SQL_PASSWORD@
+DB = @XAMS_SQL_DATABASE@
+SETName = @MYSQL_SETNAMES@
+; Run xams in debug mode
+DebugMode = false 
+
+; have a selectbox on login.php for the different user modes
+UserTypeSel = true
+; Path and Exim UID for get_maildirsize
+EximUser = @EXIM_USER@ 
+XAMSbindir = @XAMS_BINDIR@ 
+; Run xams in demo mode
+DemoServer = false
+
+; Here is the configuration for the authdaemon script
+; If you leave the a DB-setting commented the DB-setting from
+; the XAMS-GUI will be used.
+[authdaemon]
+;DBType = mysql
+;DBHost = localhost
+;DBUser = user
+;DBPass = pass
+;DB = xams
+USER = @EXIM_USER@
+GROUP = @EXIM_GROUP@
+courier_socket = @COURIER_SOCKET_DIR@/socket
+pid_file = @XAMS_PID_DIR@/authdaemon-xams.pid
+mail_dir = @MAILDIR@
+; MTA user must be a string
+mta_user = @EXIM_USER@
+; Log Login-Attempts to database?
+DBLOG = off
+
+; Here is the configuration for the xmu script (the XAMS
+; Maintenance Utility). If you leave the a DB-setting commented
+; the DB-setting from the XAMS-GUI will be used.
+[xmu]
+;DBType = mysql
+;DBHost = localhost
+;DBUser = user
+;DBPass = pass
+;DB = xams
+USER = @EXIM_USER@
+GROUP = @MAIL_GROUP@
+local_domains = @XAMS_CONFIG_DIR@/localdomains.cdb
+autoreply_files = @XAMS_CONFIG_DIR@/autoreply
+
+; Where should the XAMS maintained zone be stored?
+zone_files = /etc/bind/xams-zones/
+
+; Zone-Template
+zone_template = @XAMS_CONFIG_DIR@/zone_template
+
+; The file that is being included by your bind-configuration
+; This is _NOT_ your bind-configuration file itself!
+named_file = /etc/bind/xams-zones.conf
+
+; The template for the xams-named-configuration
+named_master_template = @XAMS_CONFIG_DIR@/named_master_template
+named_slave_template = @XAMS_CONFIG_DIR@/named_slave_template
+
+; MailScanner configuration
+; This need to be checked. Seems obsolete.
+;mailscanner_avin_rules = @XAMS_CONFIG_DIR@/mailscanner_rules
+;mailscanner_avout_rules = @XAMS_CONFIG_DIR@/mailscanner_rules
+; MailScanner Plain file
+;mailscanner_domains = @XAMS_CONFIG_DIR@/mailscanner_domains
+
+; EximConfig configuration
+; Please see at http://www.jcdigita.com/eximconfig/
+; You can use the mcp script shipped with EximcConfig
+; to push your files to the server(s)
+;eximconfig_domains_relay = /etc/exim4/eximconfig/domains/relay 
+;eximconfig_route_relay = /etc/exim4/eximconfig/route/relay 
+;eximconfig_route_manual = /etc/xams/eximconfig_route_manual
+;ec_master_smarthost = master-smarthost.domain.tld 
+;ec_smarthost = smarthost.domain.tld 
+

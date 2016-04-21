@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Customer Management" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        A Reseller (resp. Administrator) assigns any desired sites 
+        to a Customer. These sites then can be administrated by the Customer.
+        Here, he has to keep to the limitations given by the Reseller (resp.
+        Administrator). He may apply - according to the limits - any desired
+        users or aliases and also manage them.
+        In contrast to the Reseller, he cannot gain access to the users or
+        aliases belonging to another Customer of course.
+    </information>
+    <section>
+        <head>Customer Name</head>
+        <description>
+            This is the Name of the Customer as it is e.g. shown
+            in the Event-Log.
+        </description>
+    </section>
+    <section>
+        <head>Customer Password</head>
+        <description>
+            In conjunction with the Name and this Password, the Customer
+            can login to the XAMS GUI.
+        </description>
+    </section>
+    <section>
+        <head>Account locked</head>
+        <description>
+            Using this option, an Administrator or a Reseller
+            can lock a Customer. Thereby he can't login the XAMS
+            GUI anymore.
+        </description>
+    </section>
+    <section>
+        <head>Reseller</head>
+        <description>
+            Here, the Customer is assigned to a specific Reseller.
+            Depending on the Reseller, the Site-selection changes
+            to the pool that this Reseller administrates.
+        </description>
+    </section>
+    <section>
+        <head>Sites</head>
+        <description>
+            Here, a Administrator resp. a Reseller can assign
+            one or several Sites to a Customer.
+            But only the Sites that are available to the
+            Reseller can be assigned to his Customer.
+        </description>
+    </section>
+</help>

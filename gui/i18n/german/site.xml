@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Site Management">Site Verwaltung</title>
+        <msg id="Site Management">Site Verwaltung</msg>
+        <msg id="Unfortunately no more sites can be added. Your Site-Quota has reached.">Leider können keine weiteren Sites hinzugefügt werden. Ihr Site-Kontingent ist erreicht.</msg>
+        <msg id="Reseller">Wiederverkäufer</msg>
+        <msg id="Sitename">Name der Site</msg>
+        <msg id="Domains" />
+        <msg id="Max. Quota">Max. Kontingent</msg>
+        <msg id="Max. User-Quota">Max. Benutzer-Kontingent</msg>
+        <msg id="Max. Users">Max. Benutzer</msg>
+        <msg id="Max. Aliases">Max. Aliase</msg>
+        <msg id="Type">Typ</msg>
+        <msg id="Viruscheck">Virenprüfung</msg>
+        <msg id="Spamcheck">Spamprüfung</msg>
+        <msg id="Incoming">Eingehend</msg>
+        <msg id="Outgoing">Ausgehend</msg>
+        <msg id="Status" />
+        <msg id="Active">Aktiv</msg>
+        <msg id="Locked">Gesperrt</msg>
+        <msg id="Locked &amp; Bounce">Gesperrt &amp; geblockt</msg>
+        <msg id="Site created">Site angelegt</msg>
+        <msg id="Site last updated">Site zuletzt aktualisiert</msg>
+        <msg id="New User">Neuer Benutzer</msg>
+        <msg id="Spam Score Trigger">Spam Score Trigger</msg>
+        <msg id="Spam Score">Spam Score</msg>
+        <msg id="High Spam Score">Score Limit</msg>
+        <msg id="Contain non-numeric Characters">enthält nicht-numerische Zeichen</msg>
+        <msg id="Field has to be filled out">Feld muss ausgefüllt werden</msg>
+        <msg id="Invalid ID">Ungültige ID</msg>
+        <msg id="Select a Reseller in the drop-down menu">Wählen Sie einen Wiederverkäufer aus dem Drop-Down Menü</msg>
+
+        <!-- Errors function -->
+	<msg id="Email address invalid">Die Emailadresse ist ungültig.</msg>
+	<msg id="Incoming address invalid">Die eingehende Emailadresse ist ungültig.</msg>
+        <msg id="Too short (min='%s')">Zu kurz (minimum='%s')</msg>
+        <msg id="Too long (max='%s')">Zu lang (maximum='%s')</msg>
+        <msg id="Value is too low (min='%s')">Wert ist zu niedrig (minimum='%s')</msg>
+        <msg id="Value is too big (max='%s')">Wert ist zu hoch (maximum='%s')</msg>
+        
+        <!-- Status-Meldungen -->
+        <msg id="Site '%s' was added successfully.">Die Site '%s' wurde erfolgreich hinzugefügt.</msg>
+        <msg id="Site '%s' was updated successfully.">Die Site '%s' wurde erfolgreich aktualisiert.</msg>
+        <msg id="Site '%s' was deleted successfully.">Die Site '%s' wurde erfolgreich gelöscht.</msg>
+        <msg id="Site '%s' could not be added.">Die Site '%s' konnte nicht hinzugefügt werden.</msg>
+        <msg id="Site '%s' could not be updated.">Die Site '%s' konnte nicht aktualisiert werden.</msg>
+        <msg id="Site '%s' could not be deleted.">Die Site '%s' konnte nicht gelöscht werden.</msg>
+    </msgs>
+</i18n>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Alias Verwaltung" xams-release="0.0.15" file-release="0.0.9" file-revision="1" date="2004-01-29">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Ein Alias ist eine zusätzliche eMail-Adresse jedoch ohne Postfach.
+        Er existiert nur virtuell - eine Weiterleitung an einen anderen Alias
+        oder einen Benutzer.
+    </information>
+    <section>
+        <head>Site</head>
+        <description>
+            Hier wird die Site ausgewählt, zu der dann der neu anzulegende
+            Alias gehören soll. Für jede der in dieser Site befindlichen
+            Domains erhält der Alias Gültigkeit.
+        </description>
+    </section>
+    <section>
+        <head>Eingehende Adresse</head>
+        <description>
+            Dies ist - wie ein Benutzername - der Teil vor dem @-Zeichen einer
+            eMail-Adresse. Nach außen hin ist nicht erkenntlich ob es sich um
+            einen Alias oder um einen physikalischen eMail-Account handelt.
+            Wird in diesem Feld ein * eingegeben, so werden alle eMails die
+            an eine Domain innerhalb dieser Site geschickt werden, an diesen
+            Alias weitergeleitet, wenn es keinen eigenständigen Benutzer
+            oder Alias mit dem Empfängernamen gibt.
+        </description>
+    </section>
+    <section>
+        <head>Weiterleit-Adresse</head>
+        <description>
+            Dies ist die (Ziel-)Adresse an die die Mails weitergeleitet werden,
+            die an den Alias adressiert wurden. Befindet sich die Zieladresse
+            in der gleichen Site, so ist nur der Teil vor dem @-Zeichen
+            anzugeben - andernfalls die komplette eMail-Adresse. In diesem
+            Feld können durch Komma getrennt mehrere Adressen angegeben werden.
+        </description>
+    </section>
+    <section>
+        <head>Bouncen und Weiterleiten</head>
+        <description>
+            Ist dieses Feld aktiviert, so wird eine eMail die an diesen Alias
+            geschickt wurde zunächst gebounced (dem Absender als Fehlermeldung
+            zurückgesendet) und anschließend dennoch an die "Weiterleit-Adresse"
+            weitergeleitet.
+        </description>
+    </section>
+    <section>
+        <head>Blackhole (Schwarzes Lock)</head>
+        <description>
+            Ist dieses Feld aktiviert, so wird eine eMail die an diesen Alias
+            geschickt wurde umgehend und unwiederbringlich gelöscht.
+        </description>
+    </section>
+</help>

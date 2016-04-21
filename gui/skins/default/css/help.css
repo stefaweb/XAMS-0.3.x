@@ -1,0 +1,88 @@
+a, a:hover {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10pt;
+	color: #FFF;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+}
+
+a { text-decoration: none; }
+
+a:hover { text-decoration: underline; }
+
+a:link img, a:visited img, a:active img { border: none; }
+
+body {
+	font-family: Verdana, Arial, sans-serif;
+	color: #FFF;
+	font-size: 10pt;
+	margin: 0;
+	padding:0;
+	background-image: url(../img/bg_general.jpg);
+	background-repeat: repeat-y;
+	background-position: center top;
+	background-color: #216cb3;
+}
+
+tr {}
+
+table, td {
+ 	font-family: Verdana, Arial, sans-serif;
+    font-size: 10pt;
+    color: #FFF;
+    padding: 0px;
+    border-style: none;
+    border-spacing: 0px; /* IE <= 6.0 ignores that - so cellspacing is still needed */
+}
+
+th {
+    text-align: left;
+    vertical-align: middle;
+	font-weight:normal;
+}
+
+h1, h2, h3 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 { font-size: 20pt; }
+h2 { font-size: 15pt; }
+
+h3 {
+	font-size: 12pt;
+	background-color: #216cb3;
+	color: #FFF;
+	border: 1px solid #FFF;
+}
+
+p.section, p.information {
+    text-align: justify;
+}
+
+#header {
+	background-color:#216cb3;
+}
+
+#header a, #header a:hover {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10pt;
+	color: #216cb3;
+	font-style: bold;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	
+}
+
+ #headermid {
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 18pt;
+	color: #FFF;
+	vertical-align: middle;
+	
+} 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE newsroot SYSTEM "../../include/dtd/news.dtd">
+<newsroot xams-release="0.0.20" file-release="0.1.0" date="">
+    <skindir>{{skindir}}</skindir>
+    <head>
+        Bienvenue sur les Nouvelles en ligne XAMS. Vous n'utilisez pas actuellement
+        les nouvelles en ligne du site Web XAMS.
+        Si vous voulez le faire, choisissez la bonne option dans les Préférences.
+    </head>
+    <news author="L'Adminisrateur XAMS" subject="Nouvelles en ligne XAMS" date="">
+        Vous pouvez utiliser le système de Nouvelles en ligne pour diffuser des
+        informations auprès de vos utilisateurs. Pour cela, éditer le fichier news.xml
+        et sélectionnez l'option "Nouvelles en ligne" dans les Préférences.
+    </news>
+</newsroot>

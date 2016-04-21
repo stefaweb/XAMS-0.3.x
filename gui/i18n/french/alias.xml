@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.1.0" file-revision="1" date="2009-02-17">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Alias Management">Administration des Alias</title>
+        <msg id="Alias Management">Administration des Alias</msg>
+        <msg id="Unfortunately no more aliases can be added. Site based Alias-Quota has reached.">Aucun Alias n'a pu être ajouté. Votre quota d'Alias pour le site est dépassé.</msg>
+        <msg id="Unfortunately no more aliases can be added. Reseller based Alias-Quota has reached.">Aucun Alias n'a pu être ajouté. Votre quota d'Alias pour le revendeur est dépassé.</msg>
+        <msg id="Unfortunately no more aliases can be added. Your Alias-Quota has reached.">Aucun Alias n'a pu être ajouté. Votre quota d'Alias est dépassé.</msg>
+        <msg id="Site">Site</msg>
+        <msg id="Incoming Address">Adresse entrante</msg>
+        <msg id="Forward Address">Adresse de ré-expédition</msg>
+        <msg id="Bounce and Forward">Rebond et ré-expédition</msg>
+        <msg id="Blackhole">Mise à la poubelle automatique</msg>
+        <msg id="Alias created">Alias créé le</msg>
+        <msg id="Alias last updated">Alias mis à jour le</msg>
+        <msg id="Select a Site in the drop-down menu.">Sélectionnez un Site dans le menu déroulant.</msg>
+
+
+        <!-- Status-Meldungen -->
+        <msg id="Alias '%s' was added successfully.">Votre Alias '%s' a été ajouté avec succès.</msg>
+        <msg id="Alias '%s' was updated successfully.">Votre Alias '%s' a été mis à jour avec succès.</msg>
+        <msg id="Alias '%s' was deleted successfully.">Votre Alias '%s' a été effacé avec succès.</msg>
+        <msg id="Alias '%s' could not be added.">Votre Alias '%s' n'a pas pu être ajouté.</msg>
+        <msg id="Alias '%s' could not be updated.">Votre Alias '%s' n'a pas pu être mis à jour.</msg>
+        <msg id="Alias '%s' could not be deleted.">Votre Alias '%s' n'a pas pu être effacé.</msg>
+    </msgs>
+</i18n>

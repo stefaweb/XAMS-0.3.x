@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.1.0" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Reseller Management">Administration du revendeur</title>
+        <msg id="Account Settings">Préférences du compte</msg>
+        <msg id="Reseller Management">Administration du revendeur</msg>
+        <msg id="Reseller Name">Nom du revendeur</msg>
+        <msg id="Reseller Password">Mot de passe</msg>
+        <msg id="Password">Mot de passe</msg>
+        <msg id="Max. Customers">Nbr. maximum de clients</msg>
+        <msg id="Max. Sites">Nbr. maximum de sites</msg>
+        <msg id="Max. Domains">Nbr. maximum de domaines</msg>
+        <msg id="Max. Users">Nbr. maximum d'utilisateurs</msg>
+        <msg id="Max. Aliases">Nbr. maximum d'alias</msg>
+        <msg id="Max. Quota">Quota maximum</msg>
+        <msg id="Max. Site-Quota">Quota maximum pour les sites</msg>
+        <msg id="Max. User-Quota">Quota maximum pour les utilisateurs</msg>
+        <msg id="Viruscheck">Anti-Virus</msg>
+        <msg id="Spamcheck">Anti-SPAM</msg>
+        <msg id="Incoming">Entrant</msg>
+        <msg id="Outgoing">Sortant</msg>
+        <msg id="Account locked">Compte vérouillé</msg>
+        <msg id="Sites (multiple selection)">Sites (sélection multiple)</msg>
+        <msg id="No unassigned sites found.">Aucun site non assigné trouvé !</msg>
+        <msg id="Reseller created">Revendeur créé le</msg>
+        <msg id="Reseller last updated">Revendeur mis à jour le</msg>
+        <msg id="Spam Score Trigger">Réglage des scores de Spam</msg>
+        <msg id="Spam Score">Score de base </msg>
+        <msg id="High Spam Score">Score limite </msg>
+
+        <!-- Status-Meldungen -->
+        <msg id="Reseller '%s' was added successfully.">Le revendeur '%s' a été ajouté avec succès.</msg>
+        <msg id="Reseller '%s' was updated successfully.">Le revendeur '%s' a été mis à jour avec succès.</msg>
+        <msg id="Reseller '%s' was deleted successfully.">Le revendeur '%s' a été effacé avec succès.</msg>
+        <msg id="Reseller '%s' could not be added.">Le revendeur '%s' n'a pas pu être ajouté.</msg>
+        <msg id="Reseller '%s' could not be updated.">Le revendeur '%s' n'a pas pu être mis à jour.</msg>
+        <msg id="Reseller '%s' could not be deleted.">Le revendeur '%s' n'a pas pu être effacé.</msg>
+    </msgs>
+</i18n>

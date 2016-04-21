@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Log Overview" />
+        <msg id="Log Overview" />
+        <msg id="Date (DD/MM/YYYY)" />
+        <msg id="Resource" />
+        <msg id="Search" />
+        <msg id="UserType" />
+        <msg id="Admin" />
+        <msg id="Reseller" />
+        <msg id="Customer" />
+        <msg id="User" />
+        <msg id="Type" />
+        <msg id="Login" />
+        <msg id="Selection" />
+        <msg id="Update" />
+        <msg id="Insertion" />
+        <msg id="Deletion" />
+        <msg id="Username" />
+        <msg id="Status" />
+        <msg id="OK" />
+        <msg id="FAILED" />
+        <msg id="Event" />
+        <msg id="Selection contains %d entries" />
+        <msg id="Showing maximum %d entries per page" />
+        <msg id="Page: %d / %d" />
+        <msg id="Entries per page" />
+        <msg id="Refresh" />
+        <msg id="Date" />
+        <msg id="Time" />
+        <msg id="No log entries found" />
+        <msg id="Delete Log-Entries older than" />
+    </msgs>
+</i18n>

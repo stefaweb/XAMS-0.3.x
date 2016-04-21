@@ -1,0 +1,49 @@
+#!@PERL_PATH@ -w
+
+use strict;
+
+my $reallydo = (defined($ARGV[0]) && $ARGV[0] eq '--reallydo');
+
+opendir(SITEDIR, './');
+while (my $sitename = readdir(SITEDIR))
+{
+    next if ($sitename eq '.' || $sitename eq '..' || ! -d $sitename);
+    print "Checking directory '$sitename'\n";
+    if ($sitename ne lc($sitename))
+    {
+        if (-d lc($sitename))
+        {
+            printf("Cannot rename sitedir '%s' to '%s' because both exist - ".
+                "you will have to do that manually\n", $sitename, lc($sitename));
+        }
+        else
+        {
+            printf("Will rename sitedir '%s' to '%s'\n", $sitename, lc($sitename));
+            if ($reallydo)
+            {
+                rename($sitename, lc($sitename));
+                $sitename = lc($sitename);
+            }
+        }
+    }
+    next unless chdir($sitename);
+    opendir(USERDIR, './');
+    while (my $username = readdir(USERDIR))
+    {
+        next if ($username eq '.' || $username eq '..' ||
+                 ! -d $username || $username eq lc($username));
+        if (-d lc($username))
+        {
+            printf("|--- Cannot rename userdir '%s' to '%s' because both exist - ".
+                "you will have to do that manually\n", $username, lc($username));
+            next;
+        }
+        printf("|--- Will rename userdir '%s' to '%s'\n", $username, lc($username));
+        rename($username, lc($username)) if ($reallydo);
+    }
+    close(USERDIR);
+    chdir('..');
+}
+closedir(SITEDIR);
+
+print "Call '$0 --reallydo' do execute this in real\n" unless ($reallydo);

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="DNS Management" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        The DNS-Management of XAMS allows you to comfortable administrate
+        your Domain server. You should already know something about DNS and
+        howto configure a BIND nameserver, because we cannot fully explain every
+        setting.
+        We have added some examples like the Zone "xams.org", to show you what
+        it supposed to be entered at each setting.
+    </information>
+    <section>
+        <head>Zone Type</head>
+        <description>
+            To setup a zone, a nameserver must know which type the zone has,
+            and who is responsible for that zone.
+            Setting it to "Master" (= primary DNS), makes your nameserver responsible
+            for the zone. "Slave" makes your nameserver get the zone information off
+            another (primary/Master) DNS.
+            Setting it to "Dummy", has no effect for your DNS because this zone
+            wont be exported by the zone-file generation script.
+        </description>
+    </section>
+    <section>
+        <head>Zone</head>
+        <description>
+            A Zone is a kind of a container for a namespace - a part of a domain
+            or subdomain. If your Nameserver manages the zone "xams.org" it also
+            manages all subdomains of "xams.org" like e.g. "www.xams.org" or "demo.xams.org".
+            The zone "xams.org" can be seen as a subdomain of the zone "org", which is managed
+            by a domain-registrar.
+        </description>
+    </section>
+    <section>
+        <head>Primary DNS</head>
+        <description>
+            This field must contain the primary (Master) Nameserver for the given Zone.
+            Note that this entry needs a trailing dot, in case it is not a part 
+            of the zone itself. In case of "xams.org" it is "sitixns.de.".
+        </description>
+    </section>
+    <section>
+        <head>Zone Admin (eMail)</head>
+        <description>
+            The email-adress of the responsible administrator for the zone
+            must be entered here. Note, that instead of the "@"-sign you must
+            use a dot. Like with the primary DNS also the trailing dot
+            ist needed, when the domain of the email-address isn't a part of the zone.
+            The email-address "hostmaster@sitixns.de" would look like "hostmaster.sitixns.de.".
+            Note: you cannot use email addresses that have dot within their local part (before
+            the "@" sign).
+        </description>
+    </section>
+    <section>
+        <head>Serial</head>
+        <description>
+            Every zone needs a unique serial. The most important thing here is
+            that the number increases with every change to the zone, so that the
+            secondary DNS figure out that something has changed.
+            It is common use to take the current date and add a 2 digit serial. e.g.
+            2002072101 stands for Year 2002, Month Juli, Day 21st the 01st entry/change
+            on that day.
+        </description>
+    </section>
+    <section>
+        <head>Automatic</head>
+        <description>
+            Normally it ist not useful to edit the serialnumber by hand, xams can do this for you.
+            There're only few reasons why this feature should be deactivated.
+        </description>
+    </section>
+    <section>
+        <head>Time to Live (TTL)</head>
+        <description>
+            Time-To-Live (TTL) sets how long a client is allowed to cache the informations
+            of your zone. A low value has the advantage, that changes get active very fast,
+            the disadvantage ist that your nameserver gets asked more often. A meaningful value is
+            usually one day.
+        </description>
+    </section>
+    <section>
+        <head>Refresh</head>
+        <description>
+            This value sets the interval the secondary (slave) nameserver uses to actualize
+            the Zone. A meaningful value is usually three hours.
+        </description>
+    </section>
+    <section>
+        <head>Retry</head>
+        <description>
+            If the secondary (slave) nameserver doesn't succeed in refreshing the zone
+            information, then this value sets the time the server waits until he retries.
+            A meaningful value is usually one hour.
+        </description>
+    </section>
+    <section>
+        <head>Expire</head>
+        <description>
+            If a secondary (slave) nameserver cannot actualize a zone, it declares the zone
+            invalid after the amount of time set here. It answers no requests for that zone
+            after that time.
+            A meaningful value is usually one week.
+        </description>
+    </section>
+    <section>
+        <head>Negative TTL</head>
+        <description>
+            Zone data requested by clients that does not exist, is temporary (for time set here)
+            stored as failure. After that time the server tries to resolve the data again.
+            A meaningful value is usually one day.
+        </description>
+    </section>
+</help>

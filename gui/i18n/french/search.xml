@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.1.0" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Search">Recherche</title>
+        <msg id="Search">Recherche</msg>
+        <msg id="Site specific">Spécifique au site</msg>
+        <msg id="Sitename">Nom du site</msg>
+        <msg id="Max. Quota in KB (each User)">Quota maximum en KB (par compte)</msg>
+        <msg id="Max. Users">Nbr. maximum de compte</msg>
+        <msg id="Max. Aliases">Nbr. maximum d'alias</msg>
+        <msg id="Domain specific">Spécifique au domaine</msg>
+        <msg id="Domainname">Nom du domaine</msg>
+        <msg id="User specific">Spécifique à l'utilisateur</msg>
+        <msg id="Account name (E-Mail)">Nom du compte (E-Mail)</msg>
+        <msg id="E-Mail Address">Adresse E-Mail</msg>
+        <msg id="Alias specific">Spécifique à l'Alias</msg>
+        <msg id="Alias Name (Left Part)">Alias (partie gauche)</msg>
+        <msg id="Alias Target (Right Part)">Alias (partie droite)</msg>
+        <msg id="Note: You can use the %-Sign as wildcard (e.g. Domainname: %foo%)">Commentaire : utilisez le signe % comme caractère de méta-recherche.</msg>
+    </msgs>
+</i18n>

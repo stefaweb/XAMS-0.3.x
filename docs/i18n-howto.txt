@@ -1,0 +1,117 @@
+Creating and maintaining of a XAMS i18n language package
+---------------------------------------------------------
+
+This little how-to describes how to create and maintain an own i18n
+(internationalization) package for XAMS.
+The language packages are encoded with UTF-8 and saved in UNIX line-
+break format, so an UTF-8/UNIX capable editor would be very nice.
+Maybe it would be more easy to you if you download an existing additional
+language package (as the German one) and compare the differences from the
+English and the other one.
+
+Send language packages to oliver.siegmar@xams.org - I'll check them,
+correct them (if needed) and pack them for later release.
+
+
+Creating a new i18n package
+----------------------------
+
+Standard i18n
+--------------
+
+The standard packages (as well as the additional installed ones) are stored
+in gui/i18n. Just copy the English package to a new directory with the
+name of your language-package (for e.g. 'cp -a english german' if you want
+to write a german language-package).
+In your new gui/i18n/german directory you have several xml files and another
+directory called 'help' with several xml file in it, too.
+The standard i18n-files are handled differently from the help files, but
+you'll see this isn't difficult to understand.
+But before you start with translating you should update the headers in the
+xml files. Every i18n file begins (after xml and Doc-type declaration) as
+follows:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-12-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+
+The first thing you have to change is the i18n-tag. The xams-release is
+the version your i18n-package is for. The file-release and file-revision shows
+which structure the xml file has to have - if we change this structure someday
+you'll see that in the english-package and may have to update yours according
+to the structure changes.
+The date (ISO - YYYY-MM-DD) shows when your file has been last updated.
+
+After that you have to update the lngspec tag. The name is the english name
+for your language (as well it is your directory name). The iso-code is the
+two-letter lowercase name of your language defined by ISO 639 (see
+i18n-iso639.txt for your language code). The last field - localname - is
+used for your language written in your own language - for german this would
+be 'deutsch'.
+
+Finally you have to update the maintainers block. If there are more
+maintainers for your language package, just add a maintainer block for each
+of them. Change the 'XAMS Core-Team' into yours (first-name last-name) and
+paste your email-address over 'info@xams.org'.
+
+That's it - just copy this new block to all your i18n files.
+
+Now you can start with translation. There is one title tag and several
+msg tags in each i18n file. Just like this (from user.xml):
+
+    <msgs>
+        <title id="User Management" />
+        <msg id="Account Settings" />
+
+You must never change the id, this is for detecting a i18n-string. Do
+it this way (for a german-package):
+
+    <msgs>
+        <title id="User Management">Benutzer Verwaltung</title>
+        <msg id="Account Settings">Konten Einstellungen</msg>
+
+This is the way all translations has to be done. If a translation
+is missing, XAMS will fall back to english (for that sentence).
+
+
+Help files
+-----------
+
+The help files are handled in a different way because they contain large
+blocks of text and not simply text-lines. Let's have a look at the header:
+
+<help title="User Management" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2003-01-10">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+
+The title attribute of the help tag is the document-title in your language.
+The attributes xams-release, file-release, file-revision and date has the same
+meaning as described above for the standard i18n files.
+The lngspec and the maintainers block is quite the same as in the standard
+i18n files, too. The skindir tag has to be kept as it is.
+Any help files has a information-block and usually several section blocks. The
+information block describes the menu (or whatever this help-file is for) in
+general. The sections explains the items in the menu. Each section has a head
+tag and a description. Everything (information, head, description) has to be
+fully translated.
+
+
+Maintaining an existing language package
+-----------------------------------------
+
+Actually you have to do a 'diff' over the old and the new english i18n-files
+and look what has changed. Then update your language package according to that
+changes.

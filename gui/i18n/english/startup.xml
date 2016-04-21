@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.0.1" file-revision="1" date="2009-03-18">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="System Overview" />
+        <msg id="System Overview" />
+        <msg id="Reseller" />
+        <msg id="Site" />
+        <msg id="Add User" />
+        <msg id="Add Alias" />
+        <msg id="Actions" />
+        <msg id="Show all Sites" />
+    </msgs>
+</i18n>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-12">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Standard menu messages" />
+        <msg id="Date Format">MM/DD/YYYY</msg>
+        <!-- Translating the Date Format means only ordering the letters
+        in another way - do not use other letters! -->
+
+        <msg id="Access denied." />
+        <msg id="Yes" />
+        <msg id="No" />
+        <msg id="New" />
+        <msg id="Edit" />
+        <msg id="Change" />
+        <msg id="Update" />
+        <msg id="Delete" />
+        <msg id="Reset" />
+        <msg id="Help" />
+        <msg id="Use" />
+        <msg id="Limit" />
+        <msg id="none" />
+        <msg id="unlimited" />
+        <msg id="Overview" />
+        <msg id="Addressbook" />
+        <msg id="Next" />
+        <msg id="Add" />
+        <msg id="Save" />
+        <msg id="On" />
+        <msg id="Off" />
+        <msg id="The formular was not properly filled out. Point at the question mark." />
+        <msg id="Do you really want to delete this entry?" />
+        
+        <msg id="XAMS Online help" />
+        <msg id="Last modification" />
+    </msgs>
+</i18n>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="XAMS Accounts" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        XAMS reaches a maximum of flexibility and functionality in the
+        sector of administration because of its special grouping system. There are
+        three different kinds of management instances called "Administrators",
+        "Resellers" and "Customers".
+    </information>
+    <section>
+        <head>Administrators</head>
+        <description>
+            An Administrator can take up changes on all data without
+            any limitations. He has total access to every function of XAMS and thus
+            can administrate all Resellers and where required even whose Customers.
+        </description>
+    </section>
+    <section>
+        <head>Resellers</head>
+        <description>
+            An Administrator assigns any desired sites definitely to
+            one Reseller. These sites then can be just administrated by this special Reseller.
+            Here, he has to keep to the limitations given by the Administrator. He may
+            apply - according to the limits - any desired Customers and also manage
+            them. 
+            In contrast to the Administrator, he cannot take up changes to the
+            system settings, to the field-configuration in the addressbook and
+            it is not possible for him to analyse the database.
+            In addition to that he cannot gain access to the customers belonging
+            to another Reseller of course.
+        </description>
+    </section>
+    <section>
+        <head>Customers</head>
+        <description>
+            A Reseller (resp. Administrator) assigns any desired sites 
+            to a Customer. These sites then can be administrated by the Customer.
+            Here, he has to keep to the limitations given by the Reseller (resp.
+            Administrator). He may apply - according to the limits - any desired
+            users or aliases and also manage them.
+            In contrast to the Reseller, he cannot gain access to the users or
+            aliases belonging to another Customer of course.
+        </description>
+    </section>
+</help>

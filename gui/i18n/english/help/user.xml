@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="User Management" xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        The user is simply expressed by the portion of an e-mail address before
+        the @ symbol. Presently, a "user" in XAMS represents nothing more than an
+        e-mail account.
+        A user who wants to send and/or receive e-mail via a mail client (MUA) has to
+        specify the entire e-mail address for the login/username.
+        It should be noted that a user has as many e-mail addresses as domains
+        contained in the respective site. (For example: the site "firm_name" contains
+        the domains "firm_name.com" and "firm_name.net" as well as user "foo" and
+        "bar". Both of the users have thereby two e-mail accounts: "foo@firm_name.com",
+        "foo@firm_name.net" as well as "bar@firm_name.com" and "bar@firm_name.net".)
+    </information>
+    <section>
+        <head>Site</head>
+        <description>
+            This section is used to designate which site the new user should belong to.
+            While the user gets a "virtual" e-mail address for every domain contained
+            in this site, they only have a single "real" mailbox.
+        </description>
+    </section>
+    <section>
+        <head>Account name (E-Mail)</head>
+        <description>
+            This is the E-Mail address for the user, representing the portion of the e-mail
+            address before the domain.
+        </description>
+    </section>
+    <section>
+        <head>Unique Login name (optional)</head>
+        <description>
+            Optionally, you may define a "Unique Login name" with which a user can use to
+            authenticate themselves (instead of using the complete e-mail address).
+            This feature is useful for administrators that have to migrate from
+            another mail server system and do not want to require all the users
+            to update their client configurations. This feature is only recommended for
+            those who fall in this latter category.
+        </description>
+    </section>
+    <section>
+        <head>Password</head>
+        <description>
+            With this password the user can log in to receive and send messages.
+            Also, the user can - if permitted by the XAMS configuration - change his
+            or her password after logging in to the XAMS system.
+        </description>
+    </section>
+    <section>
+        <head>Quota</head>
+        <description>
+            This is the amount of disk space a user's mailbox is allowed to store.
+            Messages that would cause a mailbox to exceed this quota will be discarded,
+            with the original sender receiving an appropriate error notification.
+            The user-level quota can be lower -- but not higher -- than the site-level
+            setting. A site admin cannot allocate more disk space to users than the site's
+            quota allows.
+        </description>
+    </section>
+    <section>
+        <head>Type</head>
+        <description>
+            This configures which protocols users can use to receive messages. This
+            setting can be changed at any time. If IMAP access is granted but later
+            withdrawn, any server-side mail boxes will be removed and no longer accessible
+            by the previous owners.
+        </description>
+    </section>
+    <section>
+        <head>Virus check (Incoming / Outgoing)</head>
+        <description>
+            With this option you can indicated whether both incoming and outgoing
+            messages for this user should be checked for viruses (by an external program).
+        </description>
+    </section>
+    <section>
+        <head>Spam check (Incoming / Outgoing)</head>
+        <description>
+            With this option you can indicated whether both incoming and outgoing
+            messages for this user should be checked for spam (by an external program).
+        </description>
+    </section>
+    <section>
+        <head>Relay on auth</head>
+        <description>
+            This option allows the user to send messages over SMTP via this server,
+            provided the user authenticates with the same username and password used
+            for receiving mail. If the SMTP server is operated as an open relay (i.e., no
+            authentication required and anyone can send mail through the server) this
+            option is ignored.
+        </description>
+    </section>
+    <section>
+        <head>Relay on check</head>
+        <description>
+            This option allows the user to send messages over SMTP via this server,
+            provided the user first receives messages via authenticated POP or IMAP.
+            This feature is also known as "check before send," "SMTP-after-POP," and
+            "SMTP-after-IMAP." If the SMTP server is operated as an open relay (i.e., no
+            authentication required and anyone can send mail through the server) this
+            option is ignored.
+        </description>
+    </section>
+    <section>
+        <head>Status</head>
+        <description>
+            This function provides information about the user's status. Active refers to
+            normal user privileges without limitations. Locked means a user can no longer
+            retrieve any e-mail messages (neither via POP nor IMAP), although messages
+            addressed to this user will still be saved and stored (provided there is
+            sufficient disk space remaining in the user's quota). Locked &amp; Bounce
+            takes this a step further: in this case the mail server will pretend that the
+            user does not exist and will generate a bounce-message for the original sender
+            indicating that the user is not reachable.
+        </description>
+    </section>
+    <section>
+        <head>Filter</head>
+        <description>
+            This menu is used to configure user-specific filter settings.
+        </description>
+    </section>
+</help>

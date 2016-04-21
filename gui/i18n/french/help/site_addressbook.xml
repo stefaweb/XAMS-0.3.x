@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Administration des Carnets d'adresse de Site" xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        Le Carnet d'Adresse XAMS est disponible pour créer des Carnet d'Adresse
+        pour les sites, les utilisateurs, les alias, le revendeurs et les clients.
+        Les champs du Carnet d'Adresse (nom, rue, ville, etc.) doivent être créé
+        par vous même en fonction de vos propres besoins.
+    </information>
+    <section>
+        <head>Nom du champ</head>
+        <description>
+            Entrer ici le nom du champ qui sera disponible dans votre Carnet d'Adresse.
+        </description>
+    </section>
+    <section>
+        <head>LDAP</head>
+        <description>
+            Avec LDAP (Lightweight Directory Access Protocol) XAMS offre la possibilité
+            d'exporter l'ensemble des champs dans ce type de base de données. Cette base 
+            de données LDAP peut être utilisé de manière globale par d'autres types
+            d'application compatible LDAP.
+        </description>
+    </section>
+    <section>
+        <head>ACL Rvendeur</head>
+        <description>
+            L'ACL Revendeur (Access Control List) est utilisé pour limiter des revendeurs
+            à certain champs. L'option "aucun" neutralise tous les accès pour ce revendeur
+            (en lecture et en écriture). Les options "lecture" et "écriture" autorise le
+            revendeur à lire ou modifier le contenu de ce champ.
+        </description>
+    </section>
+    <section>
+        <head>ACL Client</head>
+        <description>
+            Comportement identique au ACL Revendeur. Vous pouvez définir avec cette fontion
+            l'accès pour vos clients.
+        </description>
+    </section>
+    <section>
+        <head>Déplacer le champ</head>
+        <description>
+            Cette fonction change l'ordre d'apparition d'un champ dans l'interface.
+            Le menu défilant contient la liste de tous les champs existant. Vous pouvez
+            sélectionner un des champs dans cette liste pour déplacer le champ sélectionné
+            dans la liste.
+        </description>
+    </section>
+    <section>
+        <head>Effacer</head>
+        <description>
+            Si vous sélectionnez cette option pour une ligne et que vous cliquez ensuite
+            sur "Mettre à jour", vous supprimez la ligne de la base. Attention : toutes les
+            données de ce champ seront définitivement détruite.
+        </description>
+    </section>
+</help>

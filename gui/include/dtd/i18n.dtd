@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT maintainers (maintainer+)>
+<!ELEMENT maintainer (name, email)>
+<!ELEMENT msgs (title, msg+)>
+<!ATTLIST title
+    id CDATA #REQUIRED
+>
+<!ATTLIST msg
+    id CDATA #REQUIRED
+>
+<!ELEMENT title (#PCDATA)>
+<!ELEMENT msg (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ATTLIST lngspec
+    name CDATA #REQUIRED
+    iso CDATA #REQUIRED
+    localname CDATA #REQUIRED
+>
+<!ELEMENT lngspec EMPTY>
+<!ELEMENT i18n (lngspec, maintainers, msgs)>
+<!ATTLIST i18n
+    xams-release CDATA #REQUIRED
+    file-release CDATA #REQUIRED
+    file-revision CDATA #REQUIRED
+    date CDATA #REQUIRED
+>

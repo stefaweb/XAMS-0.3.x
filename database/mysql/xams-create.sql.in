@@ -1,0 +1,15 @@
+-- Create database
+CREATE  DATABASE @XAMS_SQL_DATABASE@
+DEFAULT CHARACTER SET utf8;
+
+-- Setup permissions for GUI
+GRANT           SELECT, INSERT, UPDATE, DELETE
+ON              @XAMS_SQL_DATABASE@.*
+TO              '@XAMS_SQL_USER@'@'@XAMS_SQL_HOST@'
+IDENTIFIED BY   '@XAMS_SQL_PASSWORD@';
+
+-- Setup permissions for Exim
+GRANT           SELECT
+ON              @EXIM_SQL_DATABASE@.*
+TO              '@EXIM_SQL_USER@'@'@EXIM_SQL_HOST@'
+IDENTIFIED BY   '@EXIM_SQL_PASSWORD@';

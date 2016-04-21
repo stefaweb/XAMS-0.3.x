@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Administrateurs XAMS" xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Un administrateur peut effectuer des modifications sur toutes les données
+        du système sans acune limitation. Il a un accès total à chacune des fonctions
+        de XAMS et de par la même, peut administrer les revendeurs, et si nécessaire
+        les clients de ceux-ci.
+    </information>
+    <section>
+        <head>Nom de l'administrateur</head>
+        <description>
+            C'est le nom de l'administrateur comme il est affiché dans l'écran
+            de suivi des logs. A la connexion, ce nom doit être précédé par "adm_"
+            pour que le système XAMS sache à quelle type d'utilisateur il a affaire.
+        </description>
+    </section>
+    <section>
+        <head>Mot de passe de l'administrateur</head>
+        <description>
+            Utilisé en même temps que le nom de l'administrateur, le mot de passe est demandé 
+            à la connexion pour pouvoir accèder à l'interface d'administration du système XAMS.
+        </description>
+    </section>
+    <section>
+        <head>Compte vérouillé</head>
+        <condition>not_himself</condition>
+        <description>
+            Cette option permet à l'administrateur de vérouiller le compte d'autres
+            administrateurs les empêchant ainsi de se connecter au système.
+        </description>
+    </section>
+</help>

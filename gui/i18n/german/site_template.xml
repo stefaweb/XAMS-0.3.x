@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Site Template Management">Site-Vorlage Verwaltung</title>
+        <msg id="Site-Templates Management">Site-Vorlagen Verwaltung</msg>
+        <msg id="Template-Name">Name der Vorlage</msg>
+        <msg id="Sitename (e.g. xams)">Name der Site (z.B. xams)</msg>
+        <msg id="Max. Quota">Max. Kontingent</msg>
+        <msg id="Max. Quota (per User)">Max. Kontingent (pro Benutzer)</msg>
+        <msg id="Max. Users">Max. Benutzer</msg>
+        <msg id="Max. Aliases">Max. Aliase</msg>
+        <msg id="Type">Typ</msg>
+        <msg id="Viruscheck">Virenprüfung</msg>
+        <msg id="Spamcheck">Spamprüfung</msg>
+        <msg id="Incoming">Eingehend</msg>
+        <msg id="Outgoing">Ausgehend</msg>
+        <msg id="Alias" />
+        <msg id="is forwarded to">wird weitergeleitet nach</msg>
+        <msg id="B&amp;F">B&amp;W</msg>
+        <msg id="Template created">Vorlage angelegt</msg>
+        <msg id="Template last updated">Vorlage zuletzt aktualisiert</msg>
+        <msg id="Viruscheck (Incoming)">Virenprüfung (Eingehend)</msg>
+        <msg id="Viruscheck (Outgoing)">Virenprüfung (Ausgehend)</msg>
+        <msg id="Spamcheck (Incoming)">Spamprüfung (Eingehend)</msg>
+        <msg id="Spamcheck (Outgoing)">Spamprüfung (Ausgehend)</msg>
+
+        <!-- Status-Meldungen -->
+        <msg id="Site-Template '%s' was added successfully.">Die Site-Vorlage '%s' wurde erfolgreich hinzugefügt.</msg>
+        <msg id="Site-Template '%s' was updated successfully.">Die Site-Vorlage '%s' wurde erfolgreich aktualisiert.</msg>
+        <msg id="Site-Template '%s' was deleted successfully.">Die Site-Vorlage '%s' wurde erfolgreich gelöscht.</msg>
+        <msg id="Site-Template '%s' could not be added.">Die Site-Vorlage '%s' konnte nicht hinzugefügt werden.</msg>
+        <msg id="Site-Template '%s' could not be updated.">Die Site-Vorlage '%s' konnte nicht aktualisiert werden.</msg>
+        <msg id="Site-Template '%s' could not be deleted.">Die Site-Vorlage '%s' konnte nicht gelöscht werden.</msg>
+    </msgs>
+</i18n>

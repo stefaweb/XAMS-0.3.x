@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="User Template Management" />
+        <msg id="User-Templates Management" />
+        <msg id="Template-Name" />
+        <msg id="Username" />
+        <msg id="Password" />
+        <msg id="Quota" />
+        <msg id="Type" />
+        <msg id="Viruscheck (Incoming)" />
+        <msg id="Viruscheck (Outgoing)" />
+        <msg id="Spamcheck (Incoming)" />
+        <msg id="Spamcheck (Outgoing)" />
+	<msg id="Spam Score Trigger" />
+	<msg id="Spam Score" />
+	<msg id="High Spam Score" />
+        <msg id="Site dependent" />
+        <msg id="Relay on auth" />
+        <msg id="Relay on check" />
+        <msg id="Template created" />
+        <msg id="Template last updated" />
+
+        <!-- Status messages -->
+        <msg id="User-Template '%s' was added successfully." />
+        <msg id="User-Template '%s' was updated successfully." />
+        <msg id="User-Template '%s' was deleted successfully." />
+        <msg id="User-Template '%s' could not be added." />
+        <msg id="User-Template '%s' could not be updated." />
+        <msg id="User-Template '%s' could not be deleted." />
+    </msgs>
+</i18n>

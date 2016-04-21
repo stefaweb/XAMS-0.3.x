@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-13">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Preferences">Einstellungen</title>
+        <msg id="Preferences">Einstellungen</msg>
+        <msg id="Welcome message at logon">Begrüßung beim Login</msg>
+        <msg id="Default Lines of Event-Log">Standard-Länge der Ereignis-Anzeige</msg>
+        <msg id="Online News" />
+        <msg id="Check for new versions">Auf neue Version prüfen</msg>
+        <msg id="Default Language">Standard Sprache</msg>
+        <msg id="Spam Score Trigger">Spam Score Trigger</msg>
+        <msg id="Spam Score">Spam Score</msg>
+        <msg id="High Spam Score">High Spam Score</msg>
+        <!-- Status-Meldungen -->
+        <msg id="Preferences was updated successfully.">Einstellungen wurden erfolgreich aktualisiert.</msg>
+        <msg id="Preferences could not be updated.">Einstellungen konnten nicht aktualisiert werden.</msg>
+    </msgs>
+</i18n>

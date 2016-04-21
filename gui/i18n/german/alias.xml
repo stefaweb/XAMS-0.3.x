@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2009-02-17">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Alias Management">Alias Verwaltung</title>
+        <msg id="Alias Management">Alias Verwaltung</msg>
+        <msg id="Unfortunately no more aliases can be added. Site based Alias-Quota has reached.">Leider können keine weiteren Aliase hinzugefügt werden. Das Site-basierte Alias-Kontingent ist erreicht.</msg>
+        <msg id="Unfortunately no more aliases can be added. Reseller based Alias-Quota has reached.">Leider können keine weiteren Aliase hinzugefügt werden. Das Alias-Kontingent des Wiederverkäufers ist erreicht.</msg>
+        <msg id="Unfortunately no more aliases can be added. Your Alias-Quota has reached.">Leider können keine weiteren Aliase hinzugefügt werden. Ihr Alias-Kontingent ist erreicht.</msg>
+        <msg id="Site" />
+        <msg id="Incoming Address">Eingehende Adresse</msg>
+        <msg id="Forward Address">Weiterleit-Adresse</msg>
+        <msg id="Bounce and Forward">Bouncen und Weiterleiten</msg>
+        <msg id="Blackhole" />
+        <msg id="Alias created">Alias angelegt</msg>
+        <msg id="Alias last updated">Alias zuletzt aktualisiert</msg>
+        <msg id="Select a Site in the drop-down menu.">Wählen Sie eine Site aus dem Drop-Down-Menü</msg>
+
+        <!-- Status-Meldungen -->
+        <msg id="Alias '%s' was added successfully.">Der Alias '%s' wurde erfolgreich hinzugefügt.</msg>
+        <msg id="Alias '%s' was updated successfully.">Der Alias '%s' wurde erfolgreich aktualisiert.</msg>
+        <msg id="Alias '%s' was deleted successfully.">Der Alias '%s' wurde erfolgreich gelöscht.</msg>
+        <msg id="Alias '%s' could not be added.">Der Alias '%s' konnte nicht hinzugefügt werden.</msg>
+        <msg id="Alias '%s' could not be updated.">Der Alias '%s' konnte nicht aktualisiert werden.</msg>
+        <msg id="Alias '%s' could not be deleted.">Der Alias '%s' konnte nicht gelöscht werden.</msg>
+    </msgs>
+</i18n>

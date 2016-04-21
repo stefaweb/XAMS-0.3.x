@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="User Template Management">Benutzer-Vorlagen Verwaltung</title>
+        <msg id="User-Templates Management">Benutzer-Vorlagen Verwaltung</msg>
+        <msg id="Template-Name">Name der Vorlage</msg>
+        <msg id="Username">Benutzername</msg>
+        <msg id="Password">Passwort</msg>
+        <msg id="Quota">Kontingent</msg>
+        <msg id="Type">Typ</msg>
+        <msg id="Viruscheck (Incoming)">Virenprüfung (Eingehend)</msg>
+        <msg id="Viruscheck (Outgoing)">Virenprüfung (Ausgehend)</msg>
+        <msg id="Spamcheck (Incoming)">Spamprüfung (Eingehend)</msg>
+        <msg id="Spamcheck (Outgoing)">Spamprüfung (Ausgehend)</msg>
+        <msg id="Spam Score Trigger">Spam Score Trigger</msg>
+        <msg id="Spam Score">Spam Score</msg>
+        <msg id="High Spam Score">High Spam Score</msg>
+        <msg id="Site dependent">Site abhängig</msg>
+        <msg id="Relay on auth" />
+        <msg id="Relay on check" />
+        <msg id="Template created">Vorlage angelegt</msg>
+        <msg id="Template last updated">Vorlage zuletzt aktualisiert</msg>
+
+        <!-- Status-Meldungen -->
+        <msg id="User-Template '%s' was added successfully.">Die Benutzer-Vorlage '%s' wurde erfolgreich hinzugefügt.</msg>
+        <msg id="User-Template '%s' was updated successfully.">Die Benutzer-Vorlage '%s' wurde erfolgreich aktualisiert.</msg>
+        <msg id="User-Template '%s' was deleted successfully.">Die Benutzer-Vorlage '%s' wurde erfolgreich gelöscht.</msg>
+        <msg id="User-Template '%s' could not be added.">Die Benutzer-Vorlage '%s' konnte nicht hinzugefügt werden.</msg>
+        <msg id="User-Template '%s' could not be updated.">Die Benutzer-Vorlage '%s' konnte nicht aktualisiert werden.</msg>
+        <msg id="User-Template '%s' could not be deleted.">Die Benutzer-Vorlage '%s' konnte nicht gelöscht werden.</msg>
+    </msgs>
+</i18n>

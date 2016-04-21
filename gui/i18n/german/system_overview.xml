@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-13">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="System Overview">System Übersicht</title>
+        <msg id="System Overview">System Übersicht</msg>
+        <msg id="Showing">Zeige</msg>
+        <msg id="Sites" />
+        <msg id="Addressbook available">Adressbuch verfügbar</msg>
+        <msg id="Zone available">Zone verfügbar</msg>
+        <msg id="Add new alias to this site">Dieser Site einen neuen Alias hinzufügen</msg>
+        <msg id="Add new domain to this site">Dieser Site eine neue Domain hinzufügen</msg>
+        <msg id="Add new user to this site">Dieser Site einen neuen Benutzer hinzufügen</msg>
+        <msg id="XML Output">XML Ausgabe</msg>
+        <msg id="XHTML Output">XHTML Ausgabe</msg>
+        <msg id="Nothing found.">Keine Einträge gefunden.</msg>
+        <msg id="is forwarded to">wird weitergeleitet nach</msg>
+        <msg id="is bounced and forwarded to">wird gebounced und weitergeleitet nach</msg>
+        <msg id="Sites" />
+        <msg id="Domains" />
+        <msg id="Users">Benutzer</msg>
+        <msg id="Delegated">Delegiert</msg>
+        <msg id="Aliases">Aliase</msg>
+        <msg id="No Domains">Keine Domains</msg>
+        <msg id="Create User">Benutzer anlegen</msg>
+        <msg id="Create Alias">Alias anlegen</msg>
+        <msg id="LOCKED">GESPERRT</msg>
+        <msg id="LOCKED + BOUNCE">GESPERRT + GEBLOCKT</msg>
+        <msg id="Addressbook available">Addressbuch vorhanden</msg>
+        <msg id="Incoming Viruscheck">Eingehende Virenprüfung</msg>
+        <msg id="Outgoing Viruscheck">Ausgehende Virenprüfung</msg>
+        <msg id="Incoming and Outgoing Viruscheck">Eingehende und Ausgehende Virenprüfung</msg>
+        <msg id="Auto reply enabled">Automatische Antwort aktiviert</msg>
+        <msg id="true">Ja</msg>
+        <msg id="false">Nein</msg>
+    </msgs>
+</i18n>

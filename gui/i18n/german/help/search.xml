@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Suche" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-31">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Die XAMS-Suche hilft beim schnellen Auffinden von
+        Sites, Domains, Benutzern und Aliasen durch die Möglichkeit
+        nach den verschiedensten Suchkriterien zu suchen.
+    </information>
+    <section>
+        <head>Name der Site</head>
+        <description>
+            Dies ist der Name des Site-Containers. Es muss sich hierbei um
+            einen systemweit, eindeutigen Namen handeln, welcher vom
+            Administrator oder Wiederverkäufer vergeben wird. Der Reseller
+            kann die Verwaltung dieses Containers in die Obhut eines Endkunden
+            weitergeben. Die Kontingente der Site kann jedoch nur der
+            Administrator bzw. der Wiederverkäufer selbst verwalten.
+        </description>
+    </section>
+    <section>
+        <head>Maximales Kontingent in KB (pro Benutzer)</head>
+        <description>
+            Dies ist die maximale Postfachgröße die ein einzelner Benutzer
+            dieser Site in Anspruch nehmen kann. eMails die größer sind, als
+            der noch verbleibende Platz, werden nicht gespeichert. Der Absender
+            erhält dabei eine entsprechende Fehlermeldung. Des weiteren kann
+            ein Endkunde einem Benutzer zwar weniger Speicher, jedoch nicht
+            mehr zur Verfügung stellen als ihm dieses Limit vorschreibt.
+        </description>
+    </section>
+    <section>
+        <head>Maximale Benutzer</head>
+        <description>
+            Tragen Sie hier eine Ziffer ein, die die Anzahl der Benutzer
+            angibt, die an dieser Site aufgehängt werden können.
+        </description>
+    </section>
+    <section>
+        <head>Maximale Aliase</head>
+        <description>
+            Analog zu "Maximalen Benutzern" wird hier die maximale Anzahl an
+            zur Verfügung stehenden Aliases angegeben. Auch diese kann ein
+            Endkunde nicht überschreiten.
+        </description>
+    </section>
+    <section>
+        <head>Name der Domain</head>
+        <description>
+             Suchroutine, mit der Domainnamen (z.B. xams.org) gefiltert
+             werden können.
+        </description>
+    </section>
+    <section>
+        <head>Benutzername</head>
+        <description>
+            Zeichenkette, i.d.R. die eMail Adresse, mit der sich der Kunde mit
+            seinem Postfach verbindet.
+        </description>
+    </section>
+    <section>
+        <head>E-Mail Adresse</head>
+        <description>
+            Geben Sie hier eine eMail Adresse mit der kompletten Syntax an.
+        </description>
+    </section>
+    <section>
+        <head>Alias Name (Left Part)</head>
+        <description>
+            Information, betreffend Zeichen vor dem @-Zeichen.
+        </description>
+    </section>
+    <section>
+        <head>Alias Ziel (Right Part)</head>
+        <description>
+            Dies ist die (Ziel-)Adresse an die die Mails weitergeleitet werden,
+            die an den Alias adressiert wurden. Befindet sich die Zieladresse
+            in der gleichen Site, so ist nur der Teil vor dem @-Zeichen
+            anzugeben - andernfalls die komplette eMail-Adresse. In diesem
+            Feld können durch Komma getrennt mehrere Adressen angegeben werden.
+        </description>
+    </section>
+</help>

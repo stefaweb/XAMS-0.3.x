@@ -1,0 +1,6 @@
+#
+# cron.d/xams -- schedules periodic update using xmu utility
+#
+# More commands can be added. Try xmu --help for more information.
+#
+*/5 * * * * root /usr/sbin/xmu --cdbdomlist --homedirs --autoreply --quota > /dev/null

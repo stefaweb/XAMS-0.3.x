@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="User Management">Benutzer Verwaltung</title>
+        <msg id="Account Settings">Konto Einstellungen</msg>
+        <msg id="User Management">Benutzer Verwaltung</msg>
+        <msg id="Site" />
+        <msg id="Account name (E-Mail)">Benutzername</msg>
+        <msg id="Unique Login name (optional)">Eindeutiger Benutzername</msg>
+        <msg id="Password">Passwort</msg>
+        <msg id="Quota">Kontingent</msg>
+        <msg id="Type">Typ</msg>
+        <msg id="Viruscheck (Incoming)">Virenprüfung (Eingehend)</msg>
+        <msg id="Viruscheck (Outgoing)">Virenprüfung (Ausgehend)</msg>
+        <msg id="Spamcheck (Incoming)">Spamprüfung (Eingehend)</msg>
+        <msg id="Spamcheck (Outgoing)">Spamprüfung (Ausgehend)</msg>
+        <msg id="Spam Score Trigger">Spam Score Trigger</msg>
+        <msg id="Spam Score">Spam Score</msg>
+        <msg id="High Spam Score">High Spam Score</msg>
+        <msg id="Site dependent">Site abhängig</msg>
+        <msg id="Relay on auth" />
+        <msg id="Relay on check" />
+        <msg id="Auto reply">Automatische Antwort</msg>
+        <msg id="Status" />
+        <msg id="Filter" />
+        <msg id="Active">Aktiv</msg>
+        <msg id="Locked">Gesperrt</msg>
+        <msg id="Locked &amp; Bounce">Gesperrt &amp; geblockt</msg>
+        <msg id="User created">Benutzer angelegt</msg>
+        <msg id="User last updated">Benutzer zuletzt aktualisiert</msg>
+        <msg id="This unique username does already exists">Dieser Eindeutige Benutzername existiert bereits</msg>
+        <msg id="Subject">Betreff</msg>
+        <msg id="Message">Nachricht</msg>
+        <msg id="Unfortunately no more users can be added. Reseller's User-Quota has reached.">Leider können keine weiteren Benutzer hinzugefügt werden. Das Benutzerkontingent des Wiederverkäufers ist erschöpft.</msg>
+        <msg id="Unfortunately no more users can be added. The site based User-Quota has reached.">Leider können keine weiteren Benutzer hinzugefügt werden. Das Site-basierte Benutzerkontingent ist erschöpft.</msg>
+        <msg id="Unfortunately no more users can be added. The site based Quota has reached.">Leider können keine weiteren Benutzer hinzugefügt werden. Das Site-basierte Postfachgrößenkontingent ist erschöpft.</msg>
+        <msg id="Unknown error occured.">Ein unbekannter Fehler ist aufgetreten.</msg>
+        <msg id="Contain non-numeric Characters">enthält nicht-numerische Zeichen</msg>
+        <msg id="Field has to be filled out">Feld muss ausgefüllt werden</msg>
+        <msg id="Invalid ID">Ungültige ID</msg>
+        <msg id="Select a Site in the drop-down menu.">Wählen Sie eine Site aus dem Drop-Down Menü</msg>
+        <msg id="Site does not allow users having incoming viruscheck.">Site verbietet Benutzern eingehenden Virus-Check,</msg>
+        <msg id="Site does not allow users having outgoing viruscheck.">Site verbietet Benutzern ausgehenden Virus-Check,</msg>
+        <msg id="Site does not allow users having incoming spamcheck.">Site verbietet Benutzern eingehenden Spam-Check,</msg>
+        <msg id="Site does not allow users having outgoing spamcheck.">Site verbietet Benutzern ausgehenden Spam-Check.</msg>
+        <msg id="Selected AddrType is not allowed.">Gewählter Adress-Typ ist nicht erlaubt.</msg>
+
+        <!-- Errors function -->
+        <msg id="Too short (min='%s')">Zu kurz (minimum='%s')</msg>
+        <msg id="Too long (max='%s')">Zu lang (maximum='%s')</msg>
+        <msg id="Value is too low (min='%s')">Wert ist zu niedrig (minimum='%s')</msg>
+        <msg id="Value is too big (max='%s')">Wert ist zu hoch (maximum='%s')</msg>
+        
+        <!-- Status-Meldungen -->
+        <msg id="User '%s' was added successfully.">Der Benutzer '%s' wurde erfolgreich hinzugefügt.</msg>
+        <msg id="User '%s' was updated successfully.">Der Benutzer '%s' wurde erfolgreich aktualisiert.</msg>
+        <msg id="User '%s' was deleted successfully.">Der Benutzer '%s' wurde erfolgreich gelöscht.</msg>
+        <msg id="User '%s' could not be added.">Der Benutzer '%s' konnte nicht hinzugefügt werden.</msg>
+        <msg id="User '%s' could not be updated.">Der Benutzer '%s' konnte nicht aktualisiert werden.</msg>
+        <msg id="User '%s' could not be deleted.">Der Benutzer '%s' konnte nicht gelöscht werden.</msg>
+    </msgs>
+</i18n>

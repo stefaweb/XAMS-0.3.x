@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="XAMS Konten" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-31">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        XAMS beweist durch ein spezielles Gliederungssystem in drei
+        verschiedene Verwaltungsinstanzen im Bereich der Administration
+        maximale Flexibilität und Funktionalität.
+        Hierbei findet eine Unterteilung in die Ebenen
+        "Administratoren", "Wiederverkäufer" und
+        "Endkunden" statt.
+    </information>
+    <section>
+        <head>Administratoren</head>
+        <description>
+            Ein Administrator kann ohne jegliche Einschränkungen in
+            sämtlichen Daten Änderungen vornehmen. Er besitzt
+            vollständigen Zugriff auf alle Funktionen von XAMS und kann
+            somit problemlos alle Wiederverkäufer und ggf. auch deren
+            Endkunden verwalten.
+        </description>
+    </section>
+    <section>
+        <head>Wiederverkäufer</head>
+        <description>
+            Einem Wiederverkäufer werden von einem Administrator beliebig
+            viele Sites eindeutig zugewiesen, die dann nur von diesem verwaltet
+            werden können. Hierbei darf er sich allerdings nur innerhalb
+            der vom Administrator vorgegebenen Limitierungen bewegen. Es ist
+            ihm erlaubt, gemäß der vorgegebenen Grenzen, beliebig
+            viele Endkunden anzulegen und diese auch zu verwalten.
+            Im Gegensatz zum Administrator kann er keinerlei Systemeinstellungen
+            ändern, Modifizierungen an Adressbuch-Feldern vornehmen oder
+            eine Datenbankanalyse durchführen.
+            Außerdem ist es ihm nicht möglich, auf andere
+            Wiederverkäufer oder deren Endkunden zuzugreifen.
+        </description>
+    </section>
+    <section>
+        <head>Endkunden</head>
+        <description>
+            Einem Endkunden werden von einem Wiederverkäufer
+            (bzw. Administrator) beliebig viele Sites zugewiesen, die dann von
+            diesem verwaltet werden können. Hierbei darf er sich allerdings
+            nur innerhalb der vom Wiederverkäufer (bzw. Administrator)
+            vorgegebenen Limitierungen  bewegen. Es ist ihm erlaubt,
+            gemäß der vorgegebenen Grenzen, beliebig viele Benutzer
+            und Aliases anzulegen und diese zu verwalten. Im Gegensatz zum
+            Wiederverkäufer ist es ihm zusätzlich nicht gestattet, auf
+            die Benutzer oder Aliases eines anderen Endkunden zuzugreifen.
+        </description>
+    </section>
+</help>

@@ -1,0 +1,12 @@
+;
+; XAMS-Maintained Zonefile for <<Name>>
+;
+
+$TTL <<TTL>>
+@   IN  SOA <<MasterDNS>> <<ZoneAdmin>> (
+                   <<Serial>>   ; Serial
+                   <<Refresh>>   ; Refresh
+                   <<Retry>>   ; Retry
+                   <<Expire>>   ; Expire
+                   <<NTTL>> ) ; Negative Cache TTL
+

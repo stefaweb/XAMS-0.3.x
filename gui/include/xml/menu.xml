@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE menuroot SYSTEM "../dtd/menu.dtd">
+<menuroot xams-release="{{xams-release}}" file-release="0.0.9" date="2003-01-03">
+    <i18nfile language="{{language}}">{{lngfile}}</i18nfile>
+    <skindir>{{skindir}}</skindir>
+    <menu>
+        <username>{{username}}</username>
+        <usertype>{{usertype}}</usertype>
+        <groups usertype="administrator">
+           <group name="Information">
+                <item name="System Overview" expl="See detailed and compact information of the XAMS-System" link="startup.php" pic="system_overview"/>
+                <item name="Search" expl="Search the XAMS-System for sites, users, and so on" link="search.php" pic="lens"/>
+                <item name="Online News" expl="See what\'s new in the XAMS-World" link="news.php" pic="info"/>
+            </group>
+            <group name="Mail Administration">
+                <item name="Sites" expl="Add a site to the system" link="site.php?mode=new" pic="site"/>
+                <item name="Users" expl="Add a user to the system (to a site)" link="user.php?mode=new" pic="user"/>
+                <item name="Aliases" expl="Add a alias to the system (to a site)" link="alias.php?mode=new" pic="alias"/>
+            </group>
+	    <!-- COMMENT IF YOU DON'T WANT TO USE DNS ADMINISTRATION -->
+			 <group name="System Administration">
+                <item name="DNS" expl="Maintain DNS-Server zones" link="dns.php" pic="dns"/>
+            </group>
+            <!--  -->
+            <group name="Global Administration" status="collapsed">
+                <item name="XAMS Accounts" expl="Create or modify XAMS Accounts" link="account_overview.php" pic="account"/>
+                <item name="Addressbook" expl="Maintain addressbook fields for later use" link="site_addressbook.php" pic="addressbook"/>
+                <item name="Preferences" expl="Setup basic GUI preferences" link="preferences.php" pic="preferences"/>
+                <item name="Event-Log" expl="See which actions are performed on your system" link="log_overview.php" pic="log_overview"/>
+                <item name="Templates" expl="Create or modify Site/User Templates for later use" link="templates.php" pic="template"/>
+                <item name="Database analyse" expl="System/Database information and analyse function" link="db_analyse.php" pic="database_analyse"/>
+            </group>
+        </groups>
+        <groups usertype="reseller">
+            <group name="Information">
+                <item name="System Overview" expl="See detailed and compact information of the XAMS-System" link="startup.php" pic="system_overview"/>
+                <item name="Search" expl="Search the XAMS-System for sites, users, and so on" link="search.php" pic="lens"/>
+            </group>
+            <group name="Mail Administration">
+                <item name="Sites" expl="Add a site to the system" link="site.php?mode=new" pic="site"/>
+                <item name="Users" expl="Add a user to the system (to a site)" link="user.php?mode=new" pic="user"/>
+                <item name="Aliases" expl="Add a alias to the system (to a site)" link="alias.php?mode=new" pic="alias"/>
+            </group>
+           <group name="Global Administration" status="collapsed">
+                <item name="Account Settings" expl="Edit your account settings" link="reseller_preferences.php" pic="preferences"/>
+                <item name="XAMS Accounts" expl="Create or modify XAMS Accounts" link="account_overview.php" pic="account"/>
+                <item name="Templates" expl="Create or modify Site/User Templates for later use" link="templates.php" pic="template"/>
+            </group>
+        </groups>
+        <groups usertype="customer">
+            <group name="Information">
+                <item name="System Overview" expl="See detailed and compact information of the XAMS-System" link="startup.php" pic="system_overview"/>
+                <item name="Search" expl="Search the XAMS-System for sites, users, and so on" link="search.php" pic="lens"/>
+            </group>
+            <group name="Mail Administration">
+                <item name="Users" expl="Add a user to the system (to a site)" link="user.php?mode=new" pic="user"/>
+                <item name="Aliases" expl="Add a alias to the system (to a site)" link="alias.php?mode=new" pic="alias"/>
+            </group>
+            <group name="Global Administration" status="collapsed">
+                <item name="Account Settings" expl="Edit your account settings" link="customer_preferences.php" pic="preferences"/>
+                <item name="Templates" expl="Create or modify Site/User Templates for later use" link="templates.php" pic="template"/>
+            </group>
+        </groups>
+        <groups usertype="user">
+            <group name="Account Settings" status="collapsed">
+                <item name="Account Settings" expl="Edit your account settings" link="user_preferences.php" pic="preferences"/>
+            </group>
+        </groups>
+    </menu>
+</menuroot>

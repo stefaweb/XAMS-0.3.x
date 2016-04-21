@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Account Overview">Konten-Übersicht</title>
+        <msg id="XAMS Accounts Overview">XAMS Konten Übersicht</msg>
+        <msg id="Administrators">Administratoren</msg>
+        <msg id="Resellers">Wiederverkäufer</msg>
+        <msg id="Customers">Endkunden</msg>
+    </msgs>
+</i18n>
+

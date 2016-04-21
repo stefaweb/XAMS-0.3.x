@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Wiederverkäufer-Adressbuch Verwaltung" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-31">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Das XAMS Adressbuch bietet die Möglichkeit für Sites, Benutzer,
+        Aliase, Wiederverkäufer und Endkunden ein Adressbuch anzulegen.
+        Die Felder für dieses Adressbuch (wie z.B. Name, Straße, etc.)
+        können und müssen hierfür selbst angelegt werden. Dies hat
+        den Vorteil, dass jedes System genau die Felder für die Bereiche
+        zur Verfügung stellt, welche der Administrator für sinnvoll
+        erachtet.
+    </information>
+    <section>
+        <head>Feldname</head>
+        <description>
+            Tragen Sie hier Feldnamen ein, die in Ihrem
+            Wiederverkäufer-Adressbuch zur Verfügung stehen sollen.
+        </description>
+    </section>
+    <section>
+        <head>LDAP</head>
+        <description>
+            Mit LDAP (Lightweight Directory Access Protocol) bietet XAMS die
+            Möglichkeit, bestimmte Adressbuch-Felder in eine solche Datenbank
+            unter dem angegebenen Feldnamen zu exportieren. Diese LDAP
+            Datenbank kann dann von verschiedenen Applikationen als globales
+            Adressbuch angebunden werden.
+        </description>
+    </section>
+    <section>
+        <head>Feld verschieben</head>
+        <description>
+            Diese Funktion dient dazu, die Reihenfolge der Einträge zu ändern.
+            Die Auswahlliste zeigt alle verfügbaren Feldnamen an; wählen Sie
+            einen Eintrag aus, dann wird das aktuelle Feld nach der
+            ausgewählten Position platziert.
+        </description>
+    </section>
+    <section>
+        <head>Löschen</head>
+        <description>
+            Setzen Sie einen Haken hinter die Zeile und nach anschließender
+            Aktualisierung werden die ausgewählten Felder gelöscht.
+            ACHTUNG: Die Daten sämtlicher Wiederverkäufer, die in den
+            Feldern stehen, werden ebenfalls gelöscht!
+        </description>
+    </section>
+</help>

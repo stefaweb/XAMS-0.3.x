@@ -1,0 +1,6 @@
+zone "<<name>>" {
+    type slave;
+    masters {
+        <<masterdns>>
+    };
+};

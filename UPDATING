@@ -1,0 +1,17 @@
+How to update XAMS from a previous version?
+
+- Edit autogen.conf (defaults were constants in <= 0.0.14)
+- Run autogen.sh
+- You may want to execute 'touch /your-xams-gui-dir/maintenance' and XAMS
+  will show a maintenance-message instead of the login-screen. But don't
+  forget to delete the file after updating :-)
+- Apply the database-updates from updates/ if needed
+- Copy over all the gui/* files to your webserver/xams root
+- Copy over all the config/exim4 files to your exim-conf directory
+  (be careful not to overwrite your database-settings and other custom
+  configuration in exim-custom.conf)
+- Copy over scripts/* to the specific directories
+- Reload exim
+- Restart authdaemon
+
+That's it.

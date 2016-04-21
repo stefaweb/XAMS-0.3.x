@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Database analyse">Datenbank analyse</title>
+        <msg id="Database Analyse">Datenbank analyse</msg>
+        <msg id="Administrators">Administratoren</msg>
+        <msg id="Resellers">Wiederverkäufer</msg>
+        <msg id="Customers">Endkunden</msg>
+        <msg id="Sites" />
+        <msg id="Domains" />
+        <msg id="Zones">Zonen</msg>
+        <msg id="Users">Benutzer</msg>
+        <msg id="Aliases">Aliase</msg>
+        <msg id="Log Entries">Log Einträge</msg>
+        <msg id="Check database consistency">Datenbankkonsistenz überprüfen</msg>
+        <msg id="Checking for Sites without Reseller">Überprüfung von Sites ohne Wiederverkäufer</msg>
+        <msg id="Checking for Domains without Sites">Überprüfung von Domains ohne Sites</msg>
+        <msg id="Checking for Users without Sites">Überprüfung von Benutzern ohne Sites</msg>
+        <msg id="Checking for Aliases without Sites">Überprüfung von Aliasen ohne Sites</msg>
+        <msg id="Checking for Users having higher Quota than valid">Überprüfung von Benutzern mit einem höheren Quota als gültig</msg>
+        <msg id="Checking for Sites which MaxQuota is not set">Überprüfung von Sites deren maximales Quota nicht gesetzt ist</msg>
+        <msg id="Checking for Sites which MaxUsers is not set">Überprüfung von Sites deren maximales Benutzer-Kontingent nicht gesetzt ist</msg>
+        <msg id="Checking for Sites which MaxAliases is not set">Überprüfung von Sites deren maximales Alias-Kontingent nicht gesetzt ist</msg>
+        <msg id="Checking for Sites containing more aliases than valid">Überprüfung von Sites die mehr Aliase beinhalten als erlaubt</msg>
+        <msg id="Checking for Sites containing more users than valid">Überprüfung von Sites die mehr Benutzer beinhalten als erlaubt</msg>
+        <msg id="The XAMS-Database is not fully consistent (%s errors)!">Die XAMS-Datenbank ist nicht vollständig konsistent (%s Fehler)</msg>
+        <msg id="You should think about limiting MaxQuota/MaxUsers/MaxAliases on Site-Level (%s warnings).">Sie sollten die Limitierung von MaxQuota/MaxUsers/MaxAliases auf Site-Ebene in Erwägung ziehen (%s Warnungen)</msg> 
+        <msg id="The XAMS-Database seems to be OK.">Die XAMS-Datenbank scheint in Ordnung zu sein.</msg>
+    </msgs>
+</i18n>

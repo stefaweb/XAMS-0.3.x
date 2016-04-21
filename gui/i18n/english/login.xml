@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-13">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Login" />
+        <msg id="You have successfully been logged out." />
+        <msg id="Logout could not been carried out! Session was not destroyed!" />
+        <msg id="Login failed!" />
+        <msg id="Cookies must be enabled past this point!" />
+        <msg id="Login" />
+        <msg id="Password" />
+        <msg id="Usertype" />
+        <msg id="Language" />
+        <msg id="Enter" />
+        <msg id="Administrator" />
+        <msg id="Reseller" />
+        <msg id="Customer" />
+        <msg id="User" />
+
+        <!-- Languages -->
+        <msg id="english" />
+        <msg id="german" />
+        <msg id="hungarian" />
+        <msg id="italian" />
+        <msg id="spanish" />
+        <msg id="french" />
+
+    </msgs>
+</i18n>

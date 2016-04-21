@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Search">Suche</title>
+        <msg id="Search">Suche</msg>
+        <msg id="Site specific">Site spezifisch</msg>
+        <msg id="Sitename">Name der Site</msg>
+        <msg id="Max. Quota in KB (each User)">Max. Kontingent in KB (pro Benutzer)</msg>
+        <msg id="Max. Users">Max. Benutzer</msg>
+        <msg id="Max. Aliases">Max. Aliase</msg>
+        <msg id="Domain specific">Domain spezifisch</msg>
+        <msg id="Domainname">Name der Domain</msg>
+        <msg id="User specific">Benutzer spezifisch</msg>
+        <msg id="Account name (E-Mail)">Benutzername</msg>
+        <msg id="E-Mail Address">E-Mail Adresse</msg>
+        <msg id="Alias specific">Alias spezifisch</msg>
+        <msg id="Alias Name (Left Part)" />
+        <msg id="Alias Target (Right Part)">Alias Ziel (Right Part)</msg>
+        <msg id="Note: You can use the %-Sign as wildcard (e.g. Domainname: %foo%)">Hinweis: Das Prozentzeichen kann als wildcard verwendet werden (z.B. Name der Domain: %foo%)</msg>
+    </msgs>
+</i18n>

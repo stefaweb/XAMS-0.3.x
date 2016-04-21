@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="DNS Verwaltung" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-31">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Die DNS-Verwaltung von XAMS erlaubt es dem Administrator einen
+        Domain-Name-Server komfortabel zu administrieren. Basiswissen
+        sollte hier jedoch unbedingt vorhanden sein, da die dafür nötigen
+        Einstellungen hier nur kurz angesprochen werden.
+        Um den Sachverhalt dennoch einigermaßen verständlich darzustellen,
+        sind Beispiele aus dem praktischen Umfeld angegeben, wie z.B. die
+        entsprechenden Werte der Zone "xams.org".
+    </information>
+    <section>
+        <head>Zonen-Typ</head>
+        <description>
+            Für die Errichtung einer Zone muss der Name-Server wissen,
+            welchen Typ die Zone darstellt, in wessen Verantwortung die
+            Zone liegt. Wird dieser Wert auf "Master" (=primärer DNS) gestellt,
+            so geht der Name-Server davon aus, dass er die Verantwortung
+            für diese Zone trägt. Der Wert "Slave" bestimmt den DNS
+            als sekundären Name-Server, der die Zone von einem anderen
+            (primären/Master) DNS bezieht.
+            Steht der Wert jedoch auf "Dummy", so findet der Eintrag keine
+            Wirkung beim DNS und bleibt unberücksichtigt.
+        </description>
+    </section>
+    <section>
+        <head>Zone</head>
+        <description>
+            Eine Zone ist eine Art Behälter für einen bestimmten Namensraum -
+            einen Teil einer Domain und ggf. derer Subdomains. Verwaltet
+            bspw. einer Nameserver die Domain "xams.org" so verwaltet er
+            automatisch alle Subdomains von "xams.org" wie z.B. "www.xams.org",
+            oder "demo.xams.org". Die Zone hierbei ist die "xams.org", welche
+            wiederum eine Art Subdomain der Zone "org" darstellt, die beim
+            entsprechenden Domain-Registrar liegt.
+        </description>
+    </section>
+    <section>
+        <head>Primärer DNS</head>
+        <description>
+            Dieses Feld muss den primären (Master) Nameserver für die
+            angegebene Zone enthalten. Dabei ist zu beachten, dass dieser
+            Eintrag einen angehängten Punkt benötigt, insofern dieser
+            nicht ein Teil der Zone selbst ist. Im Falle von "xams.org" ist
+            dieser Eintrag "sitixns.de.".
+        </description>
+    </section>
+    <section>
+        <head>Zonen-Admin (eMail)</head>
+        <description>
+            In diesem Feld muss die eMail-Adresse des für die Zone
+            verantwortlichen Administrators eingetragen werden. Anstatt
+            des "@"-Zeichen muss hierbei ein Punkt verwendet werden. Wie
+            schon beim Primären DNS muss auch hier wiederum ein Punkt
+            angehängt werden, wenn die Domain der eMail-Adresse nicht die
+            Zone selbst ist. Die eMail-Adresse "hostmaster@sitixns.de" würde
+            also wie folgt abgebildet werden: "hostmaster.sitixns.de.".
+            Hinweis: Es können keine eMail-Adresse verwendet werden in dem
+            der Teil vor dem "@"-Zeichen (der local Part) selbst einen
+            Punkt enthält.
+        </description>
+    </section>
+    <section>
+        <head>Serien-Nr.</head>
+        <description>
+            Jede Zone benötigt eine eindeutige Serien-Nr. Wichtig hierbei
+            ist eigentlich nur, dass die Zahl bei jeder Änderung der Zone
+            erhöht wird, damit die replizierenden Nameserver die Änderung
+            erkennen können. Es hat sich als sehr praktisch erwiesen für
+            diese Zahl einfach das aktuelle Datum zzgl. einer zweistelligen
+            Ziffer zu nehmen, also 2002072101 für das Jahr 2002, den Monat
+            Juli, den 21ten Tag in diesem Monat und den 01ten Eintrag an
+            diesem Tag.
+        </description>
+    </section>
+    <section>
+        <head>Automatisch</head>
+        <description>
+            Da ist i.d.R. keinen Sinn macht, die Serien-Nr. per Hand zu
+            pflegen, kann dies auch von XAMS automatisch verwaltet werden.
+            Es gibt eigentlich kaum Gründe, diese Funktion zu deaktivieren.
+        </description>
+    </section>
+    <section>
+        <head>Lebensdauer (TTL)</head>
+        <description>
+            Die Lebensdauer (engl. Time to Lieve - TTL) dient zur Festlegung, wie lange ein
+            Client die Informationen über die Zone zwischenspeichern (cachen)
+            darf. Ein niedriger Wert hat den Vorteil, dass Änderungen an
+            der Zone sehr schnell (höchstens die gesamte TTL-Zeit) aktiv
+            werden, jedoch den Nachteil dass der Nameserver bei oft
+            angefragten Zonen wesentlich häufiger um Auskunft gebeten wird.
+            Ein sinnvoller Wert hierfür liegt normalerweise bei einem Tag.
+        </description>
+    </section>
+    <section>
+        <head>Aktualisierung (Refresh)</head>
+        <description>
+            Dieser Wert bestimmt, in welchen Intervallen der sekundäre (slave)
+            Nameserver die Zone aktualisieren soll.
+            Ein sinnvoller Wert hierfür liegt normalerweise bei drei Stunden.
+        </description>
+    </section>
+    <section>
+        <head>Erneuter Versuch (Retry)</head>
+        <description>
+            Gelingt es dem sekundären (slave) Nameserver nicht, nach der unter
+            Refresh angegebenen Zeit die Zone zu aktualisieren, so bestimmt
+            dieser Wert nach welcher Zeit er sein Vorhaben wiederholen soll.
+            Ein sinnvoller Wert hierfür liegt normalerweise bei einer Stunde.
+        </description>
+    </section>
+    <section>
+        <head>Abgelaufen (Expire)</head>
+        <description>
+            Kann einer sekundärer (slave) Nameserver die Zone nicht
+            aktualisieren, so erklärt er seine Daten nach der hier angegebenen
+            Zeit für ungültig und gibt keine Auskunft mehr über diese Zone.
+            Ein sinnvoller Wert hierfür liegt normalerweise bei einer Woche.
+        </description>
+    </section>
+    <section>
+        <head>Negative Lebensdauer (Negative TTL)</head>
+        <description>
+            Zonen-Daten (z.B. Subdomains) die von einem Client angefordert
+            werden und nicht existieren, werden höchstens so lange als
+            "Misserfolg" zwischengespeichert, wie es dieser Wert angibt.
+            Ist die Zeitspanne abgelaufen, so wird wieder aktiv versucht
+            die Daten aufzulösen (auf deren Existenz prüfen).
+            Ein sinnvoller Wert hierfür liegt normalerweise bei eine Tag.
+        </description>
+    </section>
+</help>

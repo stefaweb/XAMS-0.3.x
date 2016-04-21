@@ -1,0 +1,356 @@
+#!/bin/sh
+# postinst script for xams
+#
+# see: dh_installdeb(1)
+
+set -e
+
+# summary of how this script can be called:
+#        * <postinst> `configure' <most-recently-configured-version>
+#        * <old-postinst> `abort-upgrade' <new version>
+#        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
+#          <new-version>
+#        * <postinst> `abort-remove'
+#        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
+#          <failed-install-package> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see http://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+# Source debconf library.
+. /usr/share/debconf/confmodule
+db_version 2.0
+
+case "$1" in
+    configure)
+
+    # Get the name, user and password from the sql database.
+    db_get xams/db/dbname || true
+    sql_database=$RET
+
+    db_get xams/db/app-user || true
+    sql_user=$RET
+
+    db_get xams/mysql/app-pass || true
+    sql_password=$RET
+
+    # Update informations in xams.conf & exim-custom.conf
+    sed -i 's/\(^DB =\).*/\1 '"$sql_database"'/g' /etc/xams/xams.conf
+    sed -i 's/\(^DBUser =\).*/\1 '"$sql_user"'/g' /etc/xams/xams.conf
+    sed -i 's/\(^DBPass =\).*/\1 '"$sql_password"'/g' /etc/xams/xams.conf
+    sed -i 's#\(^hide mysql_servers =\)\([^/]*\).*$#\1\2/'"$sql_database"'/'"$sql_user"'/'"$sql_password"'#g' /etc/xams/exim-custom.conf
+
+    # Enabling Mailscanner or spamassassin and clamd
+    db_get xams/mailscanner_module || true
+    if [ $RET = true ]
+    then
+	sed -i 's/.*\(MAILSCANNER_MODULE = On\)/\1/g' /etc/xams/exim-custom.conf
+	sed -i 's/.*\(VIRUS_MODULE = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	sed -i 's/.*\(SPAMASSASSIN_MODULE = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	sed -i 's/ENABLED=1/ENABLED=0/g' /etc/default/spamassassin
+    else
+	sed -i 's/.*\(MAILSCANNER_MODULE = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	db_get xams/spamassassin_module || true
+	if [ $RET = true ]; then
+	    sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/spamassassin
+	    sed -i 's/.*\(SPAMASSASSIN_MODULE = On\)/\1/g' /etc/xams/exim-custom.conf
+	else
+	    sed -i 's/ENABLED=1/ENABLED=0/g' /etc/default/spamassassin
+	    sed -i 's/.*\(SPAMASSASSIN_MODULE = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	fi
+	db_get xams/clamav_module || true
+	if [ $RET = true ]; then
+	    sed -i 's/.*\(VIRUS_MODULE = On\)/\1/g' /etc/xams/exim-custom.conf
+	else
+	    sed -i 's/.*\(VIRUS_MODULE = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	fi
+    fi
+
+    # ACL to check sender's host
+    db_get xams/sender_verify_callback_dns || true
+    if [ $RET = true ]
+    then
+	sed -i 's/.*\(SENDER_VERIFY_CALLBACK_DNS = true\)/\1/g' /etc/xams/exim-custom.conf
+    else
+	sed -i 's/.*\(SENDER_VERIFY_CALLBACK_DNS = true\)/\#\1/g' /etc/xams/exim-custom.conf
+    fi
+
+    # ACL to check sender's host (when is using a dynamic connections)
+    db_get xams/sender_verify_callback_dynamic || true
+    if [ $RET = true ]
+    then
+	sed -i 's/.*\(SENDER_VERIFY_CALLBACK_DYNAMIC = true\)/\1/g' /etc/xams/exim-custom.conf
+    else
+	sed -i 's/.*\(SENDER_VERIFY_CALLBACK_DYNAMIC = true\)/\#\1/g' /etc/xams/exim-custom.conf
+    fi
+
+    # ACL to check sender when message is positive to RBLs check
+    db_get xams/sender_verify_callback_rbl || true
+    if [ $RET = true ]
+    then
+	sed -i 's/.*\(SENDER_VERIFY_CALLBACK_RBL = true\)/\1/g' /etc/xams/exim-custom.conf
+	sed -i 's/.*\(RBL_LIST =.*\)/\1/g' /etc/xams/exim-custom.conf
+    else
+	sed -i 's/.*\(SENDER_VERIFY_CALLBACK_RBL = true\)/\#\1/g' /etc/xams/exim-custom.conf
+	sed -i 's/.*\(RBL_LIST =.*\)/\#\1/g' /etc/xams/exim-custom.conf
+    fi
+
+    # Update RBL list
+    db_get xams/rbl_list || true
+    sed -i 's/.*\(RBL_LIST =\).*/\1 '"$RET"'/g' /etc/xams/exim-custom.conf
+
+    # Quota warm threshold used to send a warning mesage
+    db_get xams/quota_threshold || true
+    sed -i 's/\(QUOTA_THRESHOLD =\).*/\1 '"$RET"'%/g' /etc/xams/exim-custom.conf
+
+    # Maximum number of simultaneous SMTP connections allowed
+    db_get xams/smtp_accept_max || true
+    sed -i 's/\(smtp_accept_max =\).*/\1 '"$RET"'/g' /etc/xams/exim-custom.conf
+
+    # Maximum number of simultaneous SMTP connections from a single host
+    db_get xams/smtp_accept_max_per_host || true
+    sed -i 's/\(smtp_accept_max_per_host =\).*/\1 '"$RET"'/g' /etc/xams/exim-custom.conf
+
+    # Number of processes
+    db_get xams/queue_run_max || true
+    sed -i 's/\(queue_run_max =\).*/\1 '"$RET"'/g' /etc/xams/exim-custom.conf
+
+    # Remote max parallel
+    db_get xams/remote_max_parallel || true
+    sed -i 's/\(remote_max_parallel =\).*/\1 '"$RET"'/g' /etc/xams/exim-custom.conf
+
+    # Primary hostname
+    db_get xams/primary_hostname || true
+    COMMON_NAME=$RET
+    if [ -z $RET ]; then
+	sed -i 's/.*\(primary_hostname =\).*/#\1 '`hostname -f`'/g' /etc/xams/exim-custom.conf
+    else
+	sed -i 's/.*\(primary_hostname =\).*/\1 '"$RET"'/g' /etc/xams/exim-custom.conf
+    fi
+
+    # System error messages
+    db_get xams/sys_error_email || true
+    if grep root: /etc/aliases > /dev/null 2>&1; then
+	sed -i 's/\(root:\).*/\1 '"$RET"'/g' /etc/aliases
+    else
+        echo "root: "$RET >> /etc/aliases
+    fi
+
+    # Courier IMAP - config
+    db_get xams/maxdaemons || true
+    sed -i 's/MAXDAEMONS=.*/MAXDAEMONS='"$RET"'/g' /etc/courier/imapd
+
+    db_get xams/maxperip || true
+    sed -i 's/MAXPERIP=.*/MAXPERIP='"$RET"'/g' /etc/courier/imapd
+
+    # Daemon smtp ports
+    db_get xams/daemon_smtp_ports || true
+    sed -i 's/\(daemon_smtp_ports =\).*/\1 '"$RET"'/g' /etc/xams/exim-custom.conf
+
+    # Custom local domains
+    db_get xams/custom_local_domains || true
+    sed -i 's/\(domainlist custom_local_domains =\).*/\1 '"$RET"'/g' /etc/xams/exim-custom.conf
+
+    # Custom relay to domains
+    db_get xams/custom_relay_to_domains || true
+    sed -i 's/\(domainlist custom_relay_to_domains =\).*/\1 '"$RET"'/g' /etc/xams/exim-custom.conf
+
+    # Custom relay from hosts
+    db_get xams/custom_relay_from_hosts || true
+    sed -i 's/\(hostlist custom_relay_from_hosts =\).*/\1 '"$RET"'/g' /etc/xams/exim-custom.conf
+
+    # DNS administration
+    db_get xams/dns_admin || true
+    if [ $RET = true ]; then
+	sed -i 's/^\([ \t]*\)<!-- COMMENT IF YOU DON'"'"'T WANT TO USE DNS ADMINISTRATION/\1<!-- COMMENT IF YOU DON'"'"'T WANT TO USE DNS ADMINISTRATION -->/g' /usr/share/xams/include/xml/menu.xml
+	sed -i 's/^\([ \t]*\)-->/\1<!--  -->/g' /usr/share/xams/include/xml/menu.xml
+    else
+	sed -i 's/^\([ \t]*\)<!-- COMMENT IF YOU DON'"'"'T WANT TO USE DNS ADMINISTRATION -->/\1<!-- COMMENT IF YOU DON'"'"'T WANT TO USE DNS ADMINISTRATION/g' /usr/share/xams/include/xml/menu.xml
+	sed -i 's/^\([ \t]*\)<!--  -->/\1-->/g' /usr/share/xams/include/xml/menu.xml
+    fi
+
+    # The following only on a new install
+    if [ "$2" = "" ]; then
+        # Create xams UID and GID
+	adduser --home /usr/share/xams --shel /bin/false --disabled-password --no-create-home xams --gecos GECOS > /dev/null 2>&1 || true
+	usermod -G mail Debian-exim || true
+	usermod -G xams www-data || true
+	usermod -G Debian-exim clamav || true
+    fi
+
+    # Generate TLS keys - move
+
+    db_get xams/tls_keys_contry_name || true
+    if [ -z $RET ]; then
+	COUNTRY_NAME=$RET
+    else
+	COUNTRY_NAME=$RET
+    fi
+    
+    db_get xams/tls_keys_state || true
+    if [ -z $RET ]; then
+	STATE_OR_PROVINCE_NAME="."
+    else
+	STATE_OR_PROVINCE_NAME=$RET
+    fi
+
+    db_get xams/tls_keys_locality_name || true
+    if [ -z $RET ]; then
+	LOCALITY_NAME="."
+    else
+	LOCALITY_NAME=$RET
+    fi
+
+    db_get xams/tls_keys_orga_name || true
+    if [ -z $RET ]; then
+	ORGANIZATION_NAME="."
+    else
+	ORGANIZATION_NAME=$RET
+    fi
+
+    db_get xams/tls_keys_orga_unit_name || true
+    if [ -z $RET ]; then
+	ORGANIZATIONAL_UNIT_NAME="."
+    else
+	ORGANIZATIONAL_UNIT_NAME=$RET
+    fi
+
+    db_get xams/tls_keys_email_adress || true
+    if [ -z $RET ]; then
+	EMAIL_ADDRESS="."
+    else
+	EMAIL_ADDRESS=$RET
+    fi
+
+    db_get xams/primary_hostname
+    if [ -z $RET ]; then
+	COMMON_NAME=`hostname -f`
+    fi
+
+    chmod +x /usr/share/doc/xams/contrib/exim/exim-gencert
+    /usr/share/doc/xams/contrib/exim/exim-gencert country_name:"$COUNTRY_NAME" \
+	state_or_province_name:"$STATE_OR_PROVINCE_NAME" \
+	locality_name:"$LOCALITY_NAME" \
+	organization_name:"$ORGANIZATION_NAME" \
+	organizational_unit_name:"$ORGANIZATIONAL_UNIT_NAME" \
+	common_name:"$COMMON_NAME" \
+	email:"$EMAIL_ADDRESS"
+
+    /etc/init.d/courier-imap stop > /dev/null 2>&1 || true
+    /etc/init.d/courier-imap-ssl stop > /dev/null 2>&1 || true
+    /etc/init.d/courier-pop stop > /dev/null 2>&1 || true
+    /etc/init.d/courier-pop-ssl stop > /dev/null 2>&1 || true
+    /etc/init.d/courier-authdaemon stop > /dev/null 2>&1 || true
+    /etc/init.d/exim4 stop > /dev/null 2>&1 || true
+
+    if [ "$2" = "" ]; then
+	update-rc.d -f courier-authdaemon remove > /dev/null 2>&1
+    fi
+    sed -i 's/IMAP_MAILBOX_SANITY_CHECK=.*/IMAP_MAILBOX_SANITY_CHECK=0/g' /etc/courier/imapd
+
+    # Source dbconfig-common
+    . /usr/share/dbconfig-common/dpkg/postinst.mysql
+    if ! dbc_go xams $@ ; then
+        echo 'Automatic configuration using dbconfig-common failed!'
+    fi
+
+    # XAMS php interface
+    chmod 644 /usr/share/xams
+    find /usr/share/xams -type d -exec chmod 755 {} \;
+    find /usr/share/xams -type f -exec chmod 755 {} \;
+    chmod 777 /usr/share/xams/cache
+
+    if [ "$2" = "" ]; then
+	# XAMS conf files
+	chown root.xams /etc/xams/xams.conf
+	chmod 640 /etc/xams/*.conf
+	chmod 2775 /var/mail
+	chmod 644 /etc/xams/sa-exim.conf || true
+	ln -s /etc/xams/apache.conf /etc/apache2/conf.d/xams
+	if [ -e /etc/exim4/sa-exim.conf ]; then
+	    mv /etc/exim4/sa-exim.conf /etc/exim4/sa-exim.conf.dist
+	fi
+        ln -s /etc/xams/sa-exim.conf /etc/exim4/sa-exim.conf || true
+	chown Debian-exim.xams /etc/xams
+	chown root.Debian-exim /etc/xams/exim*.conf
+	chown Debian-exim.Debian-exim /var/run/xams /etc/xams/autoreply
+	chgrp Debian-exim /var/run/courier/authdaemon
+	chown www-data.www-data /var/log/xams
+	update-rc.d xams-authdaemon defaults > /dev/null 2>&1
+
+	# Courier
+	chown Debian-exim.Debian-exim /etc/xams/archives
+	chmod g+w /var/run/courier/authdaemon
+    fi
+	
+    /etc/init.d/courier-imap start > /dev/null 2>&1 || true
+    /etc/init.d/courier-imap-ssl start > /dev/null 2>&1 || true
+    /etc/init.d/courier-pop start > /dev/null 2>&1 || true
+    /etc/init.d/courier-pop-ssl start > /dev/null 2>&1 || true
+    /etc/init.d/spamassassin start > /dev/null 2>&1 || true
+    /etc/init.d/exim4 start > /dev/null 2>&1 || true
+    /etc/init.d/xams-authdaemon start > /dev/null 2>&1 || true
+
+    # apache.conf
+    /etc/init.d/apache2 reload > /dev/null 2>&1 || true
+    /etc/init.d/clamav-daemon restart > /dev/null 2>&1 || true
+
+    # Finaly, update language in mysql
+    db_get xams/xams_language || true
+    case $RET in
+	English)
+	    mysql -u $sql_user -p$sql_password $sql_database -e "UPDATE pm_preferences SET defaultlanguage = 'english', LoginWelcome = 'Welcome to XAMS';"
+	    sed -i 's/.*\(LANG_FR = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	    sed -i 's/.*\(LANG_DE = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	    sed -i 's/.*\(LANG_EN = On\)/\1/g' /etc/xams/exim-custom.conf
+	    ;;
+	
+	French)
+	    mysql -u $sql_user -p$sql_password $sql_database -e "UPDATE pm_preferences SET defaultlanguage = 'french', LoginWelcome = 'Bienvenue sur XAMS';"
+	    sed -i 's/.*\(LANG_DE = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	    sed -i 's/.*\(LANG_EN = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	    sed -i 's/.*\(LANG_FR = On\)/\1/g' /etc/xams/exim-custom.conf
+	    ;;
+	
+	German)
+	    mysql -u $sql_user -p$sql_password $sql_database -e "UPDATE pm_preferences SET defaultlanguage = 'german', LoginWelcome = 'Willkommen bei XAMS';"
+	    sed -i 's/.*\(LANG_EN = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	    sed -i 's/.*\(LANG_FR = On\)/\#\1/g' /etc/xams/exim-custom.conf
+	    sed -i 's/.*\(LANG_DE = On\)/\1/g' /etc/xams/exim-custom.conf
+	    ;;
+    esac
+
+    if [ "$2" = "" ]; then	
+	echo "   "
+	echo "XAMS has been installed and started succesfully. Use your web browser to go to:"
+	echo "   "
+	echo "     http://`hostname -f`/xams"
+	echo "   "
+	echo "Default login is: admin/admin"
+	echo "Don't forget to change the default admin password."
+	echo "   "
+    else
+	echo "   "
+	echo "XAMS has been reconfigured succesfully."
+	echo "   "
+    fi
+
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+db_stop
+
+# dh_installdeb will replace this with shell code automatically
+# generated by other debhelper scripts.
+
+#DEBHELPER#
+
+exit 0

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Site-Templates-Management" xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-06-14">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        A site is a kind of container which can imply one or more domains, users but
+        also aliases.
+        This container makes it possible that a user can have several e-mail addresses
+        sharing all one "physical" (real) mailbox. For instance, there could be a site
+        named "firm-name". In this container domains like "firm-name.com",
+        "firm-name.net" but also "anothername.org" could be located.
+        All users located in the container "firm-name" have in fact just one mailbox
+        but can be reached via e-mail under "username@firm-name.com", "username@firm-name.net"
+        and "user@anothername.org". For the user login (no matter if POP/IMAP, SMTP or direct in
+        XAMS) it is just the same - every user name is valid. Of course this concept also applies
+        to the aliases, except that no logons are possible with aliasname neither
+        POP/IMAP/SMTP nor XAMS.
+    </information>
+    <section>
+        <head>Template-Name</head>
+        <description>
+            This is the name of the template. This name shoulb be uniqe for each
+            users.
+        </description>
+    </section>
+    <section>
+        <head>Sitename</head>
+        <description>
+            This is the name of the container. It is solely visible for XAMS global admins as well
+            as for the site admins. Administrator rights (for the site admins) can be given
+            exclusively for this level, not - however - separately for domains, users or aliases.
+        </description>
+    </section>
+    <section>
+        <head>Max. Quota</head>
+        <description>
+            This is the maximum mailbox size all users of this site can make use of.
+            Is the maximum limit achieved by the sum of all Quotas, no more users
+            can be added to this site.
+        </description>
+    </section>
+    <section>
+        <head>Max. Quota (per User)</head>
+        <description>
+            This is the maximum mailbox size a single user can make use of. E-mails being
+            bigger than the remaining space are not being saved. The sender thereby receives
+            an according error notification. Furthermore, a customer can in fact give less quota
+            to a user, but - however - not make more available than this limit gives.
+        </description>
+    </section>
+    <section>
+        <head>Max. Users</head>
+        <description>
+            This is the maximum amount of users who can be created within this site.
+            Only the global admin can change this value, a site admin has to be satisfied by the
+            contingent made possible - he'll not be able to create more users when this limit
+            is reached.
+        </description>
+    </section>
+    <section>
+        <head>Max. Aliases</head>
+        <description>
+            Same as in point "Max. Users" - here, the maximum amount of aliases
+            being available is specified. This value cannot be exceeded by a site admin.
+        </description>
+    </section>
+    <section>
+        <head>Type</head>
+        <description>
+            Here is configured which kind of mailboxes the users may have within this site.
+            If only POP3 is set here for instance, it is not possible making an IMAP-mailbox
+            available for a user within this site.
+        </description>
+    </section>
+    <section>
+        <head>Viruscheck</head>
+        <description>
+            Here you can determine for both incoming and outgoing mails within this
+            site if they should be checked for viruses (by an external program).
+            For the users within this site can be determined if the settings of
+            the site should be taken over (inherited) or should be enabled or
+            disabled in an explicit way.
+            The settings of the site are bequeathed in standard.
+        </description>
+    </section>
+    <section>
+        <head>Spamcheck</head>
+        <description>
+            Here you can determine for both incoming and outgoing mails within this
+            site if they should be checked for spam (by an external program).
+            For the users within this site can be determined if the settings of
+            the site should be taken over (inherited) or should be enabled or
+            disabled in an explicit way.
+            The settings of the site are bequeathed in standard.
+        </description>
+    </section>
+    <section>
+        <head>Aliases 1 to 5</head>
+        <description>
+            By the use of points Alias 1 to 5 the template can be added
+            up to five aliases which will be added as soon as the template
+            is used to create a new site based on it.
+            Because it is usefull to add at least a "postmaster" and
+            "webmaster" for every site, the process can be automized
+            in a immense way.
+            The B&amp;F options is for applying the "Bounce and Forward"
+            feature to the aliases. For more details see help file of
+            Alias Management.
+        </description>
+    </section>
+</help>

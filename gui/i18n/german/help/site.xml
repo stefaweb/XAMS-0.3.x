@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Site-Verwaltung" xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-04-18">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Eine Site ist eine Art Container, der eine oder mehrere Domains,
+        Benutzer aber auch Aliases beinhalten kann.
+        Dieser Container ermöglich es, dass ein Benutzer mehrere
+        eMail-Adressen haben kann, die sich alle ein physikalisches Postfach
+        teilen. Beispielsweise könnte es eine Site mit dem Namen "firmenname"
+        geben. In diesen Container könnten Domains wie "firmenname.com",
+        "firmenname.net" aber auch "einanderername.org" liegen. Alle User die
+        dann in dem Container "firmenname" liegen haben zwar nur ein
+        Postfach, können aber via E-Mail erreicht werden unter
+        "username@firmenname.com", "username@firmenname.net" und
+        "user@einanderername.org". Für den User-Login (gleichgültig
+        ob POP/IMAP, SMTP oder direkt in XAMS) gilt das gleiche - jeder
+        Benutzername ist gültig. Analog zu den Usern gilt dieses Konzept
+        natürlich auch für die Aliases - mit der Ausnahme, dass mittels
+        Alias-Namen weder auf POP/IMAP/SMTP noch auf XAMS zugegriffen werden
+        kann.
+    </information>
+    <section>
+        <head>Wiederverkäufer</head>
+        <description>
+            Dieser Eintrag bestimmt über die Zuordnung zu einem bestimmten
+            Wiederverkäufer.
+        </description>
+    </section>
+    <section>
+        <head>Name der Site</head>
+        <description>
+            Dies ist der Name des Site-Containers. Es muss sich hierbei um
+            einen systemweit, eindeutigen Namen handeln, welcher vom
+            Administrator oder Wiederverkäufer vergeben wird. Der Reseller
+            kann die Verwaltung dieses Containers in die Obhut eines Endkunden
+            weitergeben. Die Kontingente der Site kann jedoch nur der
+            Administrator bzw. der Wiederverkäufer selbst verwalten.
+        </description>
+    </section>
+    <section>
+        <head>Domains</head>
+        <description>
+            Hier können der Site eine oder mehrere Domains zugeordnet werden.
+            Es sind ausschließlich FQDN (Fully Qualified Domain Names)
+            erlaubt. Ein gültiger Domainname wäre z.B. "xams.org". Die
+            Domains können systemweit nur einmal vergeben werden.
+        </description>
+    </section>
+    <section>
+        <head>Maximales Kontingent</head>
+        <description>
+            Dies ist die maximale Postfachgröße die alle Benutzer dieser Site
+            zusammen in Anspruch nehmen können. Ist das "Maximale Kontingent"
+            durch die Summe aller Benutzerbasierten Kontingente erreicht, so
+            können keine weiteren Benutzer innerhalb dieser Site angelegt
+            werden.
+        </description>
+    </section>
+    <section>
+        <head>Maximales Benutzer-Kontingent</head>
+        <description>
+            Dies ist die maximale Postfachgröße die ein einzelner Benutzer
+            dieser Site in Anspruch nehmen kann. eMails die größer sind, als
+            der noch verbleibende Platz, werden nicht gespeichert. Der Absender
+            erhält dabei eine entsprechende Fehlermeldung. Des weiteren kann
+            ein Endkunde einem Benutzer zwar weniger Speicher, jedoch nicht
+            mehr zur Verfügung stellen als ihm dieses Limit vorschreibt.
+        </description>
+    </section>
+    <section>
+        <head>Maximale Benutzer</head>
+        <description>
+            Dies ist die maximale Anzahl an Benutzern die innerhalb dieser Site
+            angelegt werden können. Nur der Wiederverkäufer kann diesen Wert
+            innerhalb seines Kontingentes verändern, ein Endkunde muss sich
+            mit dem ihm zur Verfügung gestellten Kontingent zufrieden geben -
+            er kann keine weiteren Benutzer anlegen, wenn dieses Limit
+            erreicht ist.
+        </description>
+    </section>
+    <section>
+        <head>Maximale Aliase</head>
+        <description>
+            Analog zu "Maximalen Benutzern" wird hier die maximale Anzahl an
+            zur Verfügung stehenden Aliases angegeben. Auch diese kann ein
+            Endkunde nicht überschreiten.
+        </description>
+    </section>
+    <section>
+        <head>Typ</head>
+        <description>
+            Hier wird eingestellt, welche Postfach-Typen Benutzer innerhalb
+            dieser Site haben dürfen. Ist hier bspw. nur POP3 eingestellt,
+            ist es nicht möglich einem Benutzer innerhalb dieser Site ein
+            IMAP-Postfach zur Verfügung zu stellen.
+        </description>
+    </section>
+    <section>
+        <head>Virenprüfung</head>
+        <description>
+            Hier kann für ein- sowie ausgehende Mails innerhalb dieser
+            Site festgelegt werden, ob diese (von einem externen Programm)
+            auf Viren geprüft werden sollen.
+            Für die Benutzer innerhalb der Site kann festgelegt werden
+            ob die Einstellung der Site übernommen (vererbt) werden soll,
+            oder explizit ein- oder ausgeschaltet sein soll.
+            Standardmäßig werden die Einstellungen der Site vererbt.
+        </description>
+    </section>
+    <section>
+        <head>Spamprüfung</head>
+        <description>
+            Hier kann für ein- sowie ausgehende Mails innerhalb dieser
+            Site festgelegt werden, ob diese (von einem externen Programm)
+            auf Spam geprüft werden sollen.
+            Für die Benutzer innerhalb der Site kann festgelegt werden
+            ob die Einstellung der Site übernommen (vererbt) werden soll,
+            oder explizit ein- oder ausgeschaltet sein soll.
+            Standardmäßig werden die Einstellungen der Site vererbt.
+        </description>
+    </section>
+    <section>
+        <head>Status</head>
+        <description>
+            Dies gibt den Status der Site an. "Aktiv" ist hierbei eine normale,
+            aktivierte Site - ohne Einschränkungen. "Gesperrt" beteutet, dass
+            die Benutzer dieser Seite keinerlei eMails (weder über POP3 noch
+            über IMAP) abholen können - eMails an diese Benutzer werden aber
+            weiterhin (solange genügend Speicher vorhanden ist) zugestellt.
+            "Gesperrt &amp; geblockt" geht einen Schritt weiter - hier verhält
+            sich der Posteingangsserver so, als würde er die
+            Site/Domain/Benutzer/Alias überhaupt nicht kennen und generiert
+            eine Bounce-Message, die dem Absender sagt, dass er den
+            Benutzer/Alias nicht kennt.
+        </description>
+    </section>
+</help>

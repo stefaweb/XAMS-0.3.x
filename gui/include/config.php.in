@@ -1,0 +1,68 @@
+<?php
+    define('_ADMIN_LOGIN', true);
+    define('_RESELLER_LOGIN', true);
+    define('_CUSTOMER_LOGIN', true);
+    define('_USER_LOGIN', true);
+
+    define('_LOG_OPTION', true);
+    define('_LOG_LEVEL', 3);
+
+    define('_SKIN', 'skins/default');
+
+    define('_CONFIG_FILE', '@XAMS_CONFIG_DIR@/@XAMS_CONFIG@');
+
+    // Only change this URL if you have an own XAMS-Online environment
+    // (usually you will not - maybe some major enterprises want to use that)
+    define('_XAMS_ONLINE_SERVER', 'http://www.xams.org/xams_online');
+
+    // DO NOT CHANGE THE FOLLOWING LINES -
+    // EVEN IF YOU THINK YOU KNOW WHAT YOU DO ! ! !
+
+    $ini = parse_ini_file(_CONFIG_FILE, true);
+
+    function getini($var) { return (isset($GLOBALS['ini']['GUI'][$var])) ? $GLOBALS['ini']['GUI'][$var] : null; }
+
+    if (!$ini) die('Couldn\'t load '. _CONFIG_FILE);
+
+    $DATABASE_SETTINGS = array(
+        'DBType'  => getini('DBType'),
+        'User'    => getini('DBUser'),
+        'Pwd'     => getini('DBPass'),
+        'Host'    => getini('DBHost'),
+        'DB'      => getini('DB'),
+	'SETName' => getini('SETName')
+    );
+
+    define('_USER_TYPE_SELECT', getini('UserTypeSel'));
+    define('_DEMO_SERVER', getini('DemoServer'));
+    define('_DEBUGMODE', getini('DebugMode'));
+
+    define('_USER', 1);
+    define('_CUSTOMER', 2);
+    define('_RESELLER', 3);
+    define('_ADMIN', 4);
+    define('_SYSTEM', 5);
+    define('_XAMS_VERSION', '@VERSION@');
+    define('_TITLE', 'XAMS '. _XAMS_VERSION);
+    define('_XAMS_BINDIR', getini('XAMSbindir'));
+    define('_EXIM_USER', getini('EximUser'));
+
+    // XAMS Security System
+    define('_AUTH_NONE', 0);
+    define('_AUTH_LOAD', 1);
+    define('_AUTH_ADD', 2);
+    define('_AUTH_UPDATE', 4);
+    define('_AUTH_DELETE', 8);
+    define('_AUTH_ALL', 15);
+
+    function getmt()
+    {
+        list($usec, $sec) = explode(' ', microtime());
+        return (((float)$usec + (float)$sec) * 1000);
+    }
+
+    if (_DEBUGMODE)
+        define('script_start_time', getmt());
+    else
+	ini_set('display_errors', FALSE);
+?>

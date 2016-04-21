@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Search" />
+        <msg id="Search" />
+        <msg id="Site specific" />
+        <msg id="Sitename" />
+        <msg id="Max. Quota in KB (each User)" />
+        <msg id="Max. Users" />
+        <msg id="Max. Aliases" />
+        <msg id="Domain specific" />
+        <msg id="Domainname" />
+        <msg id="User specific" />
+        <msg id="Account name (E-Mail)" />
+        <msg id="E-Mail Address" />
+        <msg id="Alias specific" />
+        <msg id="Alias Name (Left Part)" />
+        <msg id="Alias Target (Right Part)" />
+        <msg id="Note: You can use the %-Sign as wildcard (e.g. Domainname: %foo%)" />
+    </msgs>
+</i18n>

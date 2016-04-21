@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Site Template Management" />
+        <msg id="Site-Templates Management" />
+        <msg id="Template-Name" />
+        <msg id="Sitename (e.g. xams)" />
+        <msg id="Max. Quota" />
+        <msg id="Max. Quota (per User)" />
+        <msg id="Max. Users" />
+        <msg id="Max. Aliases" />
+        <msg id="Type" />
+        <msg id="Viruscheck" />
+        <msg id="Spamcheck" />
+        <msg id="Incoming" />
+        <msg id="Outgoing" />
+        <msg id="Alias" />
+        <msg id="is forwarded to" />
+        <msg id="B&amp;F" />
+        <msg id="Template created" />
+        <msg id="Template last updated" />
+        <msg id="Spam Score Trigger">Spam Score Trigger</msg>
+        <msg id="Spam Score">Spam Score</msg>
+        <msg id="High Spam Score">High Spam Score</msg>
+        <msg id="Viruscheck (Incoming)" />
+        <msg id="Viruscheck (Outgoing)" />
+        <msg id="Spamcheck (Incoming)" />
+        <msg id="Spamcheck (Outgoing)" />
+
+        <!-- Status messages -->
+        <msg id="Site-Template '%s' was added successfully." />
+        <msg id="Site-Template '%s' was updated successfully." />
+        <msg id="Site-Template '%s' was deleted successfully." />
+        <msg id="Site-Template '%s' could not be added." />
+        <msg id="Site-Template '%s' could not be updated." />
+        <msg id="Site-Template '%s' could not be deleted." />
+    </msgs>
+</i18n>

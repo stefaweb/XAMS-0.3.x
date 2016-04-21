@@ -1,0 +1,12 @@
+received_header_text = Received: \
+  ${if def:sender_rcvhost {from $sender_rcvhost\n\t}\
+  {${if def:sender_ident {from $sender_ident }}\
+  ${if def:sender_helo_name {(helo=$sender_helo_name)\n\t}}}}\
+  by $primary_hostname \
+  ${if def:received_protocol {with $received_protocol}} \
+  ${if def:tls_cipher {($tls_cipher)\n\t}}\
+  (Exim $version_number and XAMS @VERSION@)\n\t\
+  id $message_id\
+  ${if def:received_for {\n\tfor $received_for}}
+
+smtp_banner = "$primary_hostname ESMTP $tod_full\n.\nWARNING: Unsolicited commercial E-Mail (UCE/SPAM), pornographic\nmaterial, viruses and relaying is prohibited by this server and\nany such messages will be rejected/filtered automatically\ndepending on content.\n.\nBy using this server, you agree not to send any messages of the\nabove nature.  Please disconnect immediately if you do not agree\nto these terms and conditions.\n.\nPlease contact POSTMASTER if you have any\nenquiries about or problems with this server.\n.\n"

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-12-28">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="DNS management" />
+        <msg id="DNS Management" />
+        <msg id="Select a Zone from below or" />
+        <msg id="create a new Zone" />
+        <msg id="seconds" />
+        <msg id="minutes" />
+        <msg id="hours" />
+        <msg id="days" />
+        <msg id="weeks" />
+        <msg id="months" />
+        <msg id="Zone Type" />
+        <msg id="Zone" />
+        <msg id="Primary DNS" />
+        <msg id="Zone Admin (eMail)" />
+        <msg id="Serial" />
+        <msg id="Automatic" />
+        <msg id="Time to Live (TTL)" />
+        <msg id="Refresh" />
+        <msg id="Retry" />
+        <msg id="Expire" />
+        <msg id="Negative TTL" />
+        <msg id="Zone created" />
+        <msg id="Zone last updated" />
+        <msg id="Name" />
+        <msg id="Type" />
+        <msg id="Parameter" />
+        <msg id="Comment" />
+        <msg id="No records for this zone yet. Use the form below to add some." />
+        <msg id="Back to Zone menu" />
+
+        <!-- Status messages -->
+        <msg id="Zone '%s' was added successfully." />
+        <msg id="Zone '%s' was updated successfully." />
+        <msg id="Zone '%s' was deleted successfully." />
+        <msg id="Zone '%s' could not be added." />
+        <msg id="Zone '%s' could not be updated." />
+        <msg id="Zone '%s' could not be deleted." />
+    </msgs>
+</i18n>

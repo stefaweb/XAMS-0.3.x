@@ -1,0 +1,175 @@
+# handle normal (non-*) aliases - bounce on condition
+xams_aliases_forward_before_bounce:
+  driver = redirect
+  condition = ${lookup SQL_ALIASES_BOUNCEFORWARD_CONDITION}
+  allow_defer
+  allow_fail
+  data = ${lookup SQL_ALIASES_RIGHTPART}
+  domains = +xams_domains
+  qualify_preserve_domain
+  retry_use_local_part
+  unseen
+
+# handle normal (non-*) aliases - bounce and forward on condition
+xams_aliases_bounce:
+  driver = redirect
+  condition = ${lookup SQL_ALIASES_BOUNCEFORWARD_CONDITION}
+  allow_defer
+  allow_fail
+  data = :fail: Unknown user
+  domains = +xams_domains
+  qualify_preserve_domain
+  retry_use_local_part
+
+# handle normal (non-*) aliases - do nothing, delete that mail
+xams_aliases_ignore:
+  driver = redirect
+  condition = ${lookup SQL_ALIASES_BLACKHOLE_CONDITION}
+  allow_defer
+  allow_fail
+  data = :blackhole: Move mail to blackhole
+  domains = +xams_domains
+  qualify_preserve_domain
+  retry_use_local_part
+
+# Handle normal (non-*) aliases
+xams_aliases:
+  driver = redirect
+  allow_defer
+  allow_fail
+  data = ${lookup SQL_ALIASES_RIGHTPART}
+  domains = +xams_domains
+  qualify_preserve_domain
+  retry_use_local_part
+
+# Forward the mail (via Exim/XAMS filter)?
+xams_forward:
+  driver = redirect
+  address_data = ${lookup SQL_QUOTA_SITENAME}
+  allow_filter
+  check_ancestor
+  user = @EXIM_USER@ 
+  directory_transport = xams_address_file
+  no_expn
+  data = ${lookup SQL_FORWARD_DATA{${value}}}
+  domains = +xams_domains
+  file_transport = xams_address_file
+  pipe_transport = address_pipe
+  reply_transport = address_reply
+  retry_use_local_part
+  no_verify
+  router_home_directory = MAILDIR/${lookup SQL_GET_SITENAME{${value}}}/${lc:$local_part}
+  transport_home_directory = MAILDIR/${extract{sitename}{$address_data}}/${lc:$local_part}
+#  forbid_filter_perl = true
+  forbid_filter_readfile = true
+  forbid_filter_readsocket = true
+  forbid_filter_run = true
+  forbid_pipe = true
+  forbid_filter_existstest = true
+  forbid_filter_logwrite = true
+  forbid_filter_lookup = true
+  forbid_include = true
+# Does not yet work for errors in SIEVE filters!
+# errors are skipped and a keep; is run instead.
+  syntax_errors_to = $local_part@$domain
+  syntax_errors_text = \
+               This is an automatically generated message.  An error has\n\
+               been found in your .eximfilter file.  Details of the error are\n\
+               reported below.  While this error persists, you will receive\n\
+               a copy of this message for every message that is addressed to\n\
+               you.  A copy of each incoming message will be put in your normal\n\
+               mailbox.
+
+# Router to manage auto reply 
+xams_autoreply:
+  driver = accept
+  address_data = ${lookup SQL_SITENAME_AUTOREPLYTEXT}
+  # Only if auto reply is activated
+  condition      = ${if eq {${lookup mysql{SET NAMES UTF8}}} {0} \
+                     {${lookup SQL_AUTOREPLY_ROUTER{${value}}}} \
+                    }
+  # Do not reply to errors or bounces or lists
+  senders = ! ^.*-request@.*:\
+            ! ^bounce-.*@.*:\
+            ! ^.*-bounce@.*:\
+            ! ^owner-.*@.*:\
+            ! ^postmaster@.*:\
+            ! ^webmaster@.*:\
+            ! ^listmaster@.*:\
+            ! ^mailer-daemon@.*:\
+            ! ^root@.*
+  domains = +xams_domains
+  transport = xams_autoreply_transport
+  unseen
+
+# Fail if recipients mailbox (or his site) is set 'locked and bounced'
+xams_lock:
+  driver = redirect
+  allow_defer
+  allow_fail
+  data = :fail: user not known to the system
+  domains = +xams_domains
+  condition = "${lookup SQL_LOCK}"
+  retry_use_local_part
+
+# Standard delivery of mail to user's mailbox
+xams_users:
+  driver = accept
+  address_data = ${lookup SQL_QUOTA_SITENAME}
+  condition = ${lookup SQL_USERS_CONDITION}
+  domains = +xams_domains
+  retry_use_local_part
+  router_home_directory = MAILDIR/${lookup SQL_GET_SITENAME{${value}}}/${lc:$local_part}
+  transport_home_directory = MAILDIR/${extract{sitename}{$address_data}}/${lc:$local_part}
+  transport = xams_delivery
+
+# handle * aliases - bounce on condition
+xams_catch_aliases_forward_before_bounce:
+  driver = redirect
+  condition = ${lookup SQL_CATCH_ALIASES_BOUNCEFORWARD_CONDITION}
+  allow_defer
+  allow_fail
+  data = ${lookup SQL_CATCH_ALIASES_RIGHTPART}
+  domains = +xams_domains
+  qualify_preserve_domain
+  retry_use_local_part
+  unseen
+
+# handle * aliases - bounce and forward on condition
+xams_catch_aliases_bounce:
+  driver = redirect
+  condition = ${lookup SQL_CATCH_ALIASES_BOUNCEFORWARD_CONDITION}
+  allow_defer
+  allow_fail
+  data = :fail: Unknown user
+  domains = +xams_domains
+  qualify_preserve_domain
+  retry_use_local_part
+
+# handle * aliases - do nothing, delete that mail
+xams_catch_aliases_ignore:
+  driver = redirect
+  condition = ${lookup SQL_CATCH_ALIASES_BLACKHOLE_CONDITION}
+  allow_defer
+  allow_fail
+  data = :blackhole: Move mail to blackhole
+  domains = +xams_domains
+  qualify_preserve_domain
+  retry_use_local_part
+
+# handle * aliases - forward
+xams_catch_aliases_forward:
+  driver = redirect
+  allow_defer
+  allow_fail
+  data = ${lookup SQL_CATCH_ALIASES_RIGHTPART{$value}}
+  domains = +xams_domains
+  qualify_preserve_domain
+  retry_use_local_part
+
+# None of the routers found an user, aliases or whatever - Unknown user
+xams_fail:
+  driver = redirect
+  allow_fail
+  domains = +xams_domains
+  data = :fail: Unknown user

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.1.0" file-revision="1" date="2006-10-21">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="DNS Management">Gestion du DNS</title>
+        <msg id="DNS Management">Gestion du DNS</msg>
+        <msg id="Select a Zone from below or">Sélectionner une Zone ci-dessous, ou</msg>
+        <msg id="create a new Zone">Créer une nouvelle Zone</msg>
+        <msg id="seconds">secondes</msg>
+        <msg id="minutes">minutes</msg>
+        <msg id="hours">heures</msg>
+        <msg id="days">jours</msg>
+        <msg id="weeks">semaines</msg>
+        <msg id="months">mois</msg>
+        <msg id="Zone Type">Type de Zone</msg>
+        <msg id="Zone">Zone</msg>
+        <msg id="Primary DNS">DNS primaire</msg>
+        <msg id="Zone Admin (eMail)">Administrateur de Zone (eMail)</msg>
+        <msg id="Serial">Numéro de série</msg>
+        <msg id="Automatic">Automatique</msg>
+        <msg id="Time to Live (TTL)">Temps à vivre (TTL)</msg>
+        <msg id="Refresh">Rafraîchissemnt (Refresh)</msg>
+        <msg id="Retry">Nouvelle tentative (Retry)</msg>
+        <msg id="Expire">Expiration (Expire)</msg>
+        <msg id="Negative TTL">TTL négatif</msg>
+        <msg id="Zone records">Nombre de Zone</msg>
+        <msg id="Zone created">Zone créé le</msg>
+        <msg id="Zone last updated">Zone mise à jour le</msg>
+        <msg id="Name">Nom</msg>
+        <msg id="Type">Type</msg>
+        <msg id="Parameter">Paramètre</msg>
+        <msg id="Comment">Commentaires</msg>
+        <msg id="No records for this zone yet. Use the form below to add some.">Aucun enregistrement pour cette Zone actuellement. Utiliser le formulaire ci-dessous pour en ajouter.</msg>
+        <msg id="Back to Zone menu">Revenir au menu de Zone</msg>
+
+        <!-- Status-Meldungen -->
+        <msg id="Zone '%s' was added successfully.">La Zone '%s' a été ajoutée avec succès.</msg>
+        <msg id="Zone '%s' was updated successfully.">La Zone '%s' a été mise à jour avec succès.</msg>
+        <msg id="Zone '%s' was deleted successfully.">La Zone '%s' a été effacée avec succès.</msg>
+        <msg id="Zone '%s' could not be added.">La Zone '%s' n'a pas pu être ajoutée.</msg>
+        <msg id="Zone '%s' could not be updated.">La Zone '%s' n'a pas pu être mise à jour.</msg>
+        <msg id="Zone '%s' could not be deleted.">La Zone '%s' n'a pas pu être effacée.</msg>
+    </msgs>
+</i18n>

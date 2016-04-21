@@ -1,0 +1,202 @@
+XAMS installation on Linux Debian 6.0 (Squeeze)
+-------------------------------------------------------------------
+
+Revision: 2014-09-29
+By Stephane Leclerc <sleclerc@actionweb.fr>
+
+To have a good reading of the INSTALL.Debian doc, GO FIRST to the XAMS README install section and run "autogen.conf".
+
+Good luck!
+
+
+Lines starting with a # sign mean they have to be executed by root.
+Lines starting with a $ sign mean they should be executed by a local user.
+Lines starting with a - sign explain the command(s) that will follow.
+User name and password pairs are separated by a colon, e.g. username:password
+Optional command line parameters are between [], e.g. ./configure [--prefix=/usr]
+
+Needed Debian packages
+----------------------
+
+- IMPORTANT: XAMS need perl packages to work
+
+- libcdb-file-perl package don't exist in Debian 6.0 but is available in squeeze-backports.
+
+- You should activate Debian backport in /etc/apt/sources.list
+	# vi /etc/apt/sources.list
+	# deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+	# apt-get update
+
+- You can now install the packages
+	# apt-get install libunix-syslog-perl libconfig-inifiles-perl libfile-chdir-perl libcdb-file-perl
+
+- MySQL packages
+	# apt-get install mysql-server mysql-client libmysqlclient-dev
+
+- BerkeleyDB and SSL Libraries packages
+	# apt-get install libdb-dev libssl-dev
+
+- Create xams UID and GID
+	# adduser --home @XAMS_GUI_DIR@ --shell /bin/false --disabled-password xams
+
+- Exim4
+	# apt-get install exim4-daemon-heavy exim4-base
+- Use the config provided by XAMS (In xams-@VERSION@/config/exim4)
+  but be careful when you overwrite your @XAMS_CONFIG_DIR@/exim-mysql.conf or your
+  @EXIM_CONFIG_DIR@/exim4.conf
+	# mkdir /etc/xams
+	# cp xams-@VERSION@/config/exim4/*.conf @XAMS_CONFIG_DIR@
+	# ln -s @XAMS_CONFIG_DIR@/exim.conf @EXIM_CONFIG_DIR@/exim4.conf
+	# cp xams-@VERSION@/config/exim4/exim-sql-macros.conf @XAMS_CONFIG_DIR@
+- Edit @XAMS_CONFIG_DIR@/exim-custom.conf and change the 'mysql_servers' setting to
+  suit your needs
+- Needed as Courier daemons MUST USE 'mail' UID to have write access to files.
+	# usermod -G mail Debian-exim
+- If you want to add TLS support on Debian
+  Activate TLS_ENCRYPTION = On in @XAMS_CONFIG_DIR@/exim-custom.conf
+- You can generate TLS keys using the following command:
+	# /usr/share/doc/exim4-base/examples/exim-gencert
+	# openssl req -new -key /etc/exim4/exim.key -out /etc/exim4/exim.csr
+
+- Courier
+	# apt-get install courier-imap courier-imap-ssl courier-pop courier-pop-ssl
+- Set the package hold flag on courier-authdaemon so that the debian
+  dependencies are satisfied but no new versions will be installed.
+	# echo courier-authdaemon hold | dpkg --set-selections
+	# /etc/init.d/courier-imap stop
+	# /etc/init.d/courier-imap-ssl stop
+	# /etc/init.d/courier-pop stop
+	# /etc/init.d/courier-pop-ssl stop
+	# /etc/init.d/courier-authdaemon stop
+	# update-rc.d -f courier-authdaemon remove
+- For courier-imap in Debian: 
+        Change "IMAP_MAILBOX_SANITY_CHECK" to "0" in /etc/courier/imapd 
+
+XAMS INSTALL ON DEBIAN
+----------------------
+
+- Edit "database/mysql/xams.sql" to suit your needs
+
+- Create the xams database and tables. Stuff in [] brackets is only needed
+  when root has a password, or you like to use a special db-user.
+  
+- If you have root access on MySQL, use the command below to create database and login.
+	# mysql [-uroot -pPASS] < xams-@VERSION@/database/mysql/xams-create.sql
+
+- Create XAMS database structure
+	# mysql [-uUSER -pPASS] -Dxams < xams-@VERSION@/database/mysql/xams-struct.sql
+
+- Edit "xams-@VERSION@/database/mysql/xams-data.sql" to suit your needs and
+  execute the folowing command.
+	# mysql [-uUSER -pPASS] -Dxams < xams-@VERSION@/database/mysql/xams-data.sql
+
+- Copy the XAMS php interface from GUI directory
+	# cp -R xams-@VERSION@/gui/* @XAMS_GUI_DIR@/.
+	# cp xams-@VERSION@/gui/.htaccess @XAMS_GUI_DIR@/.
+	# find @XAMS_GUI_DIR@ -type d -exec chmod 755 {} \;
+	# find @XAMS_GUI_DIR@ -type f -exec chmod 755 {} \;
+	# mkdir @XAMS_GUI_DIR@/cache
+	# chmod 777 @XAMS_GUI_DIR@/cache
+
+- Copy and edit the XAMS configuration files (In xams-@VERSION@/config)
+	# cp xams-@VERSION@/config/xams/xams.conf @XAMS_CONFIG_DIR@
+	# chown root.xams @XAMS_CONFIG_DIR@/@XAMS_CONFIG@
+	# chmod 640 @XAMS_CONFIG_DIR@/*.conf
+	# chown Debian-exim.xams @XAMS_CONFIG_DIR@
+	# chown root.Debian-exim @XAMS_CONFIG_DIR@/exim*.conf
+	# mkdir -p @XAMS_CONFIG_DIR@ @XAMS_CONFIG_DIR@/autoreply @XMU_BACKUP_DIR@ @XAMS_PID_DIR@ @XAMS_BINDIR@
+	# chown Debian-exim.Debian-exim @XAMS_PID_DIR@ @XAMS_CONFIG_DIR@/autoreply
+	# chgrp Debian-exim @COURIER_SOCKET_DIR@
+
+- Create Apache log directory for XAMS
+        # mkdir /var/log/xams
+	# chown www-data.www-data /var/log/xams
+
+- Setup the XAMS authdaemon
+	# cp xams-@VERSION@/config/init.d/xams-authdaemon /etc/init.d/.
+
+- Start xams-authdaemon in defaults runlevels
+	# update-rc.d xams-authdaemon defaults
+
+/-/-/- open: "@XAMS_CONFIG_DIR@/@XAMS_CONFIG@" -/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-
+[GUI]
+DBType = mysql
+DBHost = localhost
+DBUser = user
+DBPass = pass
+DB = xams
+\-\-\- close: "@XAMS_CONFIG_DIR@/@XAMS_CONFIG@" \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+
+- Courier
+	# cp xams-@VERSION@/scripts/xmu xams-@VERSION@/scripts/authdaemon @XAMS_BINDIR@
+	# mkdir @XMU_BACKUP_DIR@
+	# chown Debian-exim.Debian-exim @XMU_BACKUP_DIR@
+	# cp xams-@VERSION@/scripts/Xmod.pm /usr/lib/perl5/.
+	# rm /var/run/courier/authdaemon/socket
+	# chmod g+w /var/run/courier/authdaemon
+	# /etc/init.d/xams-authdaemon start
+	# /etc/init.d/courier-imap start
+	# /etc/init.d/courier-imap-ssl start
+	# /etc/init.d/courier-pop start
+	# /etc/init.d/courier-pop-ssl start
+        # /ect/init.d/exim4 restart
+
+- Some things has to be done periodically on your mail server (creating the
+  CDB-Database for exim for faster domain lookups, creating home directories
+  for newly created users and delete obsolete autoreply files). To do that
+  we add an entrie in /etc/cron.d to do these jobs every 5 minutes:
+  
+        # cp xams-@VERSION@/config/cron.d/xams /etc/cron.d/xams
+
+  More xmu commands are available for fine maintenance. Try "xmu --help".
+
+- To login into xams as an admin use the 'Usertype'-Dropdown Box on the
+  Login-Page and select "Administrator". Then login with the account data,
+  you have specified during the database-setup step above. If you haven't
+  activated the Usertype-selection in your @XAMS_CONFIG@ then you have to login
+  with a prefix to your login name ('adm_' for an administrator, 'res_' for
+  a reseller - customers and users don't need a prefix).
+
+
+XAMS INSTALL WITH XAMS
+----------------------
+
+- We recommend to use an own apache-process for xams which runs with the
+  user/group xams. This prevents possible security wholes where the standard
+  apache (and all php-able users) can read the @XAMS_CONFIG@.
+
+  By default, xams can be acceded using http//localhost/xams/
+
+1 - Default config
+
+- Copy config file at the right place and make a symbolic link
+        # cp  @XAMS_CONFIG_DIR@/config/apache/apache.conf /etc/xams/apache.conf
+        # ln -s /ect/xams/apache.conf /etc/apache2/conf.d/xams
+
+- Relad apache to activate the new config 
+       # /etc/init.d/apache2 reload
+
+2 - More secure version
+
+  A more secure method is to use suphp available as libapache2-mod-suphp Debian package.
+  and run xams with it's own uid/gid
+
+- Create an xams linux user and place all GUI files inside it.
+        # apt-get install apache2 php5 php5-gd php5-mysql php5-xsl php-pear php-db php5-recode php5-sqlite
+        # apt-get install libapache2-mod-suphp libapache2-mod-fcgid
+
+- Copy Apache2 config file in the right directory. Edit it according to your setup.
+        # cp xams-@VERSION@/config/apache/xams-apache /etc/apache2/site-available/.
+
+- Edit xams-apache to fit your own need
+
+- Use a2ensite to add the xams apache site definition
+        # a2ensite xams-apache
+
+- Configure suphp in /etc/suphp.conf and /etc/apache2/mods-available/suphp.conf
+        # /etc/init.d/apache2 restart
+
+Have fun!
+
+--- END ---
+

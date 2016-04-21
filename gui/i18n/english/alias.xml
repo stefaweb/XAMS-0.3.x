@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2009-02-17">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Alias Management" />
+        <msg id="Alias Management" />
+        <msg id="Unfortunately no more aliases can be added. Site based Alias-Quota has reached." />
+        <msg id="Unfortunately no more aliases can be added. Reseller based Alias-Quota has reached." />
+        <msg id="Unfortunately no more aliases can be added. Your Alias-Quota has reached." />
+        <msg id="Site" />
+        <msg id="Incoming Address" />
+        <msg id="Forward Address" />
+        <msg id="Bounce and Forward" />
+        <msg id="Blackhole" />
+        <msg id="Alias created" />
+        <msg id="Alias last updated" />
+	<msg id="Select a Site in the drop-down menu." />
+
+        <!-- Status messages -->
+        <msg id="Alias '%s' was added successfully." />
+        <msg id="Alias '%s' was updated successfully." />
+        <msg id="Alias '%s' was deleted successfully." />
+        <msg id="Alias '%s' could not be added." />
+        <msg id="Alias '%s' could not be updated." />
+        <msg id="Alias '%s' could not be deleted." />
+    </msgs>
+</i18n>

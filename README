@@ -1,0 +1,94 @@
+XAMS - the eXtended Account Management System
+===============================================================================
+
+Welcome to XAMS.
+
+Table of Contents
+==================
+  1) Introduction
+  2) Licensing
+  3) Installation
+  4) Log-in
+  5) Updating
+  6) Contributing
+  7) Authors
+
+1) Introduction
+================
+XAMS (eXtended Account Management System) is - at this time - a software
+which is able to manage e-mail accounts for several domains and sites.
+It interfaces with the Exim MTA from Philip Hazel and the Courier Mail Server
+Suite from Sam Varshavchik. Combining XAMS with them results in a
+super flexible, versatile and easy-to-maintain Mail Server Account Managing
+Solution for Providers dealing with many domains and resellers per domain.
+
+In its current state Exim is used for SMTP processing, Courier for POP3/IMAP
+and XAMS as an interface handling the e-mail accounts of all domains, resellers
+and users your e-mail server is responsible for.
+
+The main advantage of XAMS is, that it's managing ALL your mail-accounts in
+a MySQL database, therefore it doesn't need and doesn't modify your local
+(/etc/passwd) user database to work.
+
+2) Licensing
+=============
+This software is OSI Certified Open Source Software. OSI Certified is a
+certification mark of the Open Source Initiative.
+
+This software is freely distributable under the GNU public license, a
+copy of which you should have received with this software (in a file
+called Copyright). There are no restrictions for use, private or commercial.
+
+XAMS is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+3) Installation
+================
+Before you start with the installation and configuration process, you
+have to copy autogen.conf.orig to autogen.conf and edit the options to
+suit your needs (defaults should be okay in most cases).
+
+After that run ./autogen.sh which will generate several important files
+from their templates (for example the installation documentation).
+
+Look at the directories and files in ./docs/install. If you're 
+using a Linux distribution which is not described in ./docs/install
+try the Debian documentation and please send us the changes that you
+need to do for your preferred distribution.
+
+If you're upgrading from an older XAMS release, don't forget to apply
+database update from the "updates" directory.
+
+Step by step:
+
+     - Rename autogen.conf.orig to autogen.conf
+     - Configure autogen.conf (be careful to do not insert space at line end)
+     - Execute ./autogen.sh
+
+4) Log-in
+==========
+To login into XAMS as an admin use 'adm_' as prefix to your login name
+e.g. adm_admin:admin to login in as the default admin-user admin:admin
+Resellers have 'res_' as prefix. Customers and users have no prefix.
+
+5) Updating
+============
+If you want to update XAMS from a previous version - check the updates
+directory for further information.
+
+6) Contributing
+================
+If you want to contribute to XAMS please take a look at
+http://www.xams.org/contribution.php or write an email to contrib@xams.org
+We are grateful for any help you can give us.
+
+7) Authors
+===========
+The XAMS-Project was founded by Oliver Siegmar <Oliver.Siegmar@xams.org>.
+
+Since 2007, the project is now handle by Stephane Leclerc <sleclerc@actionweb.fr>.
+
+See CHANGES for last news from contributors.
+

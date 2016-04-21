@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT maintainers (maintainer+)>
+<!ELEMENT maintainer (name, email)>
+<!ATTLIST information
+    usertype CDATA "0"
+    minusertype CDATA "0"
+>
+<!ELEMENT information (#PCDATA)>
+<!ELEMENT head (#PCDATA)>
+<!ELEMENT condition (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ATTLIST section
+    usertype CDATA "0"
+    minusertype CDATA "0"
+>
+<!ELEMENT section (head, condition?, description)>
+<!ATTLIST lngspec
+    name CDATA #REQUIRED
+    iso CDATA #REQUIRED
+    localname CDATA #REQUIRED
+>
+<!ELEMENT lngspec EMPTY>
+<!ELEMENT skindir (#PCDATA)>
+<!ATTLIST help
+    title CDATA #REQUIRED
+    xams-release CDATA #REQUIRED
+    file-release CDATA #REQUIRED
+    file-revision CDATA #REQUIRED
+    date CDATA #REQUIRED
+>
+<!ELEMENT help (lngspec, skindir, maintainers, information?, section+)>

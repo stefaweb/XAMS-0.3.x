@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Administration du DNS" xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        La gestion DNS incorporée à XAMS vous permet d'administrer facilement
+        votre serveur de nom de domaine. Vous devez quand même avoir quelques
+        connaissance sur ce sujet afin d'installer préalablement le logiciel de
+        gestion de domaine BIND sur votre serveur.
+    </information>
+    <section>
+        <head>Type de Zone</head>
+        <description>
+            Pour définir une zone (un domaine), le serveur de domaine doit savoir
+            quelles zones sont définies, connaître leur type et qui est responsable
+            de ces zones.
+            
+            Si vous choisissez "Master" (ou zone primaire), votre serveur de domaine
+            sera responsable de le diffusion de cette zone. En choisissant "Slave", votre
+            serveur de domaine ira chercher les informations de la zone sur un autre serveur
+            de domaine, dit primaire. Si vous choisissez enfin "Dumy", cette zone ne sera pas
+            exportée vers le logiciel BIND lors de l'exécution des scripts de mise à jour.
+        </description>
+    </section>
+    <section>
+        <head>Zone</head>
+        <description>
+            Une zone est un genre de récipient pour un hôte - une partie d'un domaine 
+            ou d'un sous-domaine. Si votre serveur de domaine contrôle la zone "xams.org",
+            il contrôle également tous les sous-domaines de la zone "xams.org" comme par 
+            exemple "www.xams.org" ou "demo.xams.org". La zone "xams.org" peut être vue 
+            comme sous-domaine de la zone "org", qui est contrôlée par un Registrar.
+        </description>
+    </section>
+    <section>
+        <head>DNS primaire</head>
+        <description>
+            Ce champ doit contenir le serveur de domaine primaire (Master) pour la
+            zone donnée. Il faut noter que l'entrée doit contenir un point dans le cas
+            ou ce n'est pas la zone elle même. Par exemple, dans le cas de "xams.org",
+            ce sera "sitixns.de.".
+        </description>
+    </section>
+    <section>
+        <head>Administrateur de Zone (eMail)</head>
+        <description>
+            Entrer ici l'adresse de messagerie du responsable de la zone. 
+            Attention : au lieu d'entrer le signe @ comme séparateur pour l'adresse
+            de messagerie, vous devez entrer un point. Tout comme pour le DNS primaire,
+            il est nécessaire d'ajouter un point à la fin si cette adresse de messagerie
+            ne fait pas partie de la zone en cours d'édition. Par exemple, l'adresse de
+            messagerie "hostmaster@sitixns.de" sera saisie de cette façon "hostmaster.sitixns.de.".
+            
+            Attention : vous ne pouvez pas utiliser une adresse de messagerie comportant
+            un point dans la partie avant le signe @.
+        </description>
+    </section>
+    <section>
+        <head>Numéro de série</head>
+        <description>
+            Chaque zone doit posséder un "numéro de série" unique. Celui-ci doit être
+            mis à jour et augmenté à chaque modification sur la zone. Si cela n'est pas
+            fait, le serveur DNS secondaire ne saura pas que quelque chose a changé.
+            On utilise par exemple la syntaxe suivante : on prend la date du jour en format
+            numérique auquel on ajoute deux chiffres. Exemple : 2002072101
+        </description>
+    </section>
+    <section>
+        <head>Automatique</head>
+        <description>
+            Il n'est pas normalement utile d'éditer le numéro de série à la main. En activant
+            cette option, XAMS le fera pour vous automatiquement.
+        </description>
+    </section>
+    <section>
+        <head>Temps à vivre (TTL)</head>
+        <description>
+            Le Temps à vivre ou Time-To-Live (TTL) en anglais définie combien de temps le
+            client du serveur de domaine gardera les informations de la zone dans son cache.
+            Une valeur assez courte est utile pour que les informations modifiées soient mise
+            à jour rapidement, par contre elle provoquera une charge plus importante sur le
+            serveur de nom de domaine car celui-ci sera interrogé plus souvent. On met le plus
+            souvent une valeur de un jour.
+        </description>
+    </section>
+    <section>
+        <head>Rafraîchissement (Refresh)</head>
+        <description>
+            Cette valeur permet de définir l'intervale qu'utilise le serveur de nom de domaine
+            secondaire pour se mettre à jour. On met le plus souvent une valeur de trois heures.
+        </description>
+    </section>
+    <section>
+        <head>Nouvelle tentative (Retry)</head>
+        <description>
+            Si le serveur de nom de domaine secondaire n'arrive pas à se synchroniser avec le
+            serveur de domaine primaire, cette valeur permet de définir le temps d'attente
+            avant qu'il essaye de nouveau de se mettre à jour. On met le plus souvent une valeur 
+            d'une heure.
+        </description>
+    </section>
+    <section>
+        <head>Expiration (Expire)</head>
+        <description>
+            Si le serveur de nom de domaine secondaire n'arrive pas à se synchroniser avec le
+            serveur de domaine primaire, il déclare la zone comme invalide après un certain temps.
+            Cette valeur permet de définir l'intervale de temps avant que la zone soit déclarée
+            invalide. On met le plus souvent une valeur d'une semaine.
+        </description>
+    </section>
+    <section>
+        <head>TTL négatif</head>
+        <description>
+            Si une information de zone qui n'existe pas est demandée par un client, cette valeur
+            permet de définir le délais avant que cette information soit de nouveau demandée.
+            On met le plus souvent une valeur d'un jour.
+        </description>
+    </section>
+</help>

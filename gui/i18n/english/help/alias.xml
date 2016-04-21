@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Alias Management" xams-release="0.0.15" file-release="0.0.9" file-revision="1" date="2004-01-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        The alias is an extra e-mail address. It is not a real e-mail account;
+        all mail sent to the alias address is passed on to a designated real
+        email account (or to another alias).
+    </information>
+    <section>
+        <head>Site Name</head>
+        <description>
+            Choose the site to which an alias should be added.
+            The alias is valid for all domains contained in a given site.
+        </description>
+    </section>
+    <section>
+        <head>Incoming Address</head>
+        <description>
+            Just like a real email account, the alias is composed of the portion
+            that comes before the @ symbol in the email address. From outside XAMS
+            it cannot be determined whether an address is an alias or a real account.
+            By entering a single asterisk * in this field, the alias will function
+            as a "catch-all" address. All messages sent to the site in question that
+            do not match existing users or aliases will be directed to the catch-all
+            address.
+        </description>
+    </section>
+    <section>
+        <head>Forward Address</head>
+        <description>
+            Messages sent to the alias will be routed to the e-mail address
+            specified here. If the destination address is located in the same site,
+            only the part before the @ symbol has to be specified. Otherwise the
+            entire e-mail address, including the domain, must be indicated.
+            In this field several addresses can be specified, separated by commas.
+        </description>
+    </section>
+    <section>
+        <head>Bounce and Forward</head>
+        <description>
+            If this field is activated, messages addressed to this alias will
+            be bounced (send back to the sender with an error message), but then
+            the messages will actually be delivered to the "Forward Address."
+        </description>
+    </section>
+    <section>
+        <head>Blackhole</head>
+        <description>
+            If this field is activated, any messages addressed to this alias will
+            be deleted immediately and cannot be recovered. This option is useful
+            if a username or alias gets too much spam and needs to be retired.
+        </description>
+    </section>
+</help>

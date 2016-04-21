@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Customer Management" />
+        <msg id="Account Settings" />
+        <msg id="Customer Management" />
+        <msg id="Customer Name" />
+        <msg id="Customer Password" />
+        <msg id="Password" />
+        <msg id="Account locked" />
+        <msg id="Reseller" />
+        <msg id="Sites" />
+        <msg id="Customer created" />
+        <msg id="Customer last updated" />
+        <msg id="Unfortunately no more customers can be added. Your Customer-Limit has reached." />
+        <msg id="Unfortunately no more customers can be added. The Customer-Limit of the selected Reseller has reached." />
+
+        <!-- Status messages -->
+        <msg id="Customer '%s' was added successfully." />
+        <msg id="Customer '%s' was updated successfully." />
+        <msg id="Customer '%s' was deleted successfully." />
+        <msg id="Customer '%s' could not be added." />
+        <msg id="Customer '%s' could not be updated." />
+        <msg id="Customer '%s' could not be deleted." />
+    </msgs>
+</i18n>

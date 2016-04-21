@@ -1,0 +1,120 @@
+#!@PERL_PATH@ -w
+
+use strict;
+use Net::DNS;
+use Net::DNS::RR::SOA;
+use Getopt::Long;
+
+my $opt_help;
+my $opt_nameserver;
+my $opt_infile;
+my $opt_outfile;
+my $opt_idstart = 1;
+my $opt_verbose;
+
+my %options = ('help', \$opt_help, 'nameserver=s', \$opt_nameserver,
+               'infile=s', \$opt_infile, 'outfile=s', \$opt_outfile,
+               'idstart=i', \$opt_idstart, 'verbose', \$opt_verbose);
+GetOptions(%options);
+
+print "Unknown option $_\n" foreach (@ARGV);
+
+printhelp() unless ($opt_nameserver && $opt_infile && $opt_outfile);
+
+sub printhelp
+{
+    print 'XAMS DNS export utility @VERSION@' . "\n\n";
+    print "\t--help          Output this help\n";
+    print "\t--nameserver    Specifies a nameserver that is used to transfer (AXFR) the domains (required)\n";
+    print "\t--infile        Specifies a file that contains all domains you want to export (required)\n";
+    print "\t--outfile       Specifies the file to which the SQL statements are written (required)\n";
+    print "\t--idstart       Specifies the first database ID of XAMS DNS table (default 1)\n";
+    print "\t--verbose       Verbose output (optional)\n";
+    print "\n";
+    print "Example:\n";
+    print "\n";
+    print "./export_dns.pl --nameserver 10.0.0.1 --infile zones.list --outfile zones.out\n";
+    print "\n";
+    print "Infile example:\n";
+    print "\n";
+    print "foo.com\n";
+    print "bar.net\n";
+    print "foobar.org\n";
+    print "\n";
+    print "Note:\n";
+    print "\n";
+    print "The server you want to start a domain transfer from must allow your ip to do an AXFR. Try a search on the web for 'AXFR' if you want more information about this. \n";
+    print "\n\n";
+    exit;
+}
+
+my $res = Net::DNS::Resolver->new;
+
+open(FI, '<' . $opt_infile)
+    or die("Couldn't open infile '$opt_infile': $!");
+
+open(FO, '>' . $opt_outfile)
+    or die("Couldn't open outfile '$opt_outfile': $!");
+
+
+print "Querying nameserver $opt_nameserver...\n" if ($opt_verbose);
+$res->nameservers($opt_nameserver);
+
+foreach my $domain (<FI>)
+{
+    chomp($domain);
+    next unless ($domain);
+
+    my @zones;
+
+    unless (@zones = $res->axfr($domain))
+    {
+        print "Couldn't get any information for domain '$domain'\n";
+        next;
+    }
+    print "Processing zone $domain ($#zones records found)..." if ($opt_verbose);
+
+    my $sql_dns = "INSERT INTO pm_dns (ID, Name, ZoneType, MasterDNS, ZoneAdmin, Serial, SerialAutomatic, TTL, Refresh, Retry, Expire, NTTL, Changed, Added, Updated) VALUES (%d, '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', now(), now());\n";
+    my $sql_record = "INSERT INTO pm_dns_records (DNSID, Name, Type, Parameter1, Parameter2) VALUES (%d, '%s', '%s', '%s', '%s');\n";
+
+    foreach my $rr (@zones)
+    {
+        if ($rr->type eq 'SOA')
+        {
+            my $res_soa = Net::DNS::RR::SOA->new_from_string($rr, $rr->rdatastr);
+
+            printf FH $sql_dns, $opt_idstart, $domain, 'M', $res_soa->mname, $res_soa->rname, $res_soa->serial, 'true',
+            $res_soa->minimum, $res_soa->refresh, $res_soa->retry, $res_soa->expire, $res_soa->minimum, 'true';
+        }
+        else
+        {
+            my $p1 = '';
+            my $p2 = $rr->rdatastr;
+            if ($rr->type eq 'MX')
+            {
+                my $res_mx = Net::DNS::RR::MX->new_from_string($rr, $rr->rdatastr);
+                $p1 = $res_mx->preference;
+                $p2 = $res_mx->exchange;
+                $p2 .= '.' if ($p2 =~ /^.*\..*[^.]$/);
+            }
+            my $recname = $rr->name;
+
+            if ($rr->name eq $domain)
+            {
+                $recname = '@';
+            }
+            else
+            {
+                $recname =~ s/^([^.]*)\..*/$1/;
+            }
+
+            $p2 =~ s/\"//g;
+            printf FH $sql_record, $opt_idstart, $recname, $rr->type, $p1, $p2;
+        }
+    }
+    $opt_idstart++;
+    print "done\n" if ($opt_verbose);
+}
+
+close(FI);
+close(FO);

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.1.0" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Customer Management">Administration du client</title>
+        <msg id="Account Settings">Préférences du compte</msg>
+        <msg id="Customer Management">Administration du client</msg>
+        <msg id="Customer Name">Nom du Client</msg>
+        <msg id="Customer Password">Mot de passe du client</msg>
+        <msg id="Password">Mot de passe</msg>
+        <msg id="Account locked">Compte vérrouillé</msg>
+        <msg id="Reseller">Revendeur</msg>
+        <msg id="Sites">Sites</msg>
+        <msg id="Customer created">Compte client créé le</msg>
+        <msg id="Customer last updated">Compte client mis à jour le</msg>
+        <msg id="Unfortunately no more customers can be added. Your Customer-Limit has reached.">Aucun compte client n'a pu être ajouté. Votre limite de compte client est atteinte.</msg>
+        <msg id="Unfortunately no more customers can be added. The Customer-Limit of the selected Reseller has reached.">Aucun compte client n'a pu être ajouté. La limite de compte client du revendeur est atteinte.</msg>
+
+        <!-- Status-Meldungen -->
+        <msg id="Customer '%s' was added successfully.">Le compte client '%s' a été ajouté avec succès.</msg>
+        <msg id="Customer '%s' was updated successfully.">Le compte client '%s' a été mis à jour avec succès.</msg>
+        <msg id="Customer '%s' was deleted successfully.">Le compte client '%s' a été effacé avec succès.</msg>
+        <msg id="Customer '%s' could not be added.">Le compte client '%s' ne peux pas être ajouté.</msg>
+        <msg id="Customer '%s' could not be updated.">Le compte client '%s' ne peux pas être mis à jour.</msg>
+        <msg id="Customer '%s' could not be deleted.">Le compte client '%s' ne peux pas être effacé.</msg>
+    </msgs>
+</i18n>

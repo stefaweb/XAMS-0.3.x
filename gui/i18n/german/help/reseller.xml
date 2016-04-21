@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Wiederverkäufer Verwaltung" xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Einem Wiederverkäufer werden von einem Administrator beliebig
+        viele Sites eindeutig zugewiesen, die dann nur von diesem verwaltet
+        werden können. Hierbei darf er sich allerdings nur innerhalb
+        der vom Administrator vorgegebenen Limitierungen bewegen. Es ist
+        ihm erlaubt, gemäß der vorgegebenen Grenzen, beliebig
+        viele Endkunden anzulegen und diese auch zu verwalten.
+        Im Gegensatz zum Administrator kann er keinerlei Systemeinstellungen
+        ändern, Modifizierungen an Adressbuch-Feldern vornehmen oder
+        eine Datenbankanalyse durchführen.
+        Außerdem ist es ihm nicht möglich, auf andere
+        Wiederverkäufer oder deren Endkunden zuzugreifen.
+    </information>
+    <section>
+        <head>Wiederverkäufer Name</head>
+        <description>
+            Dies ist der Name des Wiederverkäufers, so wie er bspw. auch
+            im Ereignis-Log erscheint. Beim Login muss diesem Namen
+            ein "res_" vorangestellt werden, damit XAMS weiß um welche
+            Art Benutzer es sich handelt.
+        </description>
+    </section>
+    <section>
+        <head>Wiederverkäufer Passwort</head>
+        <description>
+            In Verbindung mit dem Namen und diesem Passwort, kann sich ein
+            Wiederverkäufer an der XAMS GUI anmelden.
+        </description>
+    </section>
+    <section>
+        <head>Max. Endkunden</head>
+        <description>
+            Dieser Wert bestimmt darüber, wie viele Endkunden ein Wiederverkäufer
+            anlegen darf.
+        </description>
+    </section>
+    <section>
+        <head>Max. Sites</head>
+        <description>
+            Dieser Wert bestimmt darüber, wie viele Sites ein Wiederverkäufer
+            anlegen darf.
+        </description>
+    </section>
+    <section>
+        <head>Max. Domains</head>
+        <description>
+            Dieser Wert bestimmt darüber, wie viele Domains ein Wiederverkäufer
+            anlegen darf.
+        </description>
+    </section>
+    <section>
+        <head>Max. Benutzer</head>
+        <description>
+            Dieser Wert bestimmt darüber, wie hoch ein Wiederverkäufer das
+            Benutzer-Limit auf Site-Ebene setzen kann.
+            Hat ein Wiederverkäufer bspw. ein Limit von 20 Benutzern, so
+            kann er das Benutzer-Limit einer Site auf 5 und das einer anderen
+            auf 15 Benutzer setzen. Die Summe aller Benutzer-Limits auf
+            Site-Ebene kann somit diesen Wert nicht überschreiten.
+            Somit beeinflusst dieser Wert nur indirekt die maximale Anzahl
+            von Benutzern für einen Wiederverkäufer.
+        </description>
+    </section>
+    <section>
+        <head>Max. Aliase</head>
+        <description>
+            Analog zu den Benutzern kann hier darüber bestimmt werden, wie hoch
+            das Alias-Limit aller Sites eines Wiederverkäufers sein darf.
+        </description>
+    </section>
+    <section>
+        <head>Max. Kontingent</head>
+        <description>
+            Das "Max. Kontingent" bestimmt über die maximale Größe aller
+            Site-Kontingente (bzw. die Summe derer) eines Wiederverkäufers.
+        </description>
+    </section>
+    <section>
+        <head>Max. Site-Kontingent</head>
+        <description>
+            Dieser Wert bestimmt darüber, wie viel Site-Kontingent ein
+            Wiederverkäufer einer Site zuordnen darf.
+        </description>
+    </section>
+    <section>
+        <head>Max. Benutzer-Kontingent</head>
+        <description>
+            Dieser Wert bestimmt darüber, wie viel Benutzer-Kontingent ein
+            Wiederverkäufer einem Benutzer zuordnen darf. Er kann dabei
+            aber nicht das auf Site-Ebene festgelegte Kontingent überschreiten.
+        </description>
+    </section>
+    <section>
+        <head>Virenprüfung</head>
+        <description>
+            Hier kann festgelegt werden ob dieser Reseller für seine
+            Sites bzw. deren Benutzer die Virenprüfung für ein- und
+            ausgehende Mails aktivieren darf.
+        </description>
+    </section>
+    <section>
+        <head>Spamprüfung</head>
+        <description>
+            Hier kann festgelegt werden ob dieser Reseller für seine
+            Sites bzw. deren Benutzer die Spamprüfung für ein- und
+            ausgehende Mails aktivieren darf.
+        </description>
+    </section>
+    <section>
+        <head>Sites</head>
+        <description>
+            Hier kann ein Administrator eine oder mehrere Sites einem
+            Wiederverkäufer zuordnen. Der Wiederverkäufer wiederum
+            kann diese dann seinen Endkunden zuweisen oder sie selbst
+            verwalten.
+        </description>
+    </section>
+    <section>
+        <head>Konto gesperrt</head>
+        <description>
+            Mit dieser Option kann ein Administrator einen Wiederverkäufer
+            sperren. Dadurch können sich diese nicht mehr an der XAMS
+            GUI anmelden.
+        </description>
+    </section>
+</help>

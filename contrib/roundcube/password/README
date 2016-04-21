@@ -1,0 +1,18 @@
+This is a driver for the default password change plugin of RoundCube 0.4
+
+INSTALL
+---
+- Copy xams.php to <path_to_roundcube>/plugins/password/drivers/
+
+- Change <path_to_roundcube>/plugins/password/config.inc.php to use driver xams:
+  $rcmail_config['password_driver'] = 'xams';
+
+- Edit <path_to_roundcube>/plugins/password/drivers/xams.php
+    // Change to your own setting
+    $dsn['hostspec'] = 'localhost';
+    $dsn['database'] = 'database';
+    $dsn['username'] = 'user';
+    $dsn['password'] = 'password';
+
+- Enable password plugin in roundcube <path_to_roundcube>/config/main.inc.php:
+  $rcmail_config['plugins'] = array('password');

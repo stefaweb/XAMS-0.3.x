@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2003-01-04">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Navigation menu" />
+        <msg id="Global Administration" />
+        <msg id="System Administration" />
+        <msg id="Mail Administration" />
+        <msg id="Account Settings" />
+        <msg id="Information" />
+        <msg id="XAMS Accounts" />
+        <msg id="Search" />
+        <msg id="Addressbook" />
+        <msg id="Preferences" />
+        <msg id="Event-Log" />
+        <msg id="Templates" />
+        <msg id="Users" />
+        <msg id="Groups" />
+        <msg id="DNS" />
+        <msg id="Sites" />
+        <msg id="Domains" />
+        <msg id="Users" />
+        <msg id="Aliases" />
+        <msg id="System Overview" />
+        <msg id="Database analyse" />
+        <msg id="Online News" />
+        <msg id="Logout" />
+        
+        <msg id="Create or modify XAMS Accounts" />
+        <msg id="Search the XAMS-System for sites, users, and so on" />
+        <msg id="Maintain addressbook fields for later use" />
+        <msg id="Setup basic GUI preferences" />
+        <msg id="See which actions are performed on your system" />
+        <msg id="Create or modify Site/User Templates for later use" />
+        <msg id="Maintain DNS-Server zones" />
+        <msg id="Add a site to the system" />
+        <msg id="Add a user to the system (to a site)" />
+        <msg id="Add a alias to the system (to a site)" />
+        <msg id="See detailed and compact information of the XAMS-System" />
+        <msg id="System/Database information and analyse function" />
+        <msg id="See what\'s new in the XAMS-World" />
+        <msg id="Edit your account settings" />
+    </msgs>
+</i18n>

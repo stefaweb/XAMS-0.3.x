@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Benutzer Verwaltung" xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Ein Benutzer ist vereinfacht ausgedrückt das, was bei einer
+        eMail-Adresse vor dem @-Zeichen steht.
+        Ein Benutzer der via Mailclient (MUA) Mails verschicken und/oder
+        empfangen möchte, muss als Benutzernamen seine komplette eMail-Adresse
+        angeben. Anzumerken ist hierbei, dass ein Benutzer so viele
+        eMail-Adressen besitzt, wie Domains in der gleichen Site hängen.
+        Beispiel: Eine Site "firmenname" enthält die Domains "firmenname.com"
+        und "firmenname.net" sowie die Benutzer "foo" und "bar". Jeder dieser
+        beiden User hat dabei zwei eMail Adressen: "foo@firmenname.com",
+        "foo@firmenname.net" sowie "bar@firmenname.com" und
+        "bar@firmenname.net".
+    </information>
+    <section>
+        <head>Site</head>
+        <description>
+            Mit diesem Feld wird die Zuordnung eines Benutzers zu einer
+            bestimmten Site festgelegt. Für jede der in dieser Site
+            befindlichen Domains erhält der Benutzer eine virtuelle
+            eMail-Adresse (jedoch nur ein physikalisches Postfach).
+        </description>
+    </section>
+    <section>
+        <head>Benutzername</head>
+        <description>
+            Dies ist der Name des Benutzers bzw. dessen eMail-Adresse
+            (ohne Domain).
+        </description>
+    </section>
+    <section>
+        <head>Eindeutiger Benutzername</head>
+        <description>
+            Optional kann ein "Eindeutiger Benutzername" definiert werden um
+            es dem Benutzer zu ermöglichen sich mit diesem Namen (anstatt seiner
+            email-Adresse) zu authentifizieren.
+            Dieses Feature ist nützlich für Administratoren, die von einem anderen
+            Mail-Server migrieren und nicht allen Benutzern Bescheid geben möchten,
+            daß diese Ihre Client-Konfiguration aktualisieren. Nutzen Sie dieses
+            Feature nur, wenn Sie müssen.
+        </description>
+    </section>
+    <section>
+        <head>Passwort</head>
+        <description>
+            Mit diesem Passwort kann der User seine Mails abholen und versenden.
+            Ausserdem kann er - wenn dies die XAMS-Konfiguration erlaubt - sein
+            Passwort ändern, sobald er sich in XAMS eingeloggt hat.
+        </description>
+    </section>
+    <section>
+        <head>Kontingent</head>
+        <description>
+            Dies ist die Postfachgröße die diesem User zur Verfügung steht.
+            eMails die größer sind, als der noch verbleibende Platz, werden
+            nicht gespeichert. Der Absender erhält dabei eine entsprechende
+            Fehlermeldung. Das hier eingestellt Kontingent kann zwar kleiner,
+            jedoch nicht größer sein als das auf Site-Ebene eingestellte.
+            Ein Endkunde kann Benutzers seiner Site somit nur bis zu einem
+            bestimmten Limit Kontingent vergeben.
+        </description>
+    </section>
+    <section>
+        <head>Typ</head>
+        <description>
+            Dies gibt an, wie der Benutzer seine Mails empfangen kann. Diese
+            Einstellung kann jederzeit verändert werden. Allerdings können
+            Benutzer die via IMAP Verzeichnisse in ihrem Postfach angelegt
+            haben nicht mehr auf diese Zugreifen, wenn ihnen der IMAP-Zugang
+            entzogen wird.
+        </description>
+    </section>
+    <section>
+        <head>Virenprüfung (Ein- / Ausgehend)</head>
+        <description>
+            Mit dieser Option kann bestimmt werden, ob ein- bzw. ausgehende
+            Mails dieses Benutzers (durch ein externes Programm) auf Viren
+            geprüft werden.
+        </description>
+    </section>
+    <section>
+        <head>Spamprüfung (Ein- / Ausgehend)</head>
+        <description>
+            Mit dieser Option kann bestimmt werden, ob ein- bzw. ausgehende
+            Mails dieses Benutzers (durch ein externes Programm) auf Spam
+            geprüft werden.
+        </description>
+    </section>
+    <section>
+        <head>Relay on auth</head>
+        <description>
+            Diese Option erlaubt es dem Benutzer Mails via SMTP über diesen
+            Server zu versenden. Allerdings muss er sich hierfür
+            authentifizieren (mit den gleichen Daten wie beim Mail-Empfang).
+            Wird der SMTP-Server als Open relay betrieben (jeder darf Mails
+            versenden), so ist diese Option wirkungslos.
+        </description>
+    </section>
+    <section>
+        <head>Relay on check</head>
+        <description>
+            Diese Option erlaubt es dem Benutzer Mails via SMTP über diesen
+            Server zu versenden. Allerdings muss er sich hierfür durch den
+            POP oder IMAP Empfang authentifizieren (dieses Feature ist wird
+            auch als SMTP-after-POP oder SMTP-after-IMAP bezeichnet). Wird der
+            SMTP-Server als Open Relay betrieben (jeder darf Mails versenden),
+            so ist diese Option wirkungslos.
+        </description>
+    </section>
+    <section>
+        <head>Status</head>
+        <description>
+            Dies gibt den Status des Benutzers an. "Aktiv" ist hierbei ein
+            normaler, aktivierter Benutzer - ohne Einschränkungen. "Gesperrt"
+            bedeutet, dass er keinerlei eMails (weder über POP3 noch über
+            IMAP) abholen kann - eMails an ihn werden aber weiterhin (solange
+            genügend Kontingent vorhanden ist) abgelegt.
+            "Gesperrt &amp; geblockt" geht einen Schritt weiter - hier verhält
+            sich der Posteingangsserver so, als würde er den Benutzer
+            überhaupt nicht kennen und generiert eine Bounce-Message, die dem
+            Absender sagt, dass der Benutzer nicht kennt.
+        </description>
+    </section>
+    <section>
+        <head>Filter</head>
+        <description>
+            Über dieses Menü lassen sich Benutzerbasierte Filter-Einstellungen
+            konfigurieren.
+        </description>
+    </section>
+</help>

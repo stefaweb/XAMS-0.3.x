@@ -1,0 +1,26 @@
+This is a driver for the virtuser_query plugin of RoundCube 0.4
+
+This permit to catch mailbox info from XAMS database to be used in RoundCube.
+
+INSTALL
+---
+
+- Enable virtuser_query plugin in roundcube <path_to_roundcube>/config/main.inc.php:
+  $rcmail_config['plugins'] = array('virtuser_query');
+
+- Add this SQL definition to <path_to_roundcube>/config/main.inc.php
+$rcmail_config['virtuser_query'] = "
+   SELECT     LOWER(CONCAT(u.name,\'@\',d.name)) AS mailbox
+   FROM       xams.pm_sites s, xams.pm_domains d, xams.pm_users u
+   WHERE      s.sitestate != \'lockedbounce\'
+   AND        d.siteid = u.siteid
+   AND        d.siteid = s.id
+   AND        u.uniquename = \'%u\'
+";
+
+- Enable virtuser_query plugin in roundcube <path_to_roundcube>/config/main.inc.php:
+  $rcmail_config['smtp_user'] = '%u';
+
+- Enable virtuser_query plugin in roundcube <path_to_roundcube>/config/main.inc.php:
+  $rcmail_config['smtp_pass'] = '%p';
+

@@ -1,0 +1,19 @@
+Source: xams
+Section: mail
+Priority: optional
+Maintainer: Arthur Leclerc <arthur@aweb.fr>
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.8.4
+Homepage: http://www.xams.org/
+#Vcs-Git: git://git.debian.org/collab-maint/xams.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/xams.git;a=summary
+
+Package: xams
+Architecture: all
+Depends: ${misc:Depends}, libunix-syslog-perl, libconfig-inifiles-perl, libfile-chdir-perl, libcdb-file-perl, mysql-server, mysql-client, libmysqlclient-dev, libdb-dev, libssl-dev, exim4-daemon-heavy, courier-imap, courier-imap-ssl, courier-pop, courier-pop-ssl, libapache2-mod-php5, php5, php5-cgi, php5-xsl, php5-mysql, php5-mcrypt, php5-gd, perl, debconf (>= 0.5), debconf-2.0, dbconfig-common, ucf, apache2, openssl, clamav, clamav-daemon, spamassassin, sa-exim, po-debconf
+Suggests: mailscanner, roundcube, bind9
+Description: XAMS (eXtended Account Management System)
+ XAMS is a PHP-based application suite for managing electronic mail accounts on multiple domains
+ in a virtual hosting environement.
+ The XAMS eMail management system primarily consists of a powerful administration panel for
+ managing users, aliases, mailbox quotas, and other mail-related functions.

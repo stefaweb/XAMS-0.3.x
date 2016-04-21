@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Administrator Management" />
+        <msg id="Administrator Management" />
+        <msg id="Administrator Name" />
+        <msg id="Administrator Password" />
+        <msg id="Account locked" />
+        <msg id="Admin created" />
+        <msg id="Admin last updated" />
+
+        <!-- Status messages -->
+        <msg id="Admin '%s' was added successfully." />
+        <msg id="Admin '%s' was updated successfully." />
+        <msg id="Admin '%s' was deleted successfully." />
+        <msg id="Admin '%s' could not be added." />
+        <msg id="Admin '%s' could not be updated." />
+        <msg id="Admin '%s' could not be deleted." />
+    </msgs>
+</i18n>

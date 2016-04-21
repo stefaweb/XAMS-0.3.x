@@ -1,0 +1,2194 @@
+Recent changes:
+
+Key:
+     - Something removed
+     + Something added
+     * Something changed / fixed
+
+2014-09-29 Stephane Leclerc  sleclerc@actionweb.fr
+    * Version 0.2.4
+    * Works with Debian Wheezy 
+
+2013-11-20 Stephane Leclerc  sleclerc@actionweb.fr
+    * Uploaded new version of the Password RoundCube plugin.
+      File in contrib/roundcube/password/xams.php
+      This version is compatible wwith RoundCube 0.9.x and later.
+
+2013-08-30 Arthur Leclerc  arthur@aweb.fr
+    * Removed unlimited quota for users.
+      Modified user.php and xclass.php. 
+
+2012-12-21 Stephane Leclerc  sleclerc@actionweb.fr
+    * Fixed a bug in user quota when using unlimited quota in GUI. 
+    * Fixed wrong iFrame with Firefox.
+    * Fixed missing back return value when deleting in GUI.
+
+2012-11-27 Arthur Leclerc  arthur@aweb.fr
+    * Updated version to 0.2.2
+    * Fixed typo in xams-apache config 
+    * Removed a slash at end in autoreply_files in xams.conf 
+      autoreply_files = /etc/xams/autoreply
+    * Fixed a bug in GUI during user creation (spamscore not show)
+    * Updated various docs
+
+2012-11-23 Arthur Leclerc  arthur@aweb.fr
+    * Fixed a bug with spam scores in site creation in GUI
+    * Corrected a wrong alignement in Check database consistency in GUI
+    * Large cleanup and bug fix in quota engine in GUI
+    + New error message and error popup message CSS added in GUI
+    * New version of the error.png icon in GUI
+    + New critical.png icon for error message in GUI
+
+2012-11-18 Arthur Leclerc  arthur@aweb.fr
+    * Updated version to 0.2.1
+    * Most of the work of this release in done on the User Interface
+    * Modified XAMS header in GUI
+    * Corrected a CSS error in DNS interface in GUI
+    * Updated regex in Alias forward in GUI
+    + Added auto remove of Alias attached to an account in GUI   
+    + Added Spam Score Trigger in the Preference, Reseller, site and email account in GUI
+    * Corrected some wrong alignement in GUI
+    * Modified default values in DNS config in GUI
+    * Corrected a bug in errors message for over quota. Messages now using i18.
+
+2012-10-17 Stephane Leclerc  sleclerc@actionweb.fr
+    * Changed name of XAMS authdaemon init script to xams-authdaemon
+
+2012-10-11 Stephane Leclerc  sleclerc@actionweb.fr
+    * Various modifications
+    + Added debian directory for debian package project in source
+
+2012-09-26 Arthur Leclerc  arthur@aweb.fr
+    + Create 0.2.0 SVN branche
+    * Changed xams version in various files
+
+2012-09-14 Stephane Leclerc  sleclerc@actionweb.fr
+    * Various modifications to use XAMS with Debian 6.0
+
+2010-09-12 Stephane Leclerc  sleclerc@actionweb.fr
+    * Small bug corrected in xmu quota (uninitialized value).
+    + XAMS tested with PHP 5.3.3 with success.
+
+2010-09-06 Stephane Leclerc  sleclerc@actionweb.fr
+    * New vacation module for RoundCube is ready.
+      rc-vacation 0.4 plugin and RoundCube 0.4 needed.
+      xams.php removed. All changes are in the README.
+    + Added README for RoundCube virtuser_query plugin.
+    * Mods in gui/i18n/french/std_menu.xml
+
+2010-08-30 Stephane Leclerc  sleclerc@actionweb.fr
+    * Various mods for RoundCube 0.4 plugins
+      (vacation is still having problems with RoundCube 0.4
+      rc-vacation 0.3.2 from bhuisgen@hbis.fr still have bugs too)
+
+2010-08-26 Stephane Leclerc  sleclerc@actionweb.fr
+    + Create 0.1.0 SVN branche
+    * Changed xams version in various files
+    * Corrected missing database update in updates/0.0.16-0.0.19/mysql/xams.sql
+    * Swaped xams_lock and xams_autoreply routers in exim-routers.conf
+    + Added autocomplete="off" in some GUI forms
+
+2010-05-31 Stephane Leclerc  sleclerc@actionweb.fr
+    * Corrected a bug in RoundCube Password driver
+      in plugins/password/drivers/xams.php
+
+2010-05-26 Stephane Leclerc  sleclerc@actionweb.fr
+    * Corrected a bug in RoundCube Vacations driver.
+      The SQL request was wrong for write in lib/drivers/xams.php
+
+2010-03-08 Stephane Leclerc  sleclerc@actionweb.fr
+    * Mods in exim.conf. The line 402 should be deleted
+      ( {eq{${lookup SQL_ISALIAS}}{${acl_m1}}}}{1}{0}} )
+      Line 401 should be modified.
+      It was an insert at the wrong place. This line produce
+      an error when VIRUS_MODULE is activated.
+    * Various mods in exim4 files.
+
+2010-02-15  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.20
+    * NEED DATABASE UPDATE
+
+2010-01-22 Stephane Leclerc  sleclerc@actionweb.fr
+     * Some mods for anti-spam checking in xams.conf
+
+2010-01-13  Stephane Leclerc  sleclerc@actionweb.fr
+     * Some mods for anti-spam checking in xams.conf
+     * Corrected a bug in include/dns.php
+     * Corrected css and xls system_overview (dns)
+     - Removed DNS comment in include/xml/menu.xml 
+
+2009-11-27  Stephane Leclerc  sleclerc@actionweb.fr
+     + Added Vacation plugin driver for RoundCube 0.3.x
+     + Added Password plugin driver for RoundCube 0.3.x
+     * Corrected eximfilter.php template
+
+2009-09-15  Stephane Leclerc  sleclerc@actionweb.fr
+     * Corrected bug in eximfilter.php
+
+2009-09-08  Stephane Leclerc  sleclerc@actionweb.fr
+     * Added xmu --quota option in xmu.
+       This new option replace getmaildirsize and
+       sudo script.
+       xmu -- quota read maildir size in /var/mail
+       and store result in the xams database.
+       GUI have been modified according.
+       XAMS database has been altered.
+       xmu --quota can be play in crontab.
+
+2009-06-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.19
+
+2009-06-03  Michael Kefeder <mike@weird-birds.org>
+     * fixed $myPREFS bug in startup.php
+     * config.php.in - display_errors only false when not in debug-mode
+
+2009-05-25  Stephane Leclerc  sleclerc@actionweb.fr
+     * Mods in CSS for system_overview
+
+2009-05-22  Michael Kefeder <mike@weird-birds.org>
+     * fixed menu for system overview in menu.xml
+     - removed "XML output" link from system overview
+     * fixed layout of menu (logout button far away when few menu-items)
+     * translated i18n/german/startup.xml
+     * bugfix - french date selection now works in log_overview
+
+2009-05-03  Stephane Leclerc  sleclerc@actionweb.fr
+     * added full path for sudo in system_overview.php
+
+2009-04-12  Stephane Leclerc  sleclerc@actionweb.fr
+     * Various mods in GUI and css
+
+2009-04-02  Stephane Leclerc  sleclerc@actionweb.fr
+     * Localization changes in log_overview
+       See TODO Event-Log for i18 date format bugs
+
+2009-04-01  Stephane Leclerc  sleclerc@actionweb.fr
+     * Bugs corrected in account_overview and system_overview.
+       Screens was too large with Firefox.
+
+2009-03-20  Stephane Leclerc  sleclerc@actionweb.fr
+     * Various mods in Log-Events
+     + Add of a new startup page with list of Site
+     * Some link move in the menu bar
+     + Add of a box to delete old log entries in Log-Events
+     * Cleanup of all page header
+
+2009-03-17  Stephane Leclerc  sleclerc@actionweb.fr
+     * GUI change for all xxx_addressbook.php files.
+     * Changes in system_overview and css
+     * GUI changes in preferences.php
+     * New option to delete old log-events
+
+2009-03-13  Stephane Leclerc  sleclerc@actionweb.fr
+     * Various mods in in i18 files
+     * Table size mod in db_analyse.php
+     * Mods in GUI design in Addressbook
+     * Modified include/functions.php
+     * New blue_tab.png and red_tab.png images tabs
+     * New red_logout.png and others colors buttons
+     * Modified menu.xls
+
+2009-03-13  Michael Kefeder <mike@weird-birds.org>
+     * Modified various German i18 files
+     * Corrected a javascript bug in xsl/menu.xsl
+     * Modified function in include/xclass.php
+
+2009-02-22  Stephane Leclerc  sleclerc@actionweb.fr
+     * Mods in Debian INSTALL doc for Lenny
+       Updated INSTALL.in and README.Debian
+       Note that CDB_File is no longer packaged with Lenny
+       The PERL package can be donxloaded at CPAN.
+     * Changed docs/install/debian/etch-lenny
+
+2009-02-17  Stephane Leclerc  sleclerc@actionweb.fr
+     * First upload of the new GUI interface
+       xams-0.0.19-1143 is the last revision with old GUI
+     * Mods in SQLSpamSettingsXAMS.pm
+     * DNS management inactivated in XAMS Menu (this module
+       is not really useful and have obsolete specs)
+       Remove comments in gui/include/xml/menu.xml to
+       activate it again.
+
+2008-12-22  Stephane Leclerc  sleclerc@actionweb.fr
+     * Updated version of SQLSpamSettingsXAMS.pm
+       + System to add internal default values for
+         Score and HighScore if the database is gone.
+       + Default values for LookupScoreList
+       + New system to add alias to NoScan (curently
+         the system do not manage multiple alias
+	 and external alias). TODO
+     * Some mods in Exim configuration files.
+
+2008-12-17  Stephane Leclerc  sleclerc@actionweb.fr
+     * Modified XMU for better handling of EximConfig files
+     * Modified XMU to sort tables and SQL queries
+     * Modified xams.conf for default EximConfig files
+     * New regex to chek local part of email
+       "^(([A-Za-z0-9!#$%&'*+/=?^_`{|}~-][A-Za-z0-9!
+       #$%&'*+/=?^_`{|}~\.-]{0,63})|(\"[^(\\|\")]{0,62}\"
+       To stay crasy for the life!!!
+     * More missing i18 found.
+     + Added an icon system to display spamcheck,
+       spamcheckin and spamcheckout in the site display
+       (same system as done for virus).
+
+2008-12-16  Stephane Leclerc  sleclerc@actionweb.fr
+     * New version of SQLSpamSettingsXAMS.pm
+       Corrected a conflicting bug with the
+       Mailscanner SQLBlackWhiteList.pm plugin.
+       Added a refresh time system to the plugin.
+       The system have a default refresh_time of 15 minutes.
+     + Updated XMU to support EximConfig configuration
+       files (see http://www.jcdigita.com/eximconfig/)
+
+2008-12-13  Stephane Leclerc  sleclerc@actionweb.fr
+     * XML export function is back on the bottom of
+       the Overview page. Locale now work and onclick
+       now generate an export file with "Save as...".
+     + Added --version to xmu
+     + Added missing definitions for mailscanner
+       in xams.conf
+     * Modified printing of used user quota in
+       system_overview.php (now show KMG values)
+       Sample: Q=334K/1G
+     * Modified get_maildirsize routine
+     * More documentation file updates
+     * Moved new Mysql database schems update to
+       updates/0.0.16-0.0.19/mysql/xams.sql
+
+2008-12-11  Stephane Leclerc  sleclerc@actionweb.fr
+     * Bug solved in user.php in QUOTA selection
+     + New i18 system for exim config. Messages
+       are now in separated files (exim-message_xx.conf)
+     * Various clean-up in exim.conf
+     + Added CONFDIR and MAILDIR vars to replace absolute
+       paths in most of the Exim code.
+     * Modified remote_smtp: transport in exim.conf
+     - Removed autogen.conf.debian (only autogen.conf.orig)
+     * Modified xmu to handle removing of obsolete site
+       in /etc/xams/autoreply.
+     * Started to clean-up xams directory, install docs
+       and config files.
+
+2008-12-10  Stephane Leclerc  sleclerc@actionweb.fr
+     + Introduced new var in xams.conf -> SETName
+       Permit to define MySQL encoding (default UTF8)
+     * Modified exim router and transport for autoreply
+       to handle UTF8 Subject and Header message with
+       complete mime specs.
+     + Added MYSQL_SETNAMES var in autogen.conf
+     + Added DebugMode in xams.conf
+     * Removed dead RBL server in exim-custom.conf
+
+2008-12-07  Stephane Leclerc  sleclerc@actionweb.fr
+     * Mods in reseller.php, site.php, site_template.php
+       for SQLSpamScores, SQLHighSpamScores.
+     * Mods in startup_checks.php (removed short_open_tag)
+     * Mods in i18n/english/site.xml
+     * Mods in vspec/users.inc (default value for quota)
+
+2008-12-06  Stephane Leclerc  sleclerc@actionweb.fr
+     + Added more control on Aliases
+     * More i18 on Aliases, Sites and Username
+
+2008-12-05  Stephane Leclerc  sleclerc@actionweb.fr
+    + Added --delete to --delusername to xmu
+    + Added control on username when adding a new account
+      if the username already exist.
+    + Added control on site name when adding a new site
+      if the site already exist.
+    + name and uniquename are automatically converted
+      to lower case when creating new account.
+    + site name is automatically converted to upper case
+      when creating new site.
+    + Added various control on site name, username and uniquename
+      when validating forms (specialy bad characters and space)
+    * Modified xmu --delusername rm command to handle site
+      and username with special characters and space.
+
+2008-12-04  Stephane Leclerc  sleclerc@actionweb.fr
+    * Modified system_overview.php for better error management
+      in the quota module (get_maildirsize).
+    + Added --delusername command in XMU maintenance utility
+      This new option permit to erase obsolete username
+      directory in /var/mail site by site. The system
+      check the database et compare with directory in
+      /var/mail/.
+    * Commented "XHTLM output" in system_overview.xsl
+      If you want to use this feature, just uncomment
+      the line.
+
+2008-12-03  Stephane Leclerc  sleclerc@actionweb.fr
+    * Modified French Help files
+    * Deleted French text in database structure
+
+2008-11-30  Stephane Leclerc  sleclerc@actionweb.fr
+    * Modified SQLSpamSettingsXAMS.pm to manage
+      Aliases in SQLSpamScores, SQLHighSpamScores
+      and SQLNoScan
+    + Added database update file in /database/mysql
+    * Modified i18 help files (French)
+    + Added spamscore et highspamscore for site
+      and reseller.
+
+2008-11-29  Stephane Leclerc  sleclerc@actionweb.fr
+    * Modified SQLSpamSettingsXAMS.pm to use default values
+      in pm_preference. These values are used if pm_users
+      spamscore and highspamscore are empty.
+    * Modified some gui files
+
+2008-11-28  Stephane Leclerc  sleclerc@actionweb.fr
+    + Added SQLSpamSettingsXAMS.pm
+      Mailscanner plugin to manage Spam settings directly from XAMS
+      Need new database structure
+      Setup in preferences.php not yet inplemented. Use vspec for now.
+    * Modified files from XAMS gui to manage new Mailscanner features
+    * Modified some vspec files to put _IMAP as checked by default
+
+2008-04-28  Stephane Leclerc  sleclerc@actionweb.fr
+    * Started 0.0.19 release process
+    + Added exim-nocallback.conf file
+    * Modified exim.conf file to manage nocallback domains
+      Some ISPs no longer accept callback (and blacklist you)
+
+2007-11-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Don't let xmu create site directories if there's no user on that site
+
+2007-04-23  Stephane Leclerc  sleclerc@actionweb.fr
+    * Small fixes in the sarge/etch installation doc
+
+2007-04-14  Stephane Leclerc  sleclerc@actionweb.fr
+    * Small fixes in the sarge/etch installation doc
+
+2007-04-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Small fixes in the sarge/etch installation doc
+    * Fixed SQL authentication code
+
+2007-04-07  Stephane Leclerc  sleclerc@actionweb.fr
+    * pre-0.0.19 opening
+
+2007-04-07  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.18
+
+2007-04-07  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * i18n update for xams_chpasswd
+
+2007-03-16  Stephane Leclerc  sleclerc@actionweb.fr
+    + Added new regex in exim-dynamic_hosts.conf
+    * Can be released as 0.0.18
+
+2007-03-16  Stephane Leclerc  sleclerc@actionweb.fr
+    * Changes in XMU for more security
+    + Add the use of libfile-chdir-perl
+      (File-chdir PERL library from CPAN)
+    * Changes in docs/install/debian/sarge/INSTALL
+
+2007-03-15  Stephane Leclerc  sleclerc@actionweb.fr
+    * New .po and .mo de_DE files for xams_chpasswd
+    + Added --cleansites, --delete and --archive in XMU
+      These options permit to show, delete and archive
+      obsoletes sites from /var/mail.
+    * Added XMU_BACKUP_DIR in autogen.conf.
+    * Changes in docs/install/debian/sarge/INSTALL
+
+2007-03-12  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * i18n update for GUI
+
+2007-03-07  Stephane Leclerc  sleclerc@actionweb.fr
+    * i18n update for GUI
+
+2007-03-06  Stephane Leclerc  sleclerc@actionweb.fr
+    * Squirrelmail plugins cleanup.
+    * New .po and .mo files
+    * Message changes in options.php
+    * de_DE is missing for xams_chpasswd
+    * Changed French gui message
+
+2007-03-05  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * i18n update for autoreply and exim
+
+2007-03-01  Stephane Leclerc  sleclerc@actionweb.fr
+    * Changes in exim-sql-macro.conf: more quote_mysql
+      added to avoid problem with special characters.
+    + Added exim-messages.conf where go all Exim messages.
+    + Added FR and DE messages for TXT_QUOTA_WARN_MESSAGE
+    + Added TXT_QUOTA_WARN_MESSAGE switch in exim-custom.conf.
+    * Moved quota_warn_threshold in exim-custom.conf
+    * Modified help text in get_maildirsize
+    * Updated various docs files
+    * Updated xams-release-catalog
+
+2007-02-27  Stephane Leclerc  sleclerc@actionweb.fr
+    * Changes in contrib/squirrelmail plugins:
+      + new layout with table for xams_autorely and xams_chpasswd
+      + compatible with last Squirrelmail version
+      - removed style.css
+      * Security fixes for Squirrelmail plugins
+      * Added code in plugins for i18 support
+      * Generated new .po files
+      * Generated new fr_FR .mo files
+    * xams_autoreply: version 0.0.2
+    * xams_chpasswd: version 0.0.3
+    * Tested plugins with Squirellmail 1.4.9a
+      (Apache need to be restarted when updating .mo files)
+
+2007-02-24  Stephane Leclerc  sleclerc@actionweb.fr
+    * Changes in xams_autoreply router
+      Added a test on sender for various addresses
+    * Changes in xams_autoreply_transport
+      Inactivated copy of original message
+      in body of auto reply message (default OFF).
+
+2007-02-10  Stephane Leclerc  sleclerc@actionweb.fr
+    * Corrected a problem with special characters
+      in SQL Macro in exim-sql-macros.conf
+    * Corrected a very important bug in exim.conf due to
+      a wrong copy/paste. The acl_check_rcpt ACLs
+      was not in the right order. Due to this bug,
+      SENDER_VERIFY_CALLBACK_DNS
+      SENDER_VERIFY_CALLBACK_DYNAMIC
+      SENDER_VERIFY_CALLBACK_RBL
+      ACLs were not working.
+      This bug is present in 0.0.17 release.
+    + Added new regex in exim-dynamic_hosts.conf
+
+2007-02-09  Stephane Leclerc  sleclerc@actionweb.fr
+    * Changes in xams.conf
+    * Changes in contrib/squirrelmail plugins:
+      + added fr_FR locale for plugins
+      + added xams-webmail.conf
+      * Changes in README files
+    * Changes in docs/install/debian/sarge/INSTALL
+    * New variable WEBMAIL_DIR in autogen.conf.*
+
+2007-02-07  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.17
+
+2007-02-07  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Database creation cleanup
+
+2007-02-06  Stephane Leclerc  sleclerc@actionweb.fr
+    * Removed Exim and XAMS information from SMTP banner
+      for security reason.
+    * Changes in autogen.conf.orig and autogen.conf.debian
+    * Changes in README.Debian
+    * Changes in docs/install/debian/sarge/INSTALL
+    * Changes in config/exim4/exim-custom.conf
+    * Corrected variable in get_maildirsize
+    + Added database/mysql/xams-gui-create.sql
+    + Added database/mysql/xams-exim-create.sql
+    + Added docs/install/debian/sarge/files/apache-xams
+    + Added docs/install/debian/sarge/files/httpd-xams.conf. This
+      version of httpd-xams.conf is compatible with Sarge and Etch.
+    * New release-catalog
+    + Final testing with Debian Etch with or without
+      Mailscanner / Spamassassin and SA-Exim.
+    + Compatibility list and testing config:
+      - Exim 4.63
+      - Mailscanner 4.57.6
+      - ClamAV 0.88.7
+      - MySQL 5.0.32
+      - PHP5 5.2.0
+      - Courier 0.53.3
+      - Apache 1.3.34
+      - Firefox 1.5.0.9
+
+2007-02-04  Stephane Leclerc  sleclerc@actionweb.fr
+    * Relative config paths for customs ACL in exim.conf
+    * Corrected typo in docs/install/mailscanner.txt
+    * Update and cleanup of TODO
+    - Removed Mailscanner lines in xams.conf (not used)
+    + Added autogen.conf.debian file
+    + Tested with Mailscanner 4.57.6 on Debian Etch
+
+2007-01-31  Stephane Leclerc  sleclerc@actionweb.fr
+    This release works with virus and spamassassin at SMTP Time
+    from the GUI without Mailscanner if you don't want use it.
+    The best use is: virus check at SMTP Time and SPAM check
+    with Mailscanner.
+    * Changes in README.Debian for Debian Mailscanner package
+      according to new Debian Mailscanner 4.57.6 scheme
+    + Added various ACL's to check incoming messages. These
+      ACLs can be activated in exim-custom.conf.
+    + New config file exim-dynamic_hosts.conf
+    * smtp_accept_max and smtp_accept_max_per_host now
+      in exim-custom.conf.
+    * Changes in docs/install/debian/sarge/INSTALL
+    + Added in/out SPAM check from database (checkbox in GUI)
+    + Tested with Debian Etch
+    + Tested new installation from scratch
+    + Tested live will all ACLs ON (except Mailscanner)
+
+2006-11-29  Stephane Leclerc  sleclerc@actionweb.fr
+    * Changes in README.Debian for Mailscanner
+    * More cleanup in files
+    * Mods in sa-exim.conf
+
+2006-11-26  Stephane Leclerc  sleclerc@actionweb.fr
+    * Updated EXISCAN_MODULE config:
+      Virus Scan now work with GUI
+      Added sql-macro for virus scan
+      Added checks in exim.conf
+    - Removed exim-content-acl.conf
+      Renamed EXISCAN_MODULE to VIRUS_MODULE
+    * Changes in exim.conf and exim-customs.conf
+
+2006-11-25  Stephane Leclerc  sleclerc@actionweb.fr
+    + Added Spamassassin scan at SMTP time
+      Can be activated with SPAMASSASSIN_MODULE in exim-customs.conf
+      Not yet interfaced with GUI
+    * Changes in exim.conf and exim-customs.conf
+    + Added configured sa-exim.conf in XAMS config/exim/
+    * Change in Debian install doc
+
+2006-11-24  Stephane Leclerc  sleclerc@actionweb.fr
+    * Corrected error in lowerdirs.pl
+    + added direct delivery on over quota error in exim.conf
+      If you do not want use it, just comment it in or change
+      setup in "begin rewrite" section.
+    * Some cleanup in exim-customs.conf
+    + New smtp_banner in exim-global.conf
+
+2006-11-15  Stephane Leclerc  sleclerc@actionweb.fr
+    * Corrected errors in exim.conf for TLS filename
+
+2006-11-13  Stephane Leclerc  sleclerc@actionweb.fr
+    * System Overview now show sites on 2 columns
+      Fixed typo in French localized files
+
+2006-11-12  Stephane Leclerc  sleclerc@actionweb.fr
+    + Added MAIL_GROUP variables in autogen.conf
+    * Updated README.Debian
+      Updated docs/install/debian/sarge/INSTALL
+      Renamed CHANGELOG in CHANGES on Oliver request
+    + Added config/exim4/exim-log_options.conf
+    * Corrected TLS options and paths
+
+2006-11-11  Stephane Leclerc  sleclerc@actionweb.fr
+    * Updated variables for get_maildirsize script
+      Placed variables in xams.conf (in [GUI] section)
+      Reverted gui/system_overview.php.in to original
+
+2006-10-30  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed typo in authdaemon's Log2DB SQL
+
+2006-10-27  Stephane Leclerc  sleclerc@actionweb.fr
+    + New PERL_PATH variable in autogen.conf.orig
+    * Updated README.Debian
+
+2006-10-27  Stephane Leclerc  sleclerc@actionweb.fr
+    + New EXIM_SPOOL_DIR variable in autogen.conf.orig
+    + New XAMS_USER variable in autogen.conf.orig
+    + New PHP_PATH variable in autogen.conf.orig
+    * scripts/get_maildirsize changed in scripts/get_maildirsize.in
+    * EXIM_SPOOL_DIR introduced in /etc/xams/exim.conf.in
+
+2006-10-27  Stephane Leclerc  sleclerc@actionweb.fr
+    + README.Debian added
+    * Typo in  docs/install/debian/sarge/INSTALL
+    * Renamed CHANGES in CHANGELOG
+
+2006-10-27  Stephane Leclerc  sleclerc@actionweb.fr
+    * Debian Sarge documentation modified.
+      spool_directory value modified in /etc/xams/exim.conf
+      Modified French i18 files.
+    + Added check-perms-xams.sh script in docs/install/debian/sarge/files
+    + Added a script to print Used Quota for account. See scripts/get_maildirsize
+    * Change for exim4 in autogen.conf.orig
+
+2006-10-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed authdaemon pid-name inconsitency
+      Thanks to Jan Johansson for reporting
+
+2006-08-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Adjusted some SQL statements to work with MySQL >= 5.0.12
+      Thanks to Sergiy Karpinski for reporting
+
+2006-02-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.16
+
+2006-02-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Release file catalog updates
+
+2006-01-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added passwd change module for horde
+
+2005-12-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Quote DNS parameters in xmu if necessary - this is most usefule for
+      TXT parameters like used for SPF
+
+2005-07-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Added PHP 4.4 compatibility fix - Thanks to Sven Röthig for reporting
+
+2005-06-23  Stephane Leclerc  sleclerc@actionweb.fr
+    + Added basic implementation of direct AV Scanner
+      at SMTP time (need Exim 4.50 or more).
+    + Added exim-content-acl.conf
+
+2005-01-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Bugfix in system overview when searching for an invalid
+      email address
+    + Allow to search for alias leftparts by using the email search
+
+2005-01-05  Stephane Leclerc  sleclerc@actionweb.fr
+    + Added autoreply Subject and Message
+
+2005-01-05  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added pm_properties table
+
+2004-12-31  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added autoreplysubject for user's preferences
+
+2004-12-21  Stephane Leclerc  sleclerc@actionweb.fr
+    * New solution for western foreign characters support in xams_autoreply_transport
+    + Added headers_charset in exim-custom.conf
+
+2004-12-17  Stephane Leclerc  sleclerc@actionweb.fr
+    + Added support for western foreign characters in xams_autoreply_transport
+      You need to edit exim-transport.conf to activate this features
+
+2004-12-13  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed GUI bug when editing exim filters - Thanks to Stephane Leclerc
+      for his report
+
+2004-09-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed search bug when no items were found
+
+2004-09-01  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Increased length of autoreply text
+
+2004-08-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Allow to edit SIEVE filters in XAMS GUI
+
+2004-08-26  Michael Kefeder  h.t.d@gmx.de
+    * little bugfix for squirrelmail plugins
+
+2004-08-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Improved SquirrelMail plugins - they should be really
+      usable now :-)
+
+2004-08-24  Michael Kefeder  h.t.d@gmx.de
+    * Changed exim-transport.conf to support Exim-
+      and Sieve filter scripts coming from database.
+
+2004-08-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * SquirrelMail plugin fixes
+
+2004-08-19  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added support for more alias forward addresses
+      (2000 chars instead of 255)
+    * Updated doc structure for sarge
+
+2004-08-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added support for unique usernames in squirrelmail
+      change password plugin
+    + Added support for defining a autoreply subject
+    + Added squirrelmail plugin for updating autoreply configuration
+    * Make aliases more readable (style)
+
+2004-08-15  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added support for SQL based domainlist lookup
+    + Added Dovecot configuration howto - kindly written
+      by Felix Schwarz - thanks!
+
+2004-08-07  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Small xmu directory creation fix
+
+2004-07-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Small layout fixes to display french i18n correctly
+
+2004-06-30  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed log message when deleting a site
+    * Better error output in xmu if directory can't be created
+
+2004-06-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fast reconnect if mysql server has gone away
+
+2004-06-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Beautify xmu / updatebind generated output
+
+2004-06-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Regular expression fix in xmu - master zones could get
+      handled as slave zones
+
+2004-06-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed site-template i18n stuff
+
+2004-06-09  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Added workaround for a PHP-Bug #14636 - session_write_close()
+
+2004-05-25  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * No need to specify numeric UID/GID of exim user anymore
+
+2004-05-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Tiny DNS-Zone fix (second unit calculation) in the GUI
+    + Added DNS-Zone export utility
+
+2004-05-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Correct bad masterdns and zoneadmin data in xmu.pl for
+      DNS-Zone creation - thanks to Ron Rademaker for his patch
+    + Added support for en-/disabling Spamcheck based on reseller,
+      sites and user settings. Also added this to the sites and
+      user templates.
+
+2004-05-12  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added french i18n files provided by Stephane Leclerc - thanks
+      a bunch for all the hard work on this!
+
+2004-05-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed error handling in XDB
+
+2004-05-01  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed quota calculation in authdaemon
+
+2004-04-30  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added maildir_use_size_file feature of exim - this
+      requires exim >= 4.32 (previous versions seems to be buggy)
+    * Updated and improved mailscanner installation howto
+
+2004-04-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed a bug in XMUs bind zone creation - Thanks to
+      Scott Courtney for his bug report
+
+2004-03-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * HTML-Fix in DNS-Records
+
+2004-03-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Debian installation howto fix
+
+2004-03-16  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * HTML fixes in dns_records.php
+
+2004-03-15  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Several autogen/debian related updates
+
+2004-03-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Some autogen.conf related changes
+
+2004-03-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.15
+
+2004-03-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Removed TMDA stuff (will work on that in a seperate branch)
+
+2004-02-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Better autogen.sh error reporting
+    * Another upper/lower fix
+
+2004-02-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed some more PHP5 related things (they came up with PHP5-rc4)
+    * Make xmu, authdaemon, exim-sql-macros upper-/lowercase strategy
+      like 0.0.14 did
+
+2004-02-19  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed problem with lower/upper cased user-/sitenames
+
+2004-02-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Forgot to add xdb.php in release
+
+2004-02-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.15-rc4
+
+2004-02-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Show correct error message when trying to update an
+      unique username to an already existing unique useraname
+
+2004-02-16  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * autogen.sh fix for Mac OS X
+    * Make XDB more PEAR::DB like
+    * Show correct error message when trying to add an
+      existing unique username
+    * Better detection if .htaccess isn't loaded
+
+2004-02-15  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Again some PHP5 fixes
+    * Some XDB error improvements
+    * Reseller-Addressbook update fix
+
+2004-02-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Exim login authenticator fix
+
+2004-02-13  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.15-rc3
+
+2004-02-13  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed debian installation howto
+    * Added DB-Grant information to xams.sql
+    * Unique username fix in authdaemon and GUI
+    * Radio-Button fix in user and user templates menu
+    * Drop requirement for extension loading in php.ini
+
+2004-02-12  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * XMU Bind bugfix
+    * Fixed Unique username Bug
+    + Added missing i18n entry
+    * Some small HTML fixes
+    * Replaced PEAR::DB by XAMS DB class because PEAR dropped suppor
+      for PHP < 4.2 (4.1.2 is installed on Debian woody machines)
+
+2004-02-10  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.15-rc2
+
+2004-02-09  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added robots meta-tag to login.php
+
+2004-02-07  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Added a workaround for systems that have GD1 instead of GD2 installed
+
+2004-02-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed a login problem
+    * Fixed a HTML input length problem
+    * Fixed autogen.sh / config.inc variables
+
+2004-02-05  Oliver Siegmar  Oliver.Siegmar@xams.org
+    - Removed temporarily added whitelist feature
+    * Fixed some stupid LF characters
+
+2004-01-31  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.15-rc1
+
+2004-01-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added the alias-blackhole feature from trunk
+
+2004-01-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Several small improvements in Xmod.pm
+    + Added autogen.sh script (from trunk) to configure
+      pathnames, configfiles, etc.
+
+2004-01-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Again several big authdaemon cleanups
+
+2004-01-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Several small XMU improvements (options can be
+      combined) and cleanups
+
+2004-01-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added more unique username stuff (gui)
+    * Added symlink for PEAR in Debian install howto
+
+2004-01-20  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * DNS deletion fix
+    + Added more unique username stuff (gui)
+
+2004-01-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Login-Code improvements
+
+2004-01-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Several small exim-config fixes and sql improvements
+
+2004-01-10  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Database enhancement (Added support for unique usernames)
+
+2004-01-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * XMU fix - locked&bounce typo in SQL-Query
+
+2004-01-02  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added PHP5 compatibility
+
+2004-01-01  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Several small authdaemon fixes and cleanups
+
+2003-11-08  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.14
+
+2003-11-08  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed several stupid CR/LF line endings
+
+2003-11-04  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added a seperate slave zone template for BIND
+
+2003-10-30  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added missing support for slave zones to xmu
+      Thanks to Joe Archibald for the code
+
+2003-10-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Improved / fixed some parts of the debian installation howto
+
+2003-10-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Several small improvements on Exim and MailScanner
+      configuration. Dropped exim3 stuff.
+
+2003-09-09  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed xmu bug - maildir directories (cur,new,tmp)
+      were not automatically created. Thanks to Sascha Schneider
+      for his bug-report and fix.
+
+2003-09-07  Michael Kefeder  h.t.d@gmx.de
+    * Fixed xams_lock router for exim4
+
+2003-09-04  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed wrong session_start() in i18n-include -
+      Thanks Christian Frömmel for reporting this bug!
+
+2003-08-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Updated the MailScanner how-to for the new exim configuration layout
+
+2003-08-23  Michael Kefeder  h.t.d@gmx.de
+    * new dynamic exim.conf
+    * fixed documentation to fit new exim.conf
+    * fixed a small issue in xmu.pl
+
+2003-08-17  Michael Kefeder  h.t.d@gmx.de
+    + Added CRAM-MD5 auth for exim
+    * fixed a small issue in login.php for first time
+      xams users that don't fully read install docs
+
+2003-08-11  Michael Kefeder  h.t.d@gmx.de
+    * Fixed a bug in exim-routers.conf where pre-condition
+      router_home_directory was not set correctly from $address_data.
+      Bug found by Adam Helms.
+
+2003-05-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.13
+
+2003-05-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added more detailed PEAR::DB installation procedure to
+      debian installation how-to
+    + Added 'Cookies must be enabled past this point' to login.php
+    * Improved xauthdaemon init-script
+
+2003-05-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added several fixes to debian installation how-to
+      contributed by Andreas Semt
+
+2003-05-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added XAMS header to smtp banner
+    * Use exim internal md5 (instead of SQL) for authentication
+    + Added SquirrelMail password change plugin from trunk
+    + Show old PEAR::DB version in case of error message
+
+2003-05-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.13-rc1
+
+2003-05-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Merged changes from trunk (0.1 development tree) -
+    * Updated MailScanner installation how-to
+    * Updated xmu.pl - set 0700 permission when creating mail dirs
+    * Changed config/exim4 directory structure
+    * removed a perl warning from authdaemon.pl that may have been a bug (if $quota < 0 check)
+    * Using macros in exim4 configuration (sourced out SQL statements)
+    * Small improvements on exim4 configuration
+    * Updated/enhanced Debian/RedHat installation how-to
+    * Moved exim transport and router configuration to database
+      independent directory
+    * Updated PEAR::DB check - version 1.4-final (which we need)
+      has been released
+    * Removed a few SQL queries from exim4 config files to speed up delivery
+    * xams.conf was loaded over and over again by xmu.pl - caused
+      insufficient permissions and bad performance sometimes
+    * No need to create usernamed dirs in autoreply sitedirs in xmu
+    * Declare Exim 3 as obsolet (as Philip Hazel did)
+    * Renamed LICENCE in COPYING
+    * Renamed ChangeLog in CHANGES
+
+2003-04-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed typo in Debian installation how-to
+
+2003-04-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed mistake in Debian installation how-to
+    * Fixed mistake in MailScanner installation how-to
+
+2003-04-20  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added MailScanner installation how-to
+
+2003-03-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.12
+
+2003-03-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Small design fix in sites and users menu
+
+2002-03-28  Michael Kefeder  h.t.d@gmx.de
+    + Added installation notes for Gentoo 1.4
+
+2003-03-25  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.12-rc1
+
+2003-03-25  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + xmu now creates autoreply dirs
+
+2002-03-23  Michael Kefeder  h.t.d@gmx.de
+    * Fixed mysql-quote bug in exim configuration
+
+2003-03-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed small i18n bug in sites menu
+
+2003-03-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed permission problems for resellers and customers
+      (they sometimes had to few permissions) - Thanks to
+      Olaf Jörding for his report
+
+2003-03-09  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed formular check bug when adding Sites - Thanks
+      to Sven Röthig for his report
+    * Changed encoding of this file to UTF-8
+
+2003-03-08  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed wrong HTML value for outgoing mailscan in user.php
+    * PHP-Syntax fix in customer.php, customer_reseller.php and reseller.php
+
+2003-02-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed unlimited quota bug
+
+2003-02-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed unlimited quota bug
+
+2003-02-12  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.11
+
+2003-02-11  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Hopefully finally fixed i18n/UTF-8 problems
+
+2003-02-10  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Reseller couldn't update his password
+    * Fixed i18n-subsystem and UTF-8 problems
+    * Sent index.php in UTF-8
+
+2003-02-09  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed typos in german-i18n
+
+2003-02-08  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed bug in reseller preferences
+
+2003-02-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed Reseller/Customer-Addressbook bug -
+      no records could be added, updated or deleted.
+
+2003-02-05  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * If a reseller had only one site to maintain. This site
+      couldn't be removed (undo the assignment)
+    * Fixed same bug for customers
+
+2003-02-04  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed UTF-8 problems in menu.php and functions.php
+    + Added unlimited checkbox to users menu
+
+2003-02-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed unlimited-quota bug in authdaemon - Thanks to Philip Hofstetter
+      for the hint.
+
+2003-02-02  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added autoreply to exim4-router/transport - Thanks
+      to Jan Johansson for development
+    * Changed condition-strings for exim4-user-authentication - Thanks
+      to Anthony Dragunov for his patch
+    * Moved zone-management (dnszones.pl) to xmu.pl
+    * Fixed/Updated zone-management stuff
+    + Added named-configuration (include-file) support in xmu
+    * cleaned up line width to max 80 chars
+    * Some changes on the UTF-8 handling
+
+2003-02-01  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Made some small updates/cleanups on Debian-Install-Howto
+      and authdaemon.pl which were committed by Philip Hofstetter.
+    + Implemented home-dir creation in xmu
+
+2003-01-31  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed global.php which was accidentely added to 0.0.10
+      due to a wrong cvs-version
+    * In some conditions Users/Aliases could be added to a
+      site even if site or reseller quota shouldn't permit that.
+    + Added a named_template for bind-config generation
+    * Moved zone_template to bind-config dir
+
+2003-01-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added phpdoc style documentation to i18n class
+
+2003-01-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.10
+
+2003-01-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Offline news update
+    * Released version 0.0.10-rc1
+
+2003-01-25  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Wrote i18n-howto
+    * Fixed bug in Online News System XSL
+    * Fixed addressbook bug
+
+2003-01-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed exim3 and exim4 configuration mistakes
+      (Locked and Bounce were not correctly handled)
+    * Fixed a bug in exim4-config which made trouble
+      with system-aliases.
+      Thanks to Jan Johansson for his great help!
+
+2003-01-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * User couldn't update his autoreply settings
+
+2003-01-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Output help if you start xmu.pl without parameter
+
+2003-01-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed bug when Customer tries to add an Alias or User
+    * Fixed missing directory-creation of /etc/xams/autoreply
+      in Debian-INSTALL
+
+2003-01-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.9
+
+2003-01-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed MySQL-Structure-Update
+    * Small update on Debian-INSTALL
+
+2003-01-16  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Online News System update
+
+2003-01-15  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * SQL-Update fix
+    * Small update on Debian-INSTALL
+
+2003-01-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Small changes in variable-names in xams.conf
+      and xmu.pl
+    * Fixed small status bug (in debugmode)
+
+2003-01-12  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Formular-check bug
+
+2003-01-11  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed bug in database analyse
+
+2003-01-10  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed Exim-Filter Bug (in GUI)
+    * Help-File updates
+    * Released version 0.0.9-rc1
+
+2003-01-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed Quota-Bug
+    * Fixed IE-Problem in Login-Menu
+    * Fixed formular checking problem
+
+2002-01-05  Michael Kefeder  h.t.d@gmx.de
+    * Updated RedHat-INSTALL
+    + Added RedHat-INSTALL.extras
+
+2003-01-05  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Updated Debian-INSTALL
+    * System Overview update (Reseller's footer
+      shows more information)
+    * Added Jan Johansson's new exim4-configuration
+
+2003-01-04  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Menu improvements
+    * XML/DTD Updates
+    * CSS Updates/Cleanups
+    * Small preparations for XHTML 2.0 (XAMS uses
+      XHTML 1.1 but I'd like to keep the changes for
+      XHTML 2.0 as small as possible)
+
+2003-01-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Rewrite XHTML 1.0 code in XHTML 1.1
+    * XSL-Fixes in Event-Log
+    * XML/DTD Updates
+    + Menu improvements
+
+2003-01-02  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Work in implementing the autoreply-things
+
+2002-12-31  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Work in implementing the autoreply-things
+
+2002-12-30  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Redesigned the domainlist.pl it is now called
+      xmu.pl (XAMS Maintenance Utility) - xmu.pl -h
+      will tell more
+
+2002-12-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Sourced out some perl-stuff in a module
+    + Start implementing of autoreply-things
+      thanks Jan Johansson for his help!
+
+2002-12-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixes on the User-Filters
+    * Released version 0.0.9-beta5
+
+2002-12-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * DNS-Management updates
+    * Fixes on the User-Filters
+
+2002-12-28  Michael Kefeder  h.t.d@gmx.de
+    * Updated startup.php and its xml/xsl source
+
+2002-12-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Design Improvements
+    * Bugfixes
+    * Continue rewrite of the XAMS internal security system
+
+2002-12-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Design Improvements
+
+2002-12-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Design Improvements
+
+2002-12-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Continue rewrite of the XAMS internal security system
+    * Bugfixes
+    * Rewrite some odd code
+
+2002-12-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Rewrote the XAMS internal security/permission system -
+      now we even don't trust our self :-)
+
+2002-12-20  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added maintenance-option (create a file called
+      'maintenance' and XAMS won't allow users to
+      login in and shows the file maintenance.php
+      instead of)
+
+2002-12-19  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and small fixes
+    - There's no need for Customer Site-Templates -
+      so removed them
+    + Implemented customer-site menu.
+
+2002-12-19  Michael Kefeder  h.t.d@gmx.de
+    * Updated Redhat-Install-HowTo
+
+2002-12-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed 'Customer couldn't edit users' bug
+    * Applied DB-AddrType-Changes to the authdaemon
+
+2002-12-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Check if site allows Viruscheck (in/out) when
+      adding a user with set one of these options
+
+2002-12-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Removed DOS-Linefeeds from apache-xams shellscript
+    * Document how to install a recent PEAR version (Debian)
+    * Remark the needed php.ini-extensions
+    * Fixed addressbook problems
+    * Applied Viruscheck-options to Site-/User-Templates
+    * Fixed a Site-/Customer-Permission problem
+    * Fixed Viruscheck bug in System Overview
+    * Fixed bug if Customer wants to edit a user
+    * Fixed bug if Customer wants to edit a alias
+    + Added Jan Johansson spirit. Thanks for your help!
+    * Released version 0.0.9-beta4
+
+2002-12-16  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Updated INSTALL.Debian
+    * Fixed typo in authdaemon.pl
+    * Released version 0.0.9-beta3
+
+2002-12-15  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Several small fixes and updates
+    * domainlist.pl creates cdb-tmp now in cdb-dir
+      (to prevent problems when tmp dir is on another
+      filesystem)
+    + Implemented Anti-Virus options for MailScanner
+      (continued work)
+    * Fixed some xclass::xclass() initializations
+    * Show added/update field when adding/updating
+      a site/user/alias immediately
+    * Released version 0.0.9-beta2
+
+2002-12-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Several small fixes and updates
+    * Database-Logging in authdaemon is now optional
+
+2002-12-13  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Several small fixes and updates
+
+2002-12-12  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Implemented Anti-Virus options for MailScanner
+
+2002-12-11  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Changed db*.php filenames and removed the
+      db-prefix
+    * Fixed heave addressbook bug (when changing
+      element order)
+    * Rewrite some addressbook code
+
+2002-12-10  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Implemented XAMS Online News System
+    - Removed 'About XAMS'
+
+2002-12-09  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * System Overview fixes
+
+2002-12-08  Michael Kefeder  h.t.d@gmx.de
+    * Changes on XAMS-startup and XAMS-about
+
+2002-12-07  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed bug: Sites can't be added without a selected
+      reseller
+    * Fixes in System Overview's XML/XSL
+    * DB-Layout update
+    * System Overview fixes
+    * Several small bugfixes
+    + Support for SMTP/XAMS option per user
+
+2002-12-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed critical addressbook bugs
+    * Fixed missing delete-sqls when deleting resellers,
+      customers, sites, users or aliases
+    * Fixed bug when adding/updating/deleting domains
+      from sites
+
+2002-12-05  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Changed XAMS's way of handling sequences
+    + Test implementation of loging for POP/IMAP logins
+    * Released version 0.0.9-beta1
+
+2002-11-31  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and fixes
+    * Updated xams-struct.sql
+    + Wrote sql-update structure
+    * Beta preparations
+
+2002-11-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed XSL things
+
+2002-11-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and fixes
+    * DTD, XML, XSL updates
+
+2002-11-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and fixes
+    * DTD updates
+
+2002-11-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and fixes
+    * Updated xams-struct.sql
+    * Beta preparations
+
+2002-11-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and fixes
+
+2002-11-25  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Rewrote the GUI Quota-Code
+    * Code cleanups and fixes
+
+2002-11-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Rewrote the GUI Quota-Code
+    * Code cleanups and fixes
+
+2002-11-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and fixes
+
+2002-11-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Removed short php tags <? ?>
+
+2002-11-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and fixes
+
+2002-11-20  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and fixes
+
+2002-11-19  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and fixes
+
+2002-11-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Code cleanups and fixes
+
+2002-11-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * OOP'ed the i18n engine
+    * Applied new coding guidlines
+    * Code cleanups
+    * Several bugfixes
+    * Renamed the dbclass.php to xclass.php
+    * Work on PEAR::DB implementation (database sequences)
+    * Initialize all variables before using them
+    * Support magic_quotes_gpc = off
+    * Small documentation updates
+
+2002-10-31  Michael Kefeder  h.t.d@gmx.de
+    * fixed menu - now works as intended for each user group
+    * added DB-identifier in menu
+
+2002-10-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Small updates to the perl-scripts
+
+2002-10-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Happy birthday XAMS! :-)
+
+2002-10-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Changed DB-SET()-Fields to PHP-based bitfields
+      to support PostgreSQL
+
+2002-10-20  Michael Kefeder  h.t.d@gmx.de
+    + Added PostgreSQL table structure
+
+2002-10-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Implemented PEAR nextId() instead of mysql_insert_id()
+      in dbclass.php
+
+2002-10-11  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Ported database handling to PEAR::DB
+
+2002-10-05  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Implemented DB-based Exim-Filters.
+      Thanks to Michael Scott Shappe for his help!
+
+2002-09-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Updated domainlist.pl to fix a problem if /tmp
+      is on another partition/disk and added
+      MailScanner support. These fixes where made by
+      Veit Wahlich - thank you!
+    * Applied some patches to authdaemon.pl which
+      Vahram Igityan sent me. Security improvement
+      and code cleanup.
+
+2002-08-27  Michael Kefeder  h.t.d@gmx.de
+    * updated and bugfixed to make it work with
+      register_global off
+
+2002-08-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed the IE6-Password-Field size problem at logon
+    * Prevent users from changing the password or
+      deleting the account of 'adm_demo' if the
+      XAMS-Configuration is set to Demo-Server
+
+2002-08-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.8
+
+2002-08-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Readme updates
+    * Updated exim-configs
+    * Fixed 'Insufficient access-rights'-Bug when using
+      user-templates. Thanks to Jan Johansson for his detailed
+      bug-report!
+    * Check if GD 2.0 is installed
+    * Check if button-directory is writeable by the webserver
+    + Support Checkboxes with other values than y/n
+
+2002-08-17  Michael Kefeder  h.t.d@gmx.de
+    * XSLT i18n and menu updates
+
+2002-08-16  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * XSLT updates
+
+2002-08-15  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * XSLT updates
+
+2002-08-13  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Rewrite menu in XML/XSLT
+
+2002-08-13  Michael Kefeder  h.t.d@gmx.de
+    * extended System Overview XSL
+
+2002-08-11  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Rewrite System Overview in XML/XSLT
+
+2002-08-10  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added support for Userselection at logon
+    + Show languages at logon in standard-language
+    * Replaced pmail strings to xams in exim-configuration
+    * Fixed missing 'Domain'-Bug in System Overview
+    * Fixed bug where empty addressbooks were added to
+      Sites/Users/Aliases/Resellers/Customers
+
+2002-08-09  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Replaced the PHP Online-Help parser with XSLT
+
+2002-08-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added 'Forward and Bounce' feature to Alias-Management
+      and Site-Template
+
+2002-08-05  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * XHTML fixes
+    + Added meta-tags for preventing browsers caching the content
+
+2002-08-04  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + i18n updates
+    * Resellers/Customers/Users couldn't change
+      their password
+    + Let resellers change addressbook entries
+    + Let customers change addressbook entries
+
+2002-07-31  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed syntax error in authdaemon.pl
+    * Released version 0.0.7
+
+2002-07-30  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed bug in i18n fallback routines
+    * Renamed config.inc -> config.php
+      and about.inc -> about.php
+
+2002-07-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed template include problem
+    * '>> New User' Button in site-menu wasn't working
+
+2002-07-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Implemented fallback for help-files and i18n
+
+2002-07-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed addressbook update routines
+    * i18n updates
+    * Released version 0.0.7-rc1
+
+2002-07-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * i18n updates
+
+2002-07-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * i18n updates
+
+2002-07-25  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Small changes on button/tab creation
+    * Small changes on database superclass (form-checking)
+
+2002-07-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * i18n updates
+    * DTD updates for i18n and help-files
+    * When deleting a user, also delete his templates
+    * Reimplement AddressType-Check
+    * Small design fixes
+    * Translated login-menu
+    * Wrote install-script
+
+2002-07-21  Michael Kefeder  h.t.d@gmx.de
+    * changed the scripts to get settings from the config file
+    + added the xams.conf file for the perl and php scripts
+
+2002-07-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * i18n updates
+    * Give Table-Headers a <th> instead of a <td>
+
+2002-07-20  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * i18n updates
+    * Small bugfixes
+
+2002-07-13  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Removed htmlentities() cause of UTF-8
+    * Use utf8_decode when creating dynamic images
+    * Released version 0.0.7-beta2
+
+2002-07-12  Michael Kefeder  h.t.d@gmx.de
+    * Updated i18n to UTF-8
+    + shellscript to convert xml files
+      from iso-8859-1 to utf-8
+
+2002-07-12  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed some CSS issues
+    * UTF-8 updates
+
+2002-07-11  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Hopefully fixed the NULL/0 Bug
+    * Updated eMail-Addresses in Changelog
+    * Updated database 0.0.6->0.0.7 update
+    * Fixed Addressbook tab-bug
+    * Resized alias-table in system overview
+    * Seperate alias RightParts by soft-breaks
+    * Improved Quota management
+    * i18n update
+
+2002-07-09  Michael Kefeder  h.t.d@gmx.de
+    * Tables for forms of addressbook and DNS now use th
+      tags for description
+    - removed old Zone listing code from dns.php
+
+2002-07-08  Michael Kefeder  h.t.d@gmx.de
+    * updated functionality of DNS Management
+    * removed the 100% table from header and footer and
+      added padding to the body
+
+2002-07-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added DNS-Support for IPv6 Addresses
+
+2002-07-05  Michael Kefeder  h.t.d@gmx.de
+    + Added Install Docs for Redhat and Debian
+    * updated the quickstart help
+
+2002-07-05  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added DNS-Export-Script
+    * Do some i18n stuff (english/german)
+
+2002-07-04  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Moved database-settings to /etc/xams-gui.inc
+      and include this file via require in ./include/config.inc
+    - Removed System-Users/Groups support for 0.0.7
+    * Do some i18n stuff (english/german)
+
+2002-07-01  Michael Kefeder  h.t.d@gmx.de
+    * Rewrite HTML 4.01 code in XHTML 1.0
+
+2002-07-01  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Rewrite HTML 4.01 code in XHTML 1.0
+    * Improved Addressbook layout
+
+2002-06-30  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Rewrite HTML 4.01 code in XHTML 1.0
+
+2002-06-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Prevent menu.php from creating an empty login-button
+
+2002-06-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Changed default path/filename of CDB_FILE in domainlist.pl
+    * Fixed SQL-Statement at Site-Template-Load
+    * Fixed some odd time-format code
+    + Added create and update information about aliases
+    * Fixed bug when editing a reseller via link of system overview -
+      there were no create/update information
+    + Added create and update information about dns zones
+
+2002-06-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Changed database logout for logs - Thanks to Mike Brückner
+      for his great help!
+    * More work on implementing "Resellers" and "Customers"
+    * Splitted up xams-database-dump in xams.sql and xams-struct.sql
+    * Released version 0.0.7-beta1
+
+2002-06-25  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Implemented Site and User Templates
+
+2002-06-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Implemented Max. Entries per page of Event-Log
+      in Preferences
+    * Updated 'New Version Check' stuff
+    + Added internet based 'About XAMS' (optional)
+    + Added Reseller and Customer Addressbook
+    * Improved i18n XML-Engine
+    + Wrote some help-files
+
+2002-06-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed Bug: There were no bounce message if an alias
+      was forwarded to a locked and bounced user account.
+      Thanks to Christian Frömmel for both - finding the
+      bug and a solution :-)
+    * Cleaned up XAMS-Basedir
+    * Created an Exim4-Configuration (thanks to Todd Carlson)
+    * Improved System-Overview Site-Shadowing
+
+2002-06-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on implementing "Resellers" and "Customers"
+    + Added Alias-Addressbook
+    * Fixed Domain insertion/deletion (CVS-Bug)
+    * Changed login names (Admins have to login with the
+      prefix adm_ and Resellers have to use the prefix
+      _res - Customers and Users don't have to use any prefixes)
+
+2002-06-20  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on implementing "Resellers" and "Customers"
+    + Enhanced DNS-Administration (Automatic Serial update)
+    * Enhanced root-object (dbclass.php) - SQL-UPDATES will
+      only affect fields which have been really changed since
+      last load
+    * Finished interface.php insourcing (addressbooks)
+    * Updated database tables
+    + Added Reseller-Quota Unit-Selection (KB/MB/GB)
+
+2002-06-19  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on implementing "Resellers" and "Customers"
+
+2002-06-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on implementing "Resellers" and "Customers"
+    * Insourcing interface.php
+
+2002-06-16  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on implementing "Resellers" and "Customers"
+    * Insourcing interface.php
+    * Round System Overview percent-usage (Reseller-Footer)
+    - Removed ability to change sitename and username
+
+2002-06-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on implementing "Resellers" and "Customers"
+
+2002-06-12  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on implementing "Resellers" and "Customers"
+    * Fixed several small bugs
+    * More work on implementing database stored preferences
+    + Implemented skin functionality
+
+2002-06-11  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on implementing "Resellers" and "Customers"
+    + Prevent Browsers and Proxies from caching
+    + Added help for XAMS Accounts (thanks to Robert Schuster)
+
+2002-06-10  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on implementing "Resellers" and "Customers"
+    * Design/Functional updates on System Overview
+    * More work on implementing Addressbook
+    * Updates on CSS-Code
+
+2002-06-09  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Default values when adding new DNS-Zone
+    + Added support for Site-Level Quota
+    * Design/Functional updates on System Overview
+
+2002-05-20  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on implementing "Resellers" and "Customers"
+    * Design updates on System Overview
+    * Code improvements/cleanups
+
+2002-05-19  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Begin implementation of "Customers"
+    * Design updates on System Overview
+    * HTML and CSS cleanups
+
+2002-05-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Work on System-Accounts implementation
+
+2002-05-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Moved Domain-Management completely to Site-Management
+    * Some design changes on online help
+
+2002-04-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added favicon to XAMS GUI
+    * Fix some bugs in DNS management
+    * Implemented GUI based preferences
+
+2002-04-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Show numbers of Users and Aliases per Site if > 3
+      in System Overview
+    * Reduce HTML-Out of System Overview dramatically
+      (a ~45KB System Overview output has only ~28KB now -
+      and this increases directly proportional)
+
+2002-04-25  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Finished DNS management integration
+    * Work on OOP specific stuff
+    * Update some alt/title tags in System Overview
+      to be more HTML conformable
+
+2002-04-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Work on DNS management integration
+    * Work on OOP specific stuff
+
+2002-04-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Update i18n files
+
+2002-04-19  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Design improvements
+    * Changed menu structure a little
+    - Removed support for non HTML4 conformable browsers
+      (except for MSIE :)) - so Netscape prior version 5
+      is not supported anymore
+
+2002-04-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Changed menu structure a little
+      (Support for System-Accounts / PAM)
+
+2002-04-16  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Prepared XAMSs PAM Capability (Database structure)
+
+2002-04-11  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Preload Menu Highlight Images
+    * domainlist.pl doesn't copy Domains anymore,
+      which Site has 'Locked & Bounce' status
+    * Menu is now W3C compliant again :)
+
+2002-04-10  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Implemented DNS Management
+    * Changed status of SiteAdmin - he can't edit
+      domains any more (I see no reason)
+    * Some technical changes on i18n-engine
+    * Support Log-Overview search with non-english date format
+    * Support real eMail-Search in Search-menu (not
+      only the local part)
+
+2002-04-09  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Login was displayed in the right frame if the
+      session was expired
+    * Replaced all gifs with pngs
+    * Display "No Domains" in System Overview if
+      a site has no domains
+    + Implemented Site specific Addressbook
+    * Design improvements
+    + Implemented DNS specific stuff in Domain Administration
+
+2002-04-08  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Updated Addressbook (LDAP Fieldname)
+    * New Menu Concept
+    * Design improvements
+
+2002-04-04  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Started implementing DNS specific managing stuff
+
+2002-03-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added spanish language files
+      (written by Sebastian Mantilla Beniers sebas@iac.com.mx)
+      Thanks!
+
+2002-03-20  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Let the user scroll the navigation-bar if it is needed
+
+2002-03-12  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed a bug which causes the message "Could not add more users
+      to this site" when changing an user in a site that is "full"
+
+2002-03-11  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added two new fields to some tables (Added and Changed) for
+      information
+    * Fixed wrong SQL-Statement when deleting an addressbook entry
+    * Fixed little design issue
+    * Resized Entries-per-page-box in Log Overview (2->3)
+
+2002-03-10  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Adding support for Addressbook (but there is
+      no help and no Access Control available yet)
+    * Design improvements
+    * Fixed add-user-with-unlimited-quota-bug
+
+2002-03-09  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Changed some CSS-specific things
+    + Added automatic version-check
+    * System Overview in XML is has no wrapped lines
+
+2002-03-08  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Changed some CSS-specific things
+    + Adding support for Addressbook (not finished yet)
+      and relating database enhancements
+
+2002-03-07  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Inserted additional database tables to implement
+      personal, user-specific data and user templates
+    * Reduced HTML-Output in log-overview
+      (-> faster transfer)
+    + Show logged in Admin in top left corder (down
+      the XAMS-Logo)
+
+2002-03-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Started documentation using DocBook (XML-DTD)
+
+2002-03-04  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added a robots.txt to the gui-dir. Great deal for
+      lazy and forgetful sys admins like me :)
+
+2002-03-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * According the feature request of Christian Frömmel
+      adjusted the behaviour when adding (or changing)
+      a user with POP/IMAP Settings that conflicts with
+      the Site settings. The error-message is now more
+      user-friendly
+    * Small coding-changes in interface.php
+    * Fixed stupid bug which allows to add more users to
+      a site than valid
+
+2002-03-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.6
+
+2002-03-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed SiteAdmin-lock-Bug
+    * Fixed SiteAdmin-Add-Alias to unlimited-Aliases Site
+    * Small change on Log Overview i18n-things
+    * Write Help for Log Overview
+
+2002-03-02  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Extended Log Overview
+    * Resized the Sitename-Box in Usermenu (better
+      for longer Sitenames)
+    * Updated i18n stuff for log translation
+    * Resized the Sitename-Box in Domainmenu (better
+      for longer Sitenames)
+    * Resized the Sitename-Box in Aliasmenu (better
+      for longer Sitenames)
+    * Small design fix on Log Overview
+    * Added Log-Detail-View to Log Overview
+    * Replaced all used require() with include()
+
+2002-03-01  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Extended Log Overview
+    * Small updates on i18n stuff
+    * Design improvements on System Overview
+
+2002-02-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Small Logging update (DB-fieldname)
+    * Fixed Logging failure
+
+2002-02-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Updated i18n stuff
+    * Security enhancements (THERE WERE NO BUGS!)
+      the interface now also checkes for access rights
+    + Several Domains (both - in Site and Domain administration)
+      can be added in one step by seperating thme by comma
+    + Implemented the ">> New User"-Button in NewSite-menu
+    + Implemented RelayOnCheck in the User Interface
+    * Log improvements
+
+2002-02-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Some work on OOP-specific stuff
+      Now it is not more possible to create admins
+      with an empty name :-)
+    + Add support for locked SiteAdmins (password failures)
+    + Created an overview of the XAMS structure
+      (.EPS and .PDF format)
+
+2002-02-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Some work on OOP-specific stuff
+
+2002-02-20  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Do more internationalization (i18n) stuff
+    * Fixed a small bug in DB analyse which causes
+      sometimes not reporting warnings (e.g. no
+      MaxQuota set)
+    * Fixed a small bug in Add GlobalAdmin-Function
+      which only caused a useless error-message :)
+
+2002-02-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Do more internationalization (i18n) stuff
+
+2002-02-15  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Do more internationalization (i18n) stuff
+    - Removed some IDs from the XAMS User-Interface
+      (they were just used for debugging purposes)
+
+2002-02-14  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Patched pam_mysql for use with XAMS (not yet
+      tested)
+
+2002-02-06  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added XML-Output to System Overview
+
+2002-02-05  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added CSV-Output to System Overview
+
+2002-02-04  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added multi-language support for Online help
+      (Currently supporting english and german)
+    + Wrote german online help
+    * Enhanced XML-Help-Parser
+
+2002-01-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Modified login/logout forwarding (Now I hope
+      that there are no http/https differences anymore)
+
+2002-01-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * dbwrapper-call was directly implemented in
+      dbclass.php
+    * Changed some include-calls (directory was
+      not properly set for some cases)
+    + Implemented some PAM-Password-Managing
+      (pam_sm_chauthtok) things - but won't work yet
+
+2002-01-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Implemented PAM-Authentication-Support
+
+2002-01-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Small design-fix in login-screen
+    + Start of implementing online-help
+
+2002-01-19  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed "Add POP+IMAP user"-Bug - in some cases
+      users (POP AND IMAP enabled) couldn't be
+      added to a site
+    * MaxQuota, MaxAddr, MaxAliases, Quota couldn't
+      be CHANGED to unlimited (empty field)
+    * Colorized the unlimited-sign ([u]) in system
+      overview
+
+2002-01-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Moved the CSS-Files to a seperate directory
+      so the access to the include-directory can
+      be denied by apache
+
+2002-01-07  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Security enhancements (THERE WERE NO BUGS!)
+      It is now possible to specify in config.inc/
+      xams.conf if Site- and/or Global-Admins could
+      login or not - as it were still possible with users.
+
+2002-01-05  Philip Hofstetter  pilif@sen.ch
+    + Added a script, xamsconfig.pl, that can generate various
+      configuration files from one central file.
+    * Merged dbdata.inc and config.inc in the GUI for
+      simpliflication.
+
+2002-01-04  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Implemented Logging-Capability (to DB)
+      to File and Syslog follows
+    * Changed config.inc variables to constants
+
+2002-01-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.5 - sorry
+
+2002-01-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed Bug where User cannot login and change
+      his password
+    * Min. length of entered password wasn't checked
+
+2002-01-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.4
+
+2002-01-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on OOP-Stuff
+    + Added more formular-checking capability
+    + More usability in System Overview
+    * Fixed bug in user overview
+    * Fixed security issue where SiteAdmins could edit
+      'foreign' users/aliases
+    * Corrected search-behaviour
+    * Corrected List-SiteAdmin-Sites if he is not
+      responsible for anything
+    + Finally added support for MaxAddr, MaxAliases
+      and AddrType on site level - so SiteAdmin
+      can't add Users independend of this settings
+
+2002-01-02  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on OOP-Stuff
+    + Added more formular-checking capability
+
+2001-12-31  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on OOP-Stuff
+    + Added more formular-checking capability
+
+2001-12-30  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on OOP-Stuff
+    + Added more formular-checking capability
+    * Some small graphical updates
+
+2001-12-27  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * More work on OOP-Stuff
+    + Implement formular-checking
+
+2001-12-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added select-box (KB/MB/GB) in User-Menu
+    + Added Next Job selection to Site-Menu
+    + Added '-> New Domain' button to Site-Menu
+
+2001-12-25  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added check for PHP-Version (>=4.1.0)
+    * Changed the Alias-Arrow
+    + Add New-Domain/User/Alias-Button to System Overview
+    + Added select-box (KB/MB/GB) in Site-Menu
+
+2001-12-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Small CSS/HTML fixes
+    + Added PostgreSQL support for the User-Interface
+    * Start rewrite of interface.php (and dependend things)
+      in OOP
+
+2001-12-23  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fixed header() forwarding - double-slash in
+      some cases made problems :)
+    * Fixed 'missing-admin-delete-button'-Bug -
+      SiteAdmin could not be deleted if he has the same
+      id as the logged in GlobalAdmin
+    + Do some work on installation-specific stuff
+
+2001-12-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.3
+
+2001-12-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Redesigned everything to frames again :-(((
+      IE6 Windows, Mozilla 5 Windows, Netscape 4 Windows,
+      Mozilla 5 Linux, Konqueror 2.2.1 - _ALL_ have
+      shown the site differently. We couldn't fix
+      this (height="100%") issue completely :-(
+    * Make the logo transparent
+    + Implemented a Search-function
+    - Commented out sen.ch specific stuff in authdaemon.pl
+    * Changed standard database in domainlist.pl
+
+2001-12-22  Ferdinand Arndt  Ferdinand.Arndt@bitcore.de
+    * Changed colors in System Overview
+
+2001-12-19  Ferdinand Arndt  Ferdinand.Arndt@bitcore.de
+    * Fixed some odd html issues
+
+2001-12-18  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Show more information about the database in the
+      Database analyse
+    * The password-field in the change-menus is now empty
+
+2001-12-17  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Added / Fixed rights management
+    * Alias-LeftPart could not be changed
+    * Fixed the HTML-table-problem
+    * Changed database table structure (only the web-part)
+
+2001-12-17  Philip Hofstetter  pilif@sen.ch
+(actually I made those changes on december the 16th but
+ it got midnight when writing this entry :-)
+    * Fixed authdaemon that did not take u.AccountState into
+      account.
+    + Added a sample exim.conf which will be used for all
+      further updates in the exim configuration. This
+      file can be used out-of-the box for your installation
+    + Added support for account-locking in exim
+
+2001-12-16  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Change some HTML/CSS-Code to be HTML 4.01 conform
+    * Starting reimplementation of menu structure
+      and system-web-interface for better usability
+    + At Site-Creation-Time the first Domain can be
+      created in the same step
+    * Sourcecode cleanup
+
+2001-12-15  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Rewrite some code for using PHP 4.1 features
+      such as $_SESSION, $_POST, $_GET
+
+2001-12-13  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Improve Layout
+
+2001-12-12  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Improve Layout
+    * Changed from frames to tables
+      Absolutely no frames are used any longer
+
+2001-12-11  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Merge/Adjust Ferdi's work
+    * Improve Layout
+
+2001-12-11  Ferdinand Arndt  Ferdinand.Arndt@bitcore.de
+    + Enhanced CSS
+    * Improved Layout
+
+2001-12-10  Ferdinand Arndt  Ferdinand.Arndt@bitcore.de
+    + Designed XAMS Logo
+    + Enhanced CSS
+    * Improved Layout
+
+2001-11-29  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Login-Menu: Set focus via JavaScript
+    * Fixed User-Menu bug
+    * Fixed Edit-Alias bug
+    + Implemented SiteState-Edit in Site/User Menu
+    + Show Site-AddrType in Site-Overview
+
+2001-11-28  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Installation Shell-script
+
+2001-11-24  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Support clean-ssl-server-logout :-)
+    * Some sourcecode-cleanups
+    * User-login activated
+    * Rights management should work
+
+2001-11-23  Philip Hofstetter  pilif@sen.ch
+    + User-login implemented
+    * Logout-behaviour improved - no it's more user-friendly
+
+2001-11-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Released version 0.0.2
+
+2001-11-22  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Do some HTML-Cleanups
+    + Implemented the whole XAMS GUI Login-Stuff and
+      inserted three new DB-tables for right management
+
+2001-11-21  Philip Hofstetter  pilif@sen.ch
+    * All user-filter-files were deleted by domainlist.pl
+
+2001-11-21  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * PMAIL was renamed to XAMS which stands for
+      eXtended Account Management System
+    + Entries in Site Overview are now linked to
+      the corresponding change-menus
+    * SET/UPDATE Quota in user-menu didn't work
+
+2001-11-03  Oliver Siegmar  Oliver.Siegmar@xams.org
+    + Added gui-support for locked Sites and Users
+      Site Overview now shows them greyed
+    + Added gui-support for bounced Sites and Users
+      Site Overview now shows them highlighted
+
+2001-11-02  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Fix some graphical issues
+    + Database analyse (at least some functions)
+    * Add more information in Site Overview
+    - Intro-Screen was killed - pmailui.htm replaces it
+
+2001-11-01  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Renamed this file in ChangeLog and changed its format
+    * Directory-name 'includes' changed in 'include'
+      (important for your Webserver-Security-Settings)
+    + Use of Cascading Style Sheets (CSS)
+    * Changed some Syntax in site_overview.php
+    * The Sites in the 'Site Overview' now will be splitted
+      into three tables, if there are more than eight
+    * Fix some graphical issues
+    + Database analyse (at least some functions)
+
+2001-10-26  Oliver Siegmar  Oliver.Siegmar@xams.org
+    * Initial release (v0.0.1)

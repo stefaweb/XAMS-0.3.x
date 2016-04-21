@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT i18nfile (#PCDATA)>
+<!ELEMENT skindir (#PCDATA)>
+<!ELEMENT logentry (#PCDATA)>
+<!ATTLIST eventlog
+    xams-release CDATA #REQUIRED
+    file-version CDATA #REQUIRED
+    date CDATA #REQUIRED
+>
+<!ELEMENT eventlog (i18nfile, skindir, logentry+)>
+<!ATTLIST i18nfile
+    language CDATA #REQUIRED
+>
+<!ATTLIST logentry
+    id CDATA #REQUIRED
+    date CDATA #REQUIRED
+    time CDATA #REQUIRED
+    user CDATA #REQUIRED
+    usertype CDATA #REQUIRED
+    resource CDATA #REQUIRED
+    type CDATA #REQUIRED
+    event CDATA #REQUIRED
+>

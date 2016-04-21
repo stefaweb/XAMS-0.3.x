@@ -1,0 +1,8 @@
+If you wan't to update XAMS from a previous version you have to apply the
+patch(es) from the corresponding directory. There are no patches for
+versions prior 0.0.5, so you have to check differences (database-specific)
+by yourself - simply compare the xams-data.sql / xams-structure.sql files...
+
+You may want to execute 'touch /your-xams-gui-dir/maintenance' and XAMS will
+show a maintenance-message instead of the login-screen. But don't forget
+to delete the file after updating :-)

@@ -1,0 +1,137 @@
+#############################################################################
+# XAMS/Exim custom configuration
+#############################################################################
+
+# Configuration settings for XAMS database (host/database/user/password)
+hide mysql_servers = @EXIM_SQL_HOST@/@EXIM_SQL_DATABASE@/@EXIM_SQL_USER@/@EXIM_SQL_PASSWORD@ 
+
+# Here you can enable different Features of Exim and XAMS
+
+# Activate the right language user messages
+# exim-messages_xx.conf files 
+LANG_EN = On
+#LANG_FR = On
+#LANG_DE = On
+
+# Enable TLS encryption
+TLS_ENCRYPTION = On
+
+# Enable this flag if Mailscanner is installed
+# If you use Mailscanner, don't activate VIRUS_MODULE and SPAMASSASSIN_MODULE
+#MAILSCANNER_MODULE = On
+
+# Enables exiscan-acl content ACL definitions
+# ACLs themselves are defined in [exim-content-acl.conf]
+# Do not use this features if Mailscanner is activated
+#VIRUS_MODULE = On
+
+# Enables Spamassassin content ACL definitions (further config below)
+# You need to install sa-exim package for Exim and Spamassassin package
+# to activate this feature
+# SA-EXIM config file is located in /etc/exim4/sa-exim.conf
+# Spamassassin config file is located in /etc/spamassassin/local.cf
+# Do not use this features if Mailscanner is activated
+#SPAMASSASSIN_MODULE = On
+
+# Be careful with CALLBACK. Many ISP can blacklist your mail server
+# if you too often use these features.
+#
+
+# ACL to check sender when sender's host PTR is wrong
+#SENDER_VERIFY_CALLBACK_DNS = true
+
+# ACL to check sender when sender's host is using a dynamic connections 
+# Use exim-dynamic_hosts.conf
+#SENDER_VERIFY_CALLBACK_DYNAMIC = true
+
+# ACL to check sender when message is positive to RBLs check
+#SENDER_VERIFY_CALLBACK_RBL = true
+# You should check and complete this RBL list according to your needs.
+#RBL_LIST = cbl.abuseat.org : dnsbl.sorbs.net : dnsbl.njabl.org : cbl.abuseat.org 
+
+# Below you can modify different features of Exim and XAMS
+# Normally you wouldn't need the following options
+
+# Quota warm threshold used to send a warning message
+# Aka 'quota_warn_threshold'
+QUOTA_THRESHOLD = 75%
+
+# Maximum number of simultaneous SMTP connections allowed.
+smtp_accept_max = 100
+
+# Maximum number of simultaneous SMTP connections from a single host.
+smtp_accept_max_per_host = 10
+
+# This increases the number of processes that handle
+# the inbound and outbound emails waiting in the queue.
+queue_run_max = 5
+
+# This forces outbound messages to only be delivered to
+# 10 destinations simultaneously. This works on a per-mail
+# basis. So a mail with 50 recipients would be divided into
+# 5 turns, with a max of 10 parallel deliveries.
+remote_max_parallel = 2
+
+# Configuration for header encoding (default ISO8859-1)
+headers_charset = UTF-8
+
+# Domains that are managed by XAMS
+domainlist xams_domains = cdb;CONFDIR/localdomains.cdb
+
+# Specify your host's canonical name here. This should normally be the fully
+# qualified "official" name of your host. If this option is not set, the
+# uname() function is called to obtain the name. In many cases this does
+# the right thing and you need not set anything explicitly.
+
+#primary_hostname = machine.domain.com
+
+# Ports to listen on
+daemon_smtp_ports = smtp : 587
+
+# Alternatively you can obtain the domains directly via SQL, but this
+# makes your system DoSable - think twice!
+#domainlist xams_domains = ${lookup SQL_XAMS_DOMAINS}
+
+# Domains that are hosted by your mailserver but not managed by XAMS
+domainlist custom_local_domains =
+
+# Domains your mail server should relay to but not managed by XAMS
+domainlist custom_relay_to_domains =
+
+# Hosts your mail server should relay mails for but not managed by XAMS
+hostlist custom_relay_from_hosts =
+
+# Host list your mail server should check for RFC-conformant HELO/EHLO
+# hostname-param. This setting allows invalid params but in ACL the result
+# of the check can be used for testing.
+# By default we check every host. If you enable "verify = helo" in acl_check_mail
+# (exim.conf) this check will be enforced, but authenticated users (SMTP AUTH) are
+# still able to send mails (good for dialup and bad MUAs - helo_verify_hosts would
+# not allow that).
+helo_try_verify_hosts = *
+
+# looks up the domainname that was sent with HELO command. I have not found a way
+# to check the result of that query in ACL... but the logs will tell you ;)
+helo_lookup_domains = *
+
+# Definition path for AV Scanner
+# Do not use this features if Mailscanner is activated
+.ifdef VIRUS_MODULE
+    # This configuration variable defines the virus scanner that is used with
+    # the 'malware' ACL condition of the exiscan acl-patch. 
+    # Please read doc/exiscan-acl-readme.txt for a list of supported scanners.
+    # Don't forget to add clamav UID to Debian-exim group.
+    av_scanner = clamd:/var/run/clamav/clamd.ctl
+.endif
+
+# Enable Spamassassin using sa-exim
+.ifdef SPAMASSASSIN_MODULE 
+     # This configuration variable defines the sa-exim library path that
+     # is used to access spamassassin external engine.
+     # Don't forget to install sa-exim package before activating this. 
+     local_scan_path = /usr/lib/exim4/local_scan/sa-exim.so
+     # If you have downloaded and compiled sa-exim yourself from
+     # http://sourceforge.net/projects/sa-exim, change the previous line
+     # with your correct path.
+.endif
+

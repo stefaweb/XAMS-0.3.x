@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Preferences" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        Some settings of XAMS can be edited within the GUI.
+    </information>
+    <section>
+        <head>Welcome message at logon</head>
+        <description>
+            Default is "Welcome to XAMS", can be changed (ord deactivated by an empty field) here.
+        </description>
+    </section>
+    <section>
+        <head>Default Lines of Event-Log</head>
+        <description>
+            This value sets the number of lines the Event history shows by default.
+            Set this value to suit your screen resolution.
+        </description>
+    </section>
+    <section>
+        <head>Online 'About XAMS'</head>
+        <description>
+            This option changes the link of the menu-item "About XAMS" to
+            an online page on xams.org. The advantage is that information found here
+            is always up2date and may inform you of updates or eventual security problems.
+        </description>
+    </section>
+    <section>
+        <head>Check for new versions</head>
+        <description>
+            Xams has the ability to check for new versions over the internet. If this is
+            the case it will be shown to an administrator after a successful login.
+        </description>
+    </section>
+    <section>
+        <head>Default Language</head>
+        <description>
+            Sets the default language of XAMS. Afterwards it still can be changed in the login
+            window.
+        </description>
+    </section>
+</help>

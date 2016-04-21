@@ -1,0 +1,723 @@
+#!@PERL_PATH@ -w
+# XMU
+# Date: 8/09/2009
+# XMU - the XAMS Maintenance Utility
+# 
+
+use strict;
+use DBI;
+use POSIX;
+use File::Copy;
+use File::chdir;
+use List::Util qw(first);
+use CDB_File;
+use Config::IniFiles;
+use Getopt::Long;
+use Xmod 0.0.13;
+
+use constant FOO        => setSection('xmu');
+use constant DB_USER    => getSetting('DBUser');
+use constant DB_PASS    => getSetting('DBPass');
+use constant DSN        => getDSN();
+use constant CDB_FILE   => getSetting('local_domains');
+
+my $version = '@VERSION@';
+my ($mail_dir);
+my ($opt_help, $opt_version, $opt_cdbdomlist, $opt_homedirs,
+    $opt_mscanlist, $opt_autoreply, $opt_updatebind,
+    $opt_rebuild, $opt_cleansites, $opt_archive,
+    $opt_delete, $opt_delusername, $opt_verbose, $opt_eximconfig, $opt_quota) = 0;
+my $dbh;
+
+printhelp() if ($#ARGV < 0);
+
+my %options = ('help', \$opt_help, 'version', \$opt_version, 'cdbdomlist', \$opt_cdbdomlist,
+               'homedirs', \$opt_homedirs, 'mscanlist', \$opt_mscanlist,
+               'autoreply', \$opt_autoreply, 'update-bind', \$opt_updatebind,
+               'rebuild', \$opt_rebuild, 'cleansites', \$opt_cleansites,
+               'archive', \$opt_archive, 'delete', \$opt_delete, 
+               'delusername', \$opt_delusername, 'verbose', \$opt_verbose, 
+               'eximconfig', \$opt_eximconfig, 'quota', \$opt_quota);
+GetOptions(%options);
+
+print "Unknown option $_\n" foreach (@ARGV);
+
+setSection('authdaemon');
+$mail_dir = getSetting('mail_dir');
+setSection('xmu');
+
+# Drop priviledges and become exim-User for correct
+# permissions in filters-directory.
+if (getuid() == 0 && !$opt_updatebind)
+{
+    my $XAMS_GID = getgrnam(getSetting('GROUP'));
+    my $XAMS_UID = getpwnam(getSetting('USER'));
+
+    $) = $XAMS_GID;
+    $( = $XAMS_GID;
+    $> = $XAMS_UID;
+    $< = $XAMS_UID;
+}
+
+sub printhelp
+{
+    print "XMU - the XAMS Maintenance Utility ". $version. "\n\n";
+    print "\t--help             Output this help\n";
+    print "\t--version          Print XMU version\n";
+    print "\t--cdbdomlist       Creates the cdb-domainlist\n";
+    print "\t--homedirs         Creates user home and autoreply directories if they doesn't exists\n";
+    print "\t--mscanlist        Creates MailScanner specific files\n";
+    print "\t--autoreply        Deletes obsolete autoreply files\n";
+    print "\t--update-bind      Update the BIND configuration\n";
+    print "\t  --rebuild        Rebuild the complete BIND configuration\n";
+    print "\t--cleansites       Show directories of obsoletes sites\n";
+    print "\t  --archive        Archives directories before deleting them\n";
+    print "\t  --delete         Force deletion of directories of obsoletes sites\n";
+    print "\t--delusername      Show obsoletes usernames in sites\n";
+    print "\t  --delete         Force deletion of obsoletes usernames in sites\n";
+    print "\t--eximconfig       Creates EximConfig specific files\n";
+    print "\t--quota            Update User quota in XAMS database\n";
+    print "\t--verbose          Verbose output\n";
+    print "\n";
+    print "The --verbose parameter can be mixed with any other parameter.\n\n";
+    exit;
+}
+
+sub printversion
+{
+    print "XMU - the XAMS Maintenance Utility ". $version. "\n\n"; 
+    exit;
+}
+
+sub dbConnect
+{
+    unless ($dbh)
+    {
+        $dbh = DBI->connect(DSN, DB_USER, DB_PASS)
+            or die("Can't connect to database!");
+    }
+}
+
+# List domains and create localdomains.cdb
+sub domainlist
+{
+    my $mscanlist = $_[0];
+    my $sth;
+    my ($sname, $dname);
+    my $oldsname = '';
+    my $cdb_file;
+    dbConnect();
+    $sth = $dbh->prepare(q[SELECT    s.name AS sname,
+                                     LOWER(d.name) AS dname
+                           FROM      pm_sites s
+                           LEFT JOIN pm_domains d
+                           ON        d.siteid = s.id
+                           WHERE     sitestate != 'lockedbounce'
+                           AND       d.name IS NOT NULL]);
+    $sth->execute();
+
+    if ($mscanlist)
+    {
+        my $plain_file = getSetting('mailscanner_domains');
+        open(PLAIN, ">". $plain_file)
+            or die "Could not create localdomain plain file '".$plain_file."': $!\n";
+    }
+    else
+    {
+        $cdb_file = new CDB_File(CDB_FILE, CDB_FILE. ".$$")
+            or die "Could not create CDB-File '".CDB_FILE."': $!\n";
+    }
+
+    print "Creating domainlist(s)...";
+    print PLAIN "# localdomains file created by xams\n" if ($mscanlist);
+    my $i = 0;
+    while (($sname, $dname) = $sth->fetchrow_array)
+    {
+        if ($sname ne $oldsname)
+        {
+            $oldsname = $sname;
+            print "\nSite: ". $sname. "\n" if $opt_verbose;
+        }
+
+        if ($mscanlist)
+        {
+            print PLAIN $dname."\n";
+        }
+        else
+        {
+            $cdb_file->insert($dname, '1');
+        }
+        print "\t$dname\n" if $opt_verbose;
+        $i++;
+    }
+    $sth->finish();
+    if ($mscanlist)
+    {
+        close(PLAIN);
+    }
+    else
+    {
+        $cdb_file->finish() or die "Cannot finish CDB-File: $!";
+    }
+    print "Done ($i domains created).\n";
+}
+
+# List domains and create EximcConfig files
+# Please see at http://www.jcdigita.com/eximconfig/
+sub eximconfig
+{
+    my $date=`date +%d-%m-%Y`;
+    my $sth;
+    my ($sname, $dname, $dman);
+    my $oldsname = '';
+    my @manuallist = ();
+    my @manualdomain = ();
+    my $eximconfig_domains_relay = getSetting('eximconfig_domains_relay');
+    my $eximconfig_route_relay = getSetting('eximconfig_route_relay');
+    my $eximconfig_route_manual = getSetting('eximconfig_route_manual');
+    my $last_start = '*';
+    my $ec_master_smarthost = getSetting('ec_master_smarthost');
+    my $ec_smarthost = getSetting('ec_smarthost');
+    
+    open(DMAN, '<'. $eximconfig_route_manual)
+        or die "Could not open manual route relay file '".$eximconfig_route_manual."': $!\n";
+    while (<DMAN>) 
+    {
+       if (substr($_, 0, 1) eq '#')  
+       {
+          $dman .= $_;
+       }
+       else
+       {
+          $dman .= $_;
+	  push @manuallist, $_;
+	  my @dm = grep {!/^\s*$/} split(/\s+/, $_);  
+	  my $dm = shift(@dm);
+	  push @manualdomain, $dm;
+       } 
+    }
+    close(DMAN);
+    @manuallist = sort @manuallist;
+    @manualdomain = sort @manualdomain;
+
+    #print "Manual list: ". $_ foreach @manuallist;
+    #print "Manual domain list: ". $_. "\n" foreach @manualdomain;
+
+    dbConnect();
+    $sth = $dbh->prepare(q[SELECT    s.name AS sname,
+                                     LOWER(d.name) AS dname
+                           FROM      pm_sites s
+                           LEFT JOIN pm_domains d
+                           ON        d.siteid = s.id
+                           WHERE     sitestate != 'lockedbounce'
+                           AND       d.name IS NOT NULL
+			   ORDER BY  d.name]);
+    $sth->execute();
+
+    open(PLAIN, ">". $eximconfig_domains_relay)
+        or die "Could not create domains relay file '".$eximconfig_domains_relay."': $!\n";
+
+    print "\nCreating domains relay list(s)...";
+    print PLAIN "# List of domain names accepted for relaying\n";
+    print PLAIN "# Created by xams - ". $date;
+    print PLAIN "#\n";
+
+    my $i = 0;
+    while (($sname, $dname) = $sth->fetchrow_array)
+    {
+        if ($sname ne $oldsname)
+        {
+            $oldsname = $sname;
+            print "\nSite: ". $sname. "\n" if $opt_verbose;
+        }
+	print PLAIN $dname."\n" if not defined(first {$_ eq $dname} @manualdomain);
+        print "\t$dname\n" if $opt_verbose;
+        $i++;
+    }
+    print PLAIN "# Manual domain relay list\n";
+    print PLAIN $_. "\n" foreach @manualdomain;
+    close(PLAIN);
+    $sth->finish();
+    print "Done ($i domains created).\n";
+
+    dbConnect();
+    $sth = $dbh->prepare(q[SELECT    s.name AS sname,
+                                     LOWER(d.name) AS dname
+                           FROM      pm_sites s
+                           LEFT JOIN pm_domains d
+                           ON        d.siteid = s.id
+                           WHERE     sitestate != 'lockedbounce'
+                           AND       d.name IS NOT NULL
+			   ORDER BY  d.name]);
+    $sth->execute();
+
+    open(PLAIN, ">". $eximconfig_route_relay)
+        or die "Could not create route relay file '".$eximconfig_route_relay."': $!\n";
+    
+    print "\nCreating domain routing list(s)...";
+    print PLAIN "# Domain routing list for relayed domain names (domains/relay)  -  Mail sent\n";
+    print PLAIN "# to these domains will be routed via the specified mail server(s).\n";
+    print PLAIN "# Created by xams - ". $date;
+    print PLAIN "#\n";
+    print PLAIN "# FORMAT:  domain       smarthost[: smarthost[: ...]]\n";
+    print PLAIN "#          *            smarthost[: smarthost[: ...]]   (Default)\n";
+    print PLAIN "#\n";
+
+    $i = 0;
+    while (($sname, $dname) = $sth->fetchrow_array)
+    {
+        if ($sname ne $oldsname)
+        {
+            $oldsname = $sname;
+            print "\nSite: ". $sname. "\n" if $opt_verbose;
+        }
+	print PLAIN $dname. "\t\t\t". $ec_master_smarthost. "\n" if not defined(first {$_ eq $dname} @manualdomain); 
+	print "\t$dname\n" if $opt_verbose;
+        $i++;
+    }
+    $sth->finish();
+    print PLAIN $dman;
+    print PLAIN "# Default route relay\n"; 
+    print PLAIN $last_start. "\t\t\t\t". $ec_smarthost. "\n";
+    close(PLAIN);
+    print "Done ($i domains created).\n\n";
+}
+
+# Create autoreply file
+sub autoreply
+{
+    my $sth;
+    my ($sname, $uname, $file1, $file2);
+    my $oldsname = '';
+    my $autorepdir = getSetting('autoreply_files');
+
+    dbConnect();
+    $sth = $dbh->prepare(q[SELECT    s.name AS sname,
+                                     LOWER(u.name) AS uname
+                           FROM      pm_sites s
+                           LEFT JOIN pm_users u
+                           ON        u.siteid = s.id
+                           WHERE     u.autoreply = 'false']);
+    $sth->execute();
+
+    print "Deleting obsolete autoreply files...";
+    my $i = 0;
+    while (($sname, $uname) = $sth->fetchrow_array)
+    {
+        if ($sname =~ /\// || $uname =~ /\//)
+        {
+            print "Slashes in sitenames/usernames are not allowed - skip site $sname / user $uname\n";
+            next;
+        }
+        if ($sname ne $oldsname)
+        {
+            $oldsname = $sname;
+            print "\nSite: ". $sname. "\n" if $opt_verbose;
+        }
+
+        $file1 = $file2 = $autorepdir. '/'. $sname. '/'. $uname;
+
+        $file1 .= '.once';
+        $file2 .= '.away';
+
+        if (-e $file1 || -e $file2)
+        {
+            unlink($file1) if (-e $file1);
+            unlink($file2) if (-e $file2);
+            print "\t$uname\n" if $opt_verbose;
+            $i++;
+        }
+    }
+    $sth->finish();
+    print "Done ($i autoreply-files deleted).\n";
+}
+
+# Create site homedirs
+sub homedirs
+{
+    my $sth;
+    my ($sname, $uname);
+    my ($sdirname, $udirname, $sautorepdir, $uautorepdir);
+    my $oldsname = '';
+    my $autorepdir = getSetting('autoreply_files');
+
+    dbConnect();
+    $sth = $dbh->prepare('SELECT     s.name AS sname,
+                                     LOWER(u.name) AS uname
+                          FROM       pm_sites s
+                          INNER JOIN pm_users u
+                          ON         s.id = u.siteid');
+    $sth->execute();
+
+    print "Creating user home-dirs...";
+    my $i = 0;
+    while (($sname, $uname) = $sth->fetchrow_array)
+    {
+        $uname = '' unless $uname;
+        if ($sname =~ /\// || $uname =~ /\//)
+        {
+            print "Slashes in sitenames/usernames are not allowed - skip site $sname / user $uname\n";
+            next;
+        }
+        if ($sname ne $oldsname)
+        {
+            $oldsname = $sname;
+            #print "]\nSite: ". $sname. " [" if $opt_verbose;
+        }
+        $sdirname = $mail_dir. "/$sname";
+        $udirname = $sdirname. "/$uname";
+        $sautorepdir = $autorepdir. "/$sname";
+        unless (-d $sdirname && -d $sautorepdir)
+        {
+            unless (-d $sdirname)
+            {
+                mkdir($sdirname, 0700)
+                    or die("Couldn't create site dir '$sdirname' - $!");
+            }
+
+            unless (-d $sautorepdir)
+            {
+                mkdir($sautorepdir, 0700)
+                    or die("Couldn't create autoreply dir '$sautorepdir' - $!");
+            }
+
+            print "\nSite: $sname" if $opt_verbose;
+            $i++;
+        }
+
+        if ($uname ne '' && ! -d $udirname)
+        {
+            mkdir($udirname, 0700)
+                or die("Couldn't create userdir '$udirname' - $!");
+
+            mkdir($udirname . '/cur', 0700)
+                or die("Couldn't create userdir '$udirname/cur' - $!");
+
+            mkdir($udirname . '/new', 0700)
+                or die("Couldn't create userdir '$udirname/new' - $!");
+
+            mkdir($udirname . '/tmp', 0700)
+                or die("Couldn't create userdir '$udirname/tmp' - $!");
+
+            print "\nUser: $uname" if $opt_verbose;
+            $i++;
+        }
+    }
+    $sth->finish();
+    print "\nDone ($i home-dirs created).\n";
+}
+
+# Create or update bind configs
+sub updatebind
+{
+    my ($sth, $sth_d, $sth2, $template);
+    my $zone_files     = getSetting('zone_files');
+    my $zone_template  = getSetting('zone_template');
+    my $named_file     = getSetting('named_file');
+    my $named_master_template = getSetting('named_master_template');
+    my $named_slave_template = getSetting('named_slave_template');
+
+    dbConnect();
+
+    if ($opt_rebuild)
+    {
+        print 'Fetching all zone-data from XAMS database...';
+        $sth = $dbh->prepare(q[SELECT id, name, zonetype, masterdns, zoneadmin, serial,
+                                      ttl, refresh, retry, expire, nttl
+                               FROM   pm_dns
+                               WHERE  zonetype != 'd']);
+        $sth->execute();
+    }
+    else
+    {
+        print 'Fetching changed zone-data from XAMS database...';
+        $sth = $dbh->prepare(q[SELECT id, name, zonetype, masterdns, zoneadmin, serial,
+                                      ttl, refresh, retry, expire, nttl
+                               FROM   pm_dns
+                               WHERE  zonetype != 'd'
+                               AND    changed = 'true']);
+        $sth->execute();
+    }
+
+    if ($sth->rows > 0)
+    {
+        print "\nStart updating DNS zone files...\n";
+
+        open(ZTPL, '<'. $zone_template) or die('Can\'t open template file! '.$zone_template);
+        $template .= $_ while (<ZTPL>);
+        close(ZTPL);
+
+        $sth_d = $dbh->prepare(q[UPDATE pm_dns SET changed = 'false' WHERE id = ?]);
+        $sth2 = $dbh->prepare('SELECT   name, type, parameter1, parameter2
+                               FROM     pm_dns_records
+                               WHERE    dnsid = ?
+                               ORDER BY type');
+
+        my $i = 0;
+        while (my $data = $sth->fetchrow_hashref())
+        {
+            $i++;
+            my $new_zone = $template;
+            print "Processing domain $data->{'name'}\n";
+            open(ZF, '>'. $zone_files. "/$data->{'name'}") or die("Can't create zone file! $zone_files/$data->{'name'}");
+
+            $sth2->execute($data->{'id'});
+            while (my $data2 = $sth2->fetchrow_hashref())
+            {
+                $data2->{'name'} = '@' unless($data2->{'name'});
+                $data2->{'parameter1'} = '"' . $data2->{'parameter1'} . '"' if ($data2->{'parameter1'} =~ / /);
+
+                if (defined($data2->{'parameter2'}))
+                {
+                    $data2->{'parameter2'} = '"' . $data2->{'parameter2'} . '"' if ($data2->{'parameter2'} =~ / /);
+                    $data2->{'parameter2'} = ' ' . $data2->{'parameter2'};
+                }
+
+                $new_zone .= sprintf("%-25s IN %-5s %3s%s\n", $data2->{'name'}, $data2->{'type'}, $data2->{'parameter1'}, $data2->{'parameter2'});
+            }
+            $sth2->finish();
+            $sth_d->execute($data->{'id'});
+
+            if ($data->{'zoneadmin'} =~ /\@/)
+            {
+                $data->{'zoneadmin'} =~ s/\@/./;
+                $data->{'zoneadmin'} .= '.';
+            }
+            $data->{'masterdns'} .= '.' if ($data->{'masterdns'} =~ /\..+[^.]?$/);
+
+            foreach (keys %{$data})
+            {
+                my $var = (/^Serial|Refresh|Retry|Expire|NTTL$/i) ? sprintf('%10s', $data->{$_}) : $data->{$_};
+                $new_zone =~ s/<<$_>>/$var/gi;
+            }
+
+            print ZF $new_zone;
+            close(ZF);
+        }
+        $sth_d->finish();
+
+        print 'Rebuild configuration file...';
+        $sth = $dbh->prepare(q[SELECT id, name, zonetype, masterdns, zoneadmin, serial,
+                                      ttl, refresh, retry, expire, nttl
+                               FROM   pm_dns
+                               WHERE  zonetype != 'd']);
+        $sth->execute();
+        open(BINDCONF, '>'. $named_file. '.tmp') or die('Can\'t create configuration file! '.$named_file);
+        while (my $data = $sth->fetchrow_hashref())
+        {
+            if ($data->{'zonetype'} =~ /^m$/i)
+            {
+                open(ZTPL, '<'. $named_master_template) or die('Can\'t open template file! '.$named_master_template);
+            }
+            else
+            {
+                open(ZTPL, '<'. $named_slave_template) or die('Can\'t open template file! '.$named_slave_template);
+            }
+            $template = '';
+            $template .= $_ while (<ZTPL>);
+            close(ZTPL);
+
+            $template =~ s/<<$_>>/$data->{$_}/gi foreach (keys %{$data});
+            print BINDCONF $template;
+        }
+        close(BINDCONF);
+        move($named_file. '.tmp', $named_file);
+        print "Done\n";
+        print "Updated $i zones - you should reload your nameserver now (by rndc reload)\n";
+    }
+    else
+    {
+        print "\nNo zones to update.\n";
+    }
+    $sth->finish();
+}
+
+# Delete and/or archive obsolete sites
+sub cleansites
+{
+    my $xamsarch =  "@XMU_BACKUP_DIR@";
+    my $xamsautoreply = "@XAMS_CONFIG_DIR@/autoreply";
+    my $sth;
+    my @deletelist = ();
+
+    dbConnect();
+    $sth = $dbh->prepare('SELECT name
+                          FROM   pm_sites');
+
+    $sth->execute();
+    my $sitelist = $sth->fetchall_arrayref();
+    $sth->finish();
+
+    my %sitehash;
+    foreach (@{$sitelist}) { $sitehash{$$_[0]} = 1 }
+
+    my $i = 0;
+    opendir(DIRHANDLE, $mail_dir) || die "Cannot opendir $mail_dir: $!";
+    foreach my $dirname (readdir(DIRHANDLE))
+    {
+        push @deletelist, $dirname if ($dirname !~ /^\.\.?/ && !$sitehash{$dirname});
+    }
+    closedir(DIRHANDLE);
+
+    print "Deleting obsoletes site-dirs...\n";
+    foreach (@deletelist)
+    {
+        if (-d "$mail_dir/$_") {
+           print "$_\n" if $opt_verbose;
+           $CWD = $mail_dir;
+           if (-d $xamsarch)
+           {
+              system("tar -zcf $xamsarch/$_.tgz $_") == 0
+                    or die "Could not tar directory $mail_dir/$_: $?\n" if $opt_archive;
+              print "Directory $_ archived in $xamsarch.\n" if $opt_archive;
+           }
+           else
+           {
+              print "You must create $xamsarch directory first to use --archive option.\n";
+           }
+           system("rm -rf \"$_\"") == 0 or die "Could not erase directory $mail_dir/$_: $?\n" if $opt_delete;
+           if (-d "$xamsautoreply/$_") {
+              system("rm -rf \"$xamsautoreply/$_\"") == 0 or die "Could not erase directory $xamsautoreply/$_: $?\n" if $opt_delete;
+           }
+           $i++
+        }
+    }
+
+    if ($opt_delete)
+    { print "\nDone ($i obsoletes site-dirs deleted).\n"; }
+    else
+    { print "\nDone ($i obsoletes site-dirs to delete).\n"; }
+
+}
+
+# Delete obsolete username in site
+sub delusername
+{
+    my $sth;
+    
+    my @dirsitelist = ();
+    my @usernamelist = ();
+    my ($username_dir, $usite);
+
+    dbConnect();
+    $sth = $dbh->prepare('SELECT name
+                          FROM   pm_sites');
+
+    $sth->execute();
+    my $sitelist = $sth->fetchall_arrayref();
+    $sth->finish();
+
+    my %sitehash;
+    foreach (@{$sitelist}) { $sitehash{$$_[0]} = 1 }
+
+    my $i = 0;
+    opendir(DIRHANDLE, $mail_dir) || die "Cannot opendir $mail_dir: $!";
+    foreach my $dirsitename (readdir(DIRHANDLE))
+    {
+        push @dirsitelist, $dirsitename if ($dirsitename !~ /^\.\.?/ && $sitehash{$dirsitename});
+    }
+    closedir(DIRHANDLE);
+
+    print "Deleting obsoletes usernames...\n";
+    
+    foreach (@dirsitelist)
+    {
+        if (-d "$mail_dir/$_") {
+           $CWD = "$mail_dir/$_";
+
+           dbConnect();
+           $sth = $dbh->prepare('SELECT name
+                                 FROM   pm_users');
+
+           $sth->execute();
+           my $usernamelist = $sth->fetchall_arrayref();
+           $sth->finish();
+
+           $username_dir = $mail_dir. "/$_";
+           $usite = $_;
+
+           my %usernamehash;
+           foreach (@{$usernamelist}) { $usernamehash{$$_[0]} = 1 }
+           
+           my $i = 0;
+           opendir(DIRHANDLE, $username_dir) || die "Cannot opendir $username_dir: $!";
+           
+           foreach my $dirusername (readdir(DIRHANDLE))
+           {
+           push @usernamelist, $dirusername if ($dirusername !~ /^\.\.?/ && !$usernamehash{$dirusername});
+           }
+           closedir(DIRHANDLE);
+           
+           foreach (@usernamelist)
+           {
+              if (-d "$username_dir/$_") {
+                  $CWD = $username_dir;
+                  system("rm -rf \"$_\"") == 0 or die "Could not erase directory $username_dir/$_: $?\n" if $opt_delete;
+                  print "Obsolete username $_ in site $usite deleted.\n" if $opt_verbose;
+                  $i++
+              }
+           }
+        }
+    }
+}
+
+# Update User quota in XAMS database
+sub quota
+{
+    my ($sth, $sth_up);
+    
+    my ($username_dir, $usite, $sname, $uname, $idname, $mboxsize);
+    my $maildirfile =  "maildirsize";
+
+    dbConnect();
+    $sth = $dbh->prepare(q[SELECT      s.name AS sname,
+			  		LOWER(u.name) AS uname,
+				        u.id AS idname
+			  FROM          pm_sites s
+			  INNER JOIN    pm_users u
+			  ON            s.id = u.siteid]);
+    $sth->execute();
+
+    while (($sname, $uname, $idname) = $sth->fetchrow_array)
+    {
+        my $maildirloc = "$mail_dir/$sname/$uname/$maildirfile";
+
+	if (-e $maildirloc) {
+	   open(MDSIZE, "<". $maildirloc) 
+	   or die "Could not open maildirsize file '".$maildirloc."': $!\n";
+           my $line = <MDSIZE>;
+
+           if (defined($line) && $line =~ /^\s*(\d+)S/) {
+               $mboxsize = 0;
+               while (<MDSIZE>) {
+                   $_ =~ /^(-?\d+)\s/;
+                   $mboxsize += $1;
+               }
+           }
+        close(MDSIZE);
+	$mboxsize = $mboxsize / 1024;
+	$sth_up = $dbh->prepare("UPDATE pm_users SET UsedQuota=$mboxsize WHERE ID=$idname");
+	$sth_up->execute();
+	$sth_up->finish();	
+	print "Quota for username $uname in site $sname updated.\n" if $opt_verbose;
+	}
+    }
+    $sth->finish();
+}
+
+printhelp     if $opt_help;
+printversion  if $opt_version;
+domainlist(0) if $opt_cdbdomlist;
+domainlist(1) if $opt_mscanlist;
+eximconfig    if $opt_eximconfig;
+autoreply     if $opt_autoreply;
+homedirs      if $opt_homedirs;
+updatebind    if $opt_updatebind;
+cleansites    if $opt_cleansites;
+delusername   if $opt_delusername;
+quota         if $opt_quota;
+
+$dbh->disconnect() if ($dbh);
+
+# END
+

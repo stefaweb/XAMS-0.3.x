@@ -1,0 +1,467 @@
+#!@PERL_PATH@ -w
+# XAMS authdaemon for the Courier POP/IMAP
+# Based on work by Vladimir Ivaschenko <vi@maks.net> (GNU GPL2)
+
+use strict;
+use IO::Socket;
+use DBI;
+use Digest::MD5 qw(md5_hex);
+use Unix::Syslog qw(:macros :subs);
+use POSIX;
+use File::Find;
+use Fcntl ':flock';
+use Config::IniFiles;
+use Xmod 0.0.9;
+
+use constant FOO           => setSection('authdaemon');
+use constant PATH          => getSetting('courier_socket');
+use constant PIDPATH       => getSetting('pid_file');
+use constant XAMS_HOME     => getSetting('mail_dir');
+use constant XAMS_MAILDIRS => getSetting('mail_dir');
+use constant XAMS_USER     => getSetting('mta_user');
+use constant DB_USER       => getSetting('DBUser');
+use constant DB_PASS       => getSetting('DBPass');
+use constant DBLOG         => getSetting('DBLOG', 1);
+use constant DSN           => getDSN();
+
+if (getuid() == 0)
+{
+    my $XAMS_GID = getgrnam(getSetting('GROUP'));
+    my $XAMS_UID = getpwnam(getSetting('USER'));
+
+    $) = $XAMS_GID;
+    $( = $XAMS_GID;
+    $> = $XAMS_UID;
+    $< = $XAMS_UID;
+}
+
+#------------------------------------------------------------
+# global variables
+my $PREFORK                = 5;        # number of children to maintain
+my $MAX_CLIENTS_PER_CHILD  = 100;      # number of clients each child should process
+my %children               = ();       # keys are current child process IDs
+my $children               = 0;        # current number of children
+my $mailboxsize;
+my $mailcount;
+my ($dbh, $sth_def, $sth_unique_def) = undef;
+
+# Pretty ps output - do you know a better way?
+my $cmd = $0;
+$0 = $cmd;
+
+#------------------------------------------------------------
+# Connect to the database
+sub dbConnect
+{
+    if (!$dbh || $DBI::errstr || !$dbh->{Active})
+    {
+        $sth_def->finish()        if $sth_def;
+        $sth_unique_def->finish() if $sth_unique_def;
+        $dbh->disconnect()        if $dbh;
+        $dbh = undef; # Some drivers (e.g. DBD::Sybase) need this
+
+        $dbh = DBI->connect(DSN, DB_USER, DB_PASS);
+
+        $sth_def = $dbh->prepare(
+            q[SELECT     u.id,
+                         LOWER(u.name) AS username,
+                         u.quota,
+                         s.name AS sitename
+              FROM       pm_sites s
+              INNER JOIN pm_domains d
+              ON         s.id = d.siteid
+              INNER JOIN pm_users u
+              ON         s.id = u.siteid
+              WHERE      s.sitestate = 'default'
+              AND        d.name = ?
+              AND        u.name = ?
+              AND        u.password = ?
+              AND        u.accountstate = 'default'
+              AND        (u.addrtype & ?) != 0]
+        ) if $dbh;
+
+        $sth_unique_def = $dbh->prepare(
+            q[SELECT     u.id,
+                         LOWER(u.name) AS username,
+                         u.quota,
+                         s.name AS sitename
+              FROM       pm_sites s
+              INNER JOIN pm_domains d
+              ON         s.id = d.siteid
+              INNER JOIN pm_users u
+              ON         s.id = u.siteid
+              WHERE      s.sitestate = 'default'
+              AND        u.uniquename = ?
+              AND        u.password = ?
+              AND        u.accountstate = 'default'
+              AND        (u.addrtype & ?) != 0]
+        ) if ($dbh && $sth_def);
+    
+        # If anything didn't work, wait a while and try again
+        if ($DBI::errstr)
+        {
+            Unix::Syslog::syslog LOG_ERR,
+                "Can't establish DB connection - [" . $DBI::errstr . "] -- reconnecting...", 0;
+            sleep 10;
+            # Avoids recursion with a 'goto' (I think)--avoid filling up stack space
+            goto &dbConnect;
+        }
+    }
+}
+
+#------------------------------------------------------------
+# Get the password corresponding with this user
+sub GetQuota
+{
+    my ($username, $password, $proto) = @_;
+    my ($leftpart, $domain) = split('@', $username);
+
+    my @rows;
+    my $ret;
+    
+    my $sleeptime = 0;
+    my $force = 0;
+
+    while (1)
+    {
+        dbConnect();
+        $ret = ($domain) ? $sth_def->execute($domain, $leftpart, $password, $proto)
+                         : $sth_unique_def->execute($username, $password, $proto);
+        last if $ret;
+
+        Unix::Syslog::syslog LOG_ERR, "Failed to query: $DBI::errstr";
+        
+        # Do a fast reconnect for the first time, maybe its just a connect timeout
+        sleep($sleeptime);
+        $sleeptime = 10 if ($sleeptime == 0);
+    }
+
+    return ($domain) ? $sth_def->fetchrow_array() : $sth_unique_def->fetchrow_array();
+}
+
+#------------------------------------------------------------
+# Set up socket
+if (-r PIDPATH)
+{
+    open PIDFILE, PIDPATH;
+    my $pid = <PIDFILE>;
+    close PIDFILE;
+    print "Authdaemon already running at PID $pid. Quitting\n";
+    exit 1;
+}
+
+Unix::Syslog::openlog('authcheck', LOG_PID | LOG_CONS, LOG_DAEMON);
+unlink(PATH);
+
+# Save current default permissions for this process, and remove default
+#   permissions before creating socket
+my $oldumask = umask(0);
+my $listen = undef;
+
+# Try and listen on socket defined by PATH
+if (!($listen = IO::Socket::UNIX->new(Type => SOCK_STREAM, Local => PATH, Listen => 0)))
+{
+    Unix::Syslog::syslog LOG_ERR, "Could not open listen socket: " . PATH, 0;
+    die 'Could not open listen socket: ' . PATH . "\n" .
+        'Please check permissions of the directory where the socket should ' .
+        'be created and your settings in section [authdaemon] of ' .
+        '/etc/xams/xams.conf';
+}
+
+Unix::Syslog::syslog LOG_INFO,
+    "Socket is open and daemon is listening...", 0;
+
+# Restore this process's permissions
+umask($oldumask);
+
+#------------------------------------------------------------
+# takes care of dead children
+sub REAPER
+{
+    $SIG{CHLD} = \&REAPER;
+    my $pid = wait;
+    $children--;
+    delete $children{$pid};
+    $sth_def->finish()        if $sth_def;
+    $sth_unique_def->finish() if $sth_unique_def;
+    $dbh->disconnect()        if $dbh;
+}
+
+#------------------------------------------------------------
+# signal handler for SIGINT
+sub HUNTSMAN
+{
+    local($SIG{CHLD}) = \&IGNORE;   # we're going to kill our children
+    unlink(PATH);
+    unlink(PIDPATH);
+    syslog LOG_ERR, "Exiting on INT signal.";
+    kill 'INT' => keys %children;
+    exit;                           # clean up with dignity
+}
+
+# daemonize
+exit(0) if fork();
+
+# create PID-File
+open(PIDFH, '>' . PIDPATH) or die "Cannot open pid-file '" . PIDPATH . "': $!";
+print PIDFH $$;
+close(PIDFH);
+
+open STDIN,  '/dev/null' or die "Can't read /dev/null: $!";
+open STDOUT, '>/dev/null';
+open STDERR, '>/dev/null';
+
+# Change to root dir to avoid locking a mounted file system
+chdir '/' or die "Can't chdir to /: $!";
+# Turn process into session leader, and ensure no controlling terminal
+POSIX::setsid();
+
+# Fork off our children.
+for (1 .. $PREFORK)
+{
+    make_new_child();
+}
+
+# Install signal handlers.
+$SIG{CHLD} = \&REAPER;
+$SIG{INT}  = \&HUNTSMAN;
+$SIG{TERM} = \&HUNTSMAN;
+
+# And maintain the population.
+while (1)
+{
+    sleep;                          # wait for a signal (i.e., child's death)
+    for (my $i = $children; $i < $PREFORK; $i++)
+    {
+        make_new_child();           # top up the child pool
+    }
+}
+
+sub make_new_child
+{
+    my $pid;
+    my $sigset;
+
+    # block signal for fork
+    $sigset = POSIX::SigSet->new(SIGINT);
+    sigprocmask(SIG_BLOCK, $sigset) or die "Can't block SIGINT for fork: $!\n";
+
+    die "fork: $!" unless defined($pid = fork);
+
+    if ($pid)
+    {
+        # Parent records the child's birth and returns.
+        sigprocmask(SIG_UNBLOCK, $sigset) or die "Can't unblock SIGINT for fork: $!\n";
+        $children{$pid} = 1;
+        $children++;
+        return;
+    }
+    else
+    {
+        # Child can *not* return from this subroutine.
+        $SIG{INT} = 'DEFAULT';      # make SIGINT kill us as it did before
+
+        # unblock signals
+        sigprocmask(SIG_UNBLOCK, $sigset) or die "Can't unblock SIGINT for fork: $!\n";
+
+        # handle connections until we've reached $MAX_CLIENTS_PER_CHILD
+        for (my $i=0; $i < $MAX_CLIENTS_PER_CHILD; $i++)
+        {
+            my $sock = $listen->accept() or last;
+            #Unix::Syslog::syslog LOG_INFO, "Got accept", 0;
+            # do the actual work!
+            CheckPassword($sock);
+        }
+
+        # tidy up gracefully and finish
+
+        # this exit is VERY important, otherwise the child will become
+        # a producer of more and more children, forking yourself into
+        # process death.
+        exit;
+    }
+}
+
+sub Log2DB
+{
+    return if DBLOG !~ /on/i;
+    my ($user, $domain, $userid, $status, $resource) = @_;
+    my ($sth, $id, $status_msg);
+
+    $resource = ($resource == 1) ? 'POP' : 'IMAP';
+    $status_msg = ($status) ? 'Logged in successfully.' : 'Failed login.';
+    $status = ($status) ? 'ok' : 'failed';
+
+    $sth = $dbh->prepare(
+        q[INSERT
+          INTO   pm_log (msgtype, msgstatus, resource, timestamp)
+          VALUES ('Login', ?, ?, now())]
+    );
+    $sth->execute($status, $resource);
+    $id = $sth->{mysql_insertid};
+    $sth->finish();
+
+    if ($id)
+    {
+        $sth = $dbh->prepare(
+            q[INSERT
+              INTO   pm_log_message (logid, name, message)
+              VALUES (?, ?, ?)]
+        );
+        $sth->execute($id, "$user\@$domain", $status_msg);
+        $sth->finish();
+
+        $sth = $dbh->prepare(q[
+            INSERT
+            INTO   pm_logs_c_users (logid, userid)
+            VALUES (?, ?)]
+        );
+        $sth->execute($id, $userid);
+        $sth->finish();
+    }
+}
+
+sub CheckPassword
+{
+    my ($sock) = @_;
+    my @data;
+    my $quota = undef;
+    my $tmp = '';
+    my $sitename;
+    my $userid = undef;
+
+    for (0..4)
+    {
+        if (($_ == 0) || ($_ == 2))
+        {
+            $tmp = $sock->getline();
+            next;
+        }
+        $tmp = $sock->getline();
+        for ($tmp)
+        {
+            s/^\s+//;
+            s/\s+$//;
+        }
+        push(@data, $tmp);
+    }
+
+    my $proto               = ($data[0] eq 'pop3') ? 1 : 2;
+    my $username            = lc($data[1]);
+    my $password            = md5_hex($data[2]);
+    my ($leftpart, $domain) = split('@', $username);
+
+    ($userid, $leftpart, $quota, $sitename) =
+        GetQuota($username, $password, $proto) unless $quota;
+
+    if (defined($quota))
+    {
+        AnswerPositive($sock, $username, $leftpart, $sitename, $quota);
+        Log2DB($leftpart, $domain, $userid, 1, $proto);
+    }
+    else
+    {
+        AnswerFail($sock, $username);
+        Log2DB($leftpart, $domain, $userid, 0, $proto);
+    }
+    $sock->close;
+}
+
+sub msgFound
+{
+    our $mailboxsize;
+    our $mailcount;
+
+    return unless /^\d+\./;
+    $mailcount++;
+    if (/S=(\d+)/) { $mailboxsize += $1; }
+    elsif (-f $_) { $mailboxsize += -s $_; }
+}
+
+sub calcQuota
+{
+    my ($maildir, $quota) = @_;
+    our $mailboxsize = 0;
+    our $mailcount = 0;
+    my $sizefile = "$maildir/maildirsize";
+
+    if ($quota <= 0)
+    {
+        unlink($sizefile) if (-f $sizefile);
+        return;
+    }
+
+    find({ wanted => \&msgFound}, $maildir);
+
+    unless (open(MAILDIRSIZE, ">$sizefile"))
+    {
+        Unix::Syslog::syslog LOG_WARNING,
+            "Unable to open $sizefile. Courier-Quota not set!", 0;
+        return;
+    }
+
+    flock(MAILDIRSIZE, LOCK_EX);
+    print MAILDIRSIZE $quota . "S\n";
+    print MAILDIRSIZE "$mailboxsize $mailcount\n";
+    flock(MAILDIRSIZE, LOCK_UN);
+    close MAILDIRSIZE;
+}
+
+sub CheckUserMaildir
+{
+    my ($user, $sitename) = @_;
+
+    my $sitedir = XAMS_MAILDIRS . '/' . $sitename;
+    my $userdir = $sitedir . '/' . $user;
+
+    unless (-d $sitedir)
+    {
+        Unix::Syslog::syslog LOG_INFO,
+            'Creating Site-Directory ' . $sitedir, 0;
+        mkdir($sitedir, 0700);
+    }
+
+    unless (-d $userdir)
+    {
+        Unix::Syslog::syslog LOG_INFO,
+            "Creating Maildir for $user in $sitename...", 0;
+        mkdir($userdir, 0700);
+        mkdir($userdir . '/cur', 0700);
+        mkdir($userdir . '/new', 0700);
+        mkdir($userdir . '/tmp', 0700);
+    }
+}
+
+sub AnswerPositive
+{
+    my ($sock, $username, $leftpart, $sitename, $quota) = @_;
+
+    my $maildir = XAMS_MAILDIRS . '/' . $sitename . '/' . $leftpart;
+    # ADDRESS is only there because of a bug in Courier: the autdaemon-module
+    # pointlessly accesses it without checking it for NULL. If it's not there,
+    # it crashes with a SIGSEGV! It took me some time to figure that out ;-)
+    my $res = sprintf("USERNAME=%s\nHOME=%s\nMAILDIR=%s\nADDRESS=%s\n",
+        XAMS_USER, XAMS_HOME, $maildir, $username);
+
+    if ($quota > 0)
+    {
+        $quota *= 1024;
+        $res .= "QUOTA=$quota" . "S\n";
+    }
+    $res .= '.';
+
+    CheckUserMaildir($leftpart, $sitename);
+    calcQuota($maildir, $quota);
+
+    Unix::Syslog::syslog LOG_INFO, "Authentication for user $username succeded.", 0;
+    Unix::Syslog::syslog LOG_INFO, "Res: $res", 0;
+    $sock->syswrite($res);
+}
+
+sub AnswerFail
+{
+    my ($sock, $failname) = @_;
+    Unix::Syslog::syslog LOG_WARNING,
+        "Authentication for user $failname failed!", 0;
+    $sock->syswrite('FAIL');
+}

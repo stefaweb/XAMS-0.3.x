@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Administration des gabarits de site" xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        Un site est un ensemble qui peut regrouper un ou plusieurs domaines, des utilisateurs
+        et même des Alias. Cet ensemble permet à un utilisateur d'avoir plusieurs adresses de messagerie qui pointent
+        sur une seule boîte aux lettre de messagerie (un compte POP3 ou IMAP). 
+        
+        Par exemple, il est possible de définir un site nommé "SOCIETE-MAXIMUM". Dans ce site, il est possible de 
+        définir les domaines "maximum.com" ou "maximum.net".
+        
+        Chacun des comptes de messagerie de ce site peuvent n'avoir qu'un seul compte de messagerie et recevoir des
+        messages sur plusieurs adresses de messagerie. Par exemple, si on créé un compte "andre" sur le site,
+        celui-ci pourra recevoir des messages sur "andre@maximum.com" ou "andre@maximum.net".
+        
+        Autre avantage, l'utilisateur n'aura qu'un seul compte de messagerie pour se connecter au système qu'il utilise
+        le protocole POP3, IMAP, SMTP, ou même pour se connecter à l'interface d'administration d'XAMS.
+    </information>
+    <section>
+        <head>Nom du gabarit</head>
+        <description>
+            Saisir dans cette case le nom du gabarit. Le nom doit être unique pour chaque utilisateur.
+        </description>
+    </section>
+    <section>
+        <head>Nom du site (pour XAMS)</head>
+        <description>
+            Saisir ici le nom du site. Celui-ci sera visible pour l'administrateur global d'XAMS ou
+            pour chacun des autres administrateurs. Les droits d'administration peuvent être donnés
+            uniquement pour ce niveau, ou même, séparement par domaines, utilisateurs ou alias.
+        </description>
+    </section>
+    <section>
+        <head>Quota maximum</head>
+        <description>
+            Cette valeur permet de définir le quota maximum général de la taille de des boîtes aux lettres 
+            pour l'ensemble des utilisateurs de ce site. Si le quota maximum est atteint, il ne sera plus 
+            possible d'ajouter des utilisateurs à ce site.
+        </description>
+    </section>
+    <section>
+        <head>Quota maximum (par utilisateur)</head>
+        <description>
+            Cette valeur permet de définir le quota maximum de la taille de la boîte aux lettres 
+            pour un seul utilisateur. Si un message dépassant la taille maximum autorisé est réceptionné,
+            celui-ci sera ignoré et un message d'erreur envoyé à l'expéditeur. Il est bien sûr possible
+            d'affecter un quota plus petit à un des utilisateurs mais dans les limites maximum définies ici.
+        </description>
+    </section>
+    <section>
+        <head>Nbr. maximum d'utilisateur</head>
+        <description>
+            Cette valeur permet de définir le nombre maximum d'utilisateur qui peuvent être
+            défini pour un même site. Seul l'administrateur global peut changer cette valeur.
+            Un administrateur de site ne pourra pas dépasser les limites définies ici.
+        </description>
+    </section>
+    <section>
+        <head>Nbr. maximum d'alias</head>
+        <description>
+            Cette valeur permet de définir combien d'alias maximum peuvent être créer. Un administrateur de 
+            site ne pourra pas changer cette valeur.
+        </description>
+    </section>
+    <section>
+        <head>Type</head>
+        <description>
+            Cette option permet de configurer le type de boîte aux lettre que peut avoir un utilisateur.
+            Si par exemple, seul le type POP3 est activé, il ne sera pas possible que l'utilisateur possède
+            une boîte aux lettres au format IMAP pour ce site.
+        </description>
+    </section>
+    <section>
+        <head>Anti-Virus</head>
+        <description>
+            Si cette option est activée, il est possible de définir si on veut activer la fonction Anti-Virus
+            sur les messages entrants ou sortants. Il est possible de changer cette option par défaut aux niveaux
+            inférieurs de gestion du système.
+        </description>
+    </section>
+    <section>
+        <head>Anti-SPAM</head>
+        <description>
+            Si cette option est activée, il est possible de définir si on veut activer la fonction Anti-SPAM
+            sur les messages entrants ou sortants. Il est possible de changer cette option par défaut aux niveaux
+            inférieurs de gestion du système.
+            Cette option n'est pas activée par défaut.
+        </description>
+    </section>
+    <section>
+        <head>Réglage des scores de Spam</head>
+        <description>
+			Ces deux options permettent de définir le niveau de déclenchement des filtres anti-spam. 
+			Le "Score de base" défini le niveau à partir duquel un message pourra être considéré comme un SPAM. 
+			A ce niveau, le message sera mis en quarantaine si le système anti-spam utilise le logiciel Mailscanner. 
+			Le second niveau "Score limite", défini le niveau à partir duquel le message sera considéré comme un SPAM 
+			devant être directement supprimé sans mise en quarantaine ni avertissement. Son score étant considéré
+			comme suffisamment élevé pour qu'il n'y ait aucun risque de faux positif.
+        </description>
+    </section>    
+    <section>
+        <head>Alias de 1 à 5</head>
+        <description>
+            En utilisant cette fonctionnalité, vous pouvez paramétrer jusqu'à cinq alias par défaut pour le site
+            qui utilisera ce gabarit. C'est très utile pour ajouter par défaut des alias comme "postmaster"
+            ou "webmaster".
+            
+            L'option B&amp;F permet d'appliquer l'option "rebond et ré-expédition" sur l'alias. Pour plus de détail,
+            voir l'aide spécifique sur la gestion des alias.
+        </description>
+    </section>
+</help>

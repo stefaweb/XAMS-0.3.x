@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Database analyse" />
+        <msg id="Database Analyse" />
+        <msg id="Administrators" />
+        <msg id="Resellers" />
+        <msg id="Customers" />
+        <msg id="Sites" />
+        <msg id="Domains" />
+        <msg id="Zones" />
+        <msg id="Users" />
+        <msg id="Aliases" />
+        <msg id="Log Entries" />
+        <msg id="Check database consistency" />
+        <msg id="Checking for Sites without Reseller" />
+        <msg id="Checking for Domains without Sites" />
+        <msg id="Checking for Users without Sites" />
+        <msg id="Checking for Aliases without Sites" />
+        <msg id="Checking for Users having higher Quota than valid" />
+        <msg id="Checking for Sites which MaxQuota is not set" />
+        <msg id="Checking for Sites which MaxUsers is not set" />
+        <msg id="Checking for Sites which MaxAliases is not set" />
+        <msg id="Checking for Sites containing more aliases than valid" />
+        <msg id="Checking for Sites containing more users than valid" />
+        <msg id="The XAMS-Database is not fully consistent (%s errors)!" />
+        <msg id="You should think about limiting MaxQuota/MaxUsers/MaxAliases on Site-Level (%s warnings)." />
+        <msg id="The XAMS-Database seems to be OK." />
+    </msgs>
+</i18n>

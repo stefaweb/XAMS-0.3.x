@@ -1,0 +1,111 @@
+<?php
+
+include_once 'include/varspec/const.inc';
+
+$this->VSPEC = array(
+    'id' => array(
+        'type' => Tpid
+    ),
+    'siteid' => array(
+        'type' => Tnumeric,
+        'min' => 1,
+	'empty' => true
+    ),
+    'name' => array(
+        'type' => Talphanumeric,
+        'minl' => 2,
+        'maxl' => 100,
+        'empty' => false
+    ),
+    'uniquename' => array(
+        'type' => Talphanumeric,
+        'minl' => 2,
+        'maxl' => 100,
+        'null' => true,
+        'empty' => true
+    ),
+    'password' => array(
+        'type' => Tpassword,
+        'minl' => 5,
+        'maxl' => 100,
+        'empty' => false
+    ),
+    'quotaunit' => array(
+        'type' => Tnumeric,
+        'atype' => Tdummy,
+        'init' => 1 // = MB
+    ),
+    'quota' => array(
+        'type' => Tnumeric,
+        'min' => -1,
+        'null' => true,
+        'empty' => true
+    ),
+    'addrtype' => array(
+        'type' => Tbitfield,
+        'translation' => 'p,i,s,x',
+        'init' => _POP | _SMTP | _XAMS | _IMAP,
+        'empty' => true
+    ),
+    'viruscheckin' => array(
+        'type' => Talphanumeric,
+        'null' => true,
+    ),
+    'viruscheckout' => array(
+        'type' => Talphanumeric,
+        'null' => true,
+    ),
+    'spamcheckin' => array(
+        'type' => Talphanumeric,
+        'null' => true,
+    ),
+    'spamcheckout' => array(
+        'type' => Talphanumeric,
+        'null' => true,
+    ),
+    'spamscore' => array(
+        'type' => Tnumeric,
+        'min' => 1,
+        'max' => 999,
+        'init' => 5,
+        'empty' => false
+    ),
+    'highspamscore' => array(
+        'type' => Tnumeric,
+        'min' => 1,
+        'max' => 999,
+        'init' => 15,
+        'empty' => false
+    ),
+    'relayonauth' => array(
+        'type' => Tcheckbox,
+        'init' => 'true'
+    ),
+    'relayoncheck' => array(
+        'type' => Tcheckbox,
+        'init' => 'false'
+    ),
+    'autoreply' => array(
+        'type' => Tcheckbox,
+        'init' => 'false'
+    ),
+    'autoreplysubject' => array(
+        'type' => Talphanumeric,
+        'maxl' => 50,
+        'empty' => true
+    ),
+    'autoreplytext' => array(
+        'type' => Talphanumeric,
+        'maxl' => 2000,
+        'empty' => true
+    ),
+    'accountstate' => array(
+        'type' => Talphanumeric,
+        'init' => 'default',
+    ),
+    'added' => array(
+        'type' => Tinsertdate
+    )
+);
+
+?>

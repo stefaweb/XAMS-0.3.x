@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Vorlagen Übersicht" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-31">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Mit den Vorlagen bietet XAMS eine äußerst anwenderfreundliche
+        Funktion, Benutzer beim anlegen diverser Konten mit
+        persönlich für ihn gespeicherten Vorgaben zu unterstützen.
+        Häufig müssen Sites oder eMail-Adressen nach gleichem oder
+        zumindest ähnlichem Schema angelegt werden. Ist vorauszusehen,
+        dass dies der Fall ist, so kann von vornherein eine Vorlage
+        hierfür eingerichtet werden um dann mit dieser den Vorgang
+        der Konten-Erstellung zu beschleunigen.
+        Hierbei ist zu beachten, dass für jeden Benutzer
+        (gleichgültig ob Administrator, Wiederverkäufer oder Endkunde)
+        eigene Vorlagen gespeichert werden - die Nutzung von Vorlagen
+        anderer Benutzer ist nicht möglich.
+    </information>
+    <section>
+        <head>Site Vorlagen</head>
+        <description>
+            Hier können Vorlagen für Sites erstellt, bearbeitet, gelöscht
+            oder angewendet werden.
+        </description>
+    </section>
+    <section>
+        <head>Benutzer Vorlagen</head>
+        <description>
+            Hier können Vorlagen für Benutzer erstellt, bearbeitet, gelöscht
+            oder angewendet werden.
+        </description>
+    </section>
+</help>

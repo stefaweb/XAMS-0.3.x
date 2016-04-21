@@ -1,0 +1,71 @@
+#!/bin/sh -e
+
+DIR=/etc/exim4
+CERT=$DIR/exim.crt
+KEY=$DIR/exim.key
+
+# valid for three years
+DAYS=1095
+
+SSLEAY="$(tempfile -m600 -pexi)"
+
+COUNTRY_NAME=US
+STATE_OR_PROVINCE_NAME=.
+LOCALITY_NAME=.
+ORGANIZATION_NAME=.
+ORGANIZATIONAL_UNIT_NAME=.
+COMMON_NAME=.
+EMAIL_ADDRESS=.
+
+while [ $# -gt 0 ]; do
+    case ${1%:*} in
+	country_name)
+	    COUNTRY_NAME=${1#*:}
+	    ;;
+	state_or_province_name)
+	    STATE_OR_PROVINCE_NAME=${1#*:}
+	    ;;
+	locality_name)
+	    LOCALITY_NAME=${1#*:}
+	    ;;
+	organization_name)
+	    ORGANIZATION_NAME=${1#*:}
+	    ;;
+	organizational_unit_name)
+	    ORGANIZATIONAL_UNIT_NAME=${1#*:}
+	    ;;
+	common_name)
+	    COMMON_NAME=${1#*:}
+	    ;;
+	email)
+	    EMAIL_ADDRESS=${1#*:}
+	    ;;
+    esac
+    shift
+done
+
+cat > $SSLEAY <<EOM
+RANDFILE = $HOME/.rnd
+[ req ]
+default_bits = 1024
+default_keyfile = exim.key
+distinguished_name = req_distinguished_name
+prompt = no
+[ req_distinguished_name ]
+countryName = $COUNTRY_NAME
+stateOrProvinceName = $STATE_OR_PROVINCE_NAME
+localityName = $LOCALITY_NAME
+organizationName = $ORGANIZATION_NAME
+organizationalUnitName = $ORGANIZATIONAL_UNIT_NAME
+commonName = $COMMON_NAME
+emailAddress = $EMAIL_ADDRESS
+EOM
+
+openssl req -config $SSLEAY -x509 -newkey rsa:1024 -keyout $KEY -out $CERT -days $DAYS -nodes > /dev/null 2>&1
+openssl req -config $SSLEAY -new -key /etc/exim4/exim.key -out /etc/exim4/exim.csr > /dev/null 2>&1
+
+rm -f $SSLEAY
+
+chown root:Debian-exim $KEY $CERT $DH
+chmod 640 $KEY $CERT $DH
+

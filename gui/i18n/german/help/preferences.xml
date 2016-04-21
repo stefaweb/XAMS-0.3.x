@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Einstellungen" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-31">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Bestimmte Einstellungen von XAMS, deren Sicherheit hierdurch nicht
+        gefährdet sind, können direkt innerhalb der grafischen Oberfläche
+        vorgenommen werden.
+    </information>
+    <section>
+        <head>Begrüßung beim Login</head>
+        <description>
+            Der Willkommensgruß beim Login (Standard ist "Welcome to XAMS")
+            kann hier geändert oder deaktiviert (leeres Feld) werden.
+        </description>
+    </section>
+    <section>
+        <head>Standard-Länge der Ereignis-Anzeige</head>
+        <description>
+            Dieser Wert bestimmt über die Anzahl der Zeilen die in der
+            Ereignis-Anzeige standardmäßig angezeigt werden. Je nach
+            Bildschirm-Auflösung bzw. Fenster-Größe kann hier ein optimaler
+            Wert eingestellt werden.
+        </description>
+    </section>
+    <section>
+        <head>Online 'Über XAMS'</head>
+        <description>
+            Es besteht die Möglichkeit, dass Menü "Über XAMS" über das
+            Internet von der xams.org Seite anzufordern. Der Vorteil besteht
+            in einer aktuelleren Seite, die ggf. auch über besondere
+            Neuigkeiten (z.B.   Sicherheitslücken) informieren kann.
+        </description>
+    </section>
+    <section>
+        <head>Auf neue Version prüfen</head>
+        <description>
+            Diese Option bietet die Möglichkeit über das Internet zu
+            prüfen, ob es eine neue Version von XAMS gibt.  Ist dies der Fall,
+            so wird dies einem Administrator nach erfolgreichem Login angezeigt.
+        </description>
+    </section>
+    <section>
+        <head>Standard Sprache</head>
+        <description>
+            Legt die Standardsprache von XAMS fest. Diese kann natürlich
+            weiterhin beim Login umgestellt werden.
+        </description>
+    </section>
+</help>

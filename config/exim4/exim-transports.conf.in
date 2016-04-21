@@ -1,0 +1,56 @@
+xams_delivery:
+  driver = appendfile
+  check_string =
+  delivery_date_add
+  envelope_to_add
+  group = @MAIL_GROUP@ 
+  maildir_format
+  directory = MAILDIR/${extract{sitename}{$address_data}}/${lc:$local_part}
+  maildir_tag = ,S=$message_size
+  message_prefix =
+  message_suffix =
+  quota = ${extract{quota}{$address_data}}
+  maildir_use_size_file
+  quota_size_regex = S=(\d+):
+  quota_warn_threshold = QUOTA_THRESHOLD 
+  quota_warn_message = TXT_QUOTA_WARN_MESSAGE
+  return_path_add
+  user = @EXIM_USER@ 
+  create_file = belowhome
+
+xams_address_file:
+  driver = appendfile
+  check_string =
+  delivery_date_add
+  envelope_to_add
+  group = @MAIL_GROUP@ 
+  maildir_format = true
+  directory = MAILDIR/${extract{sitename}{$address_data}}/${lc:$local_part}/${sg{$address_file}{^inbox}{}}
+  maildir_tag = ,S=$message_size
+  message_prefix =
+  message_suffix =
+  quota = ${extract{quota}{$address_data}}
+  maildir_use_size_file
+  quota_size_regex = S=(\d+):
+  return_path_add
+  user = @EXIM_USER@ 
+  create_file = belowhome
+
+xams_autoreply_transport:
+  driver = autoreply
+  user = @EXIM_USER@ 
+  group = @MAIL_GROUP@ 
+  once = CONFDIR/autoreply/${extract{sitename}{$address_data}}/${lc:$local_part}.once
+  once_repeat = 1d
+  subject = ${rfc2047:${extract{autoreplysubject}{$address_data}} (MESSAGE_WAS $h_subject:) }
+  to = $sender_address
+  from = $local_part@$domain
+  text = ${extract{autoreplytext}{$address_data}}
+  headers = \
+    MIME-Version: 1.0\n\
+    Content-Transfer-Encoding: 8bit\n\
+    Content-Type: text/plain; charset="UTF-8"
+  # To copy original message in auto reply message
+  #return_message = true
+  # Do you want to log all sent replies?
+  #log = CONFDIR/autoreply/${extract{sitename}{$address_data}}/${lc:$local_part}.log

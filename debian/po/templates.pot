@@ -1,0 +1,355 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: xams@packages.debian.org\n"
+"POT-Creation-Date: 2012-11-23 15:41+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: select
+#. Choices
+#. Type: select
+#. Default
+#: ../templates:1001 ../templates:1002
+msgid "English"
+msgstr ""
+
+#. Type: select
+#. Choices
+#: ../templates:1001
+msgid "French"
+msgstr ""
+
+#. Type: select
+#. Choices
+#: ../templates:1001
+msgid "German"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:1003
+msgid "Please select the default language for XAMS:"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:1003
+msgid "This choice can be overridden by individual users in their preferences."
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../templates:1003
+msgid ""
+"However, the default language will be used for the login screen, the user "
+"interface and for some control messages."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:2001
+msgid "MailScanner Option:"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:2001
+msgid "Do you plan to use MailScanner software on your server?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:2001
+msgid ""
+"If you don't use MailScanner, Clamd and Spamassassin software will be used "
+"instead. If you use Mailscanner  software, you will have to manualy "
+"configure MailScanner to have a working XAMS server."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "ClamAV Option:"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "Do you plan to use ClamAV software on your server?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid "SpamAssassin Option:"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:4001
+msgid "Do you plan to use SpamAssassin software on your server?"
+msgstr ""
+
+#. Type: string
+#. Description
+#. Type: string
+#. Description
+#: ../templates:5001 ../templates:25001
+msgid "Enter your email address:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:5001
+msgid ""
+"Exim: Enter the email address to which system error messages will be sent."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:6001
+msgid "Exim: Use ACL to check sender when sender's host PTR is wrong:"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:7001
+msgid ""
+"Exim: Use ACL to check sender when sender's host is using a dynamic IP "
+"connections:"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:8001
+msgid "Exim: Use ACL to check sender when message is positive to RBLs check:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:9001
+msgid "Exim: Complete the RBL list according to your needs:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:9001
+msgid "Synthaxe: [server name] : [server name] : [...]"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:9001
+msgid ""
+"Exemple: cbl.abuseat.org : dnsbl.sorbs.net : dnsbl.njabl.org : cbl.abuseat."
+"org"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:10001
+msgid "Exim: Quota warm threshold used to send a warning message:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:11001
+msgid "Exim: Maximum number of simultaneous SMTP connections allowed:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:12001
+msgid ""
+"Exim: Maximum number of simultaneous SMTP connections from a single host:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:13001
+msgid ""
+"Exim: This value increases the number of processes that handle the inbound "
+"and outbound emails waiting in the queue:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:14001
+msgid ""
+"Exim: This option controls parallel delivery of one message to a number of "
+"remote hosts:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:14001
+msgid ""
+" If the value is less than 2, parallel delivery is disabled, and Exim does "
+"all the remote deliveries for a message one by one."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:15001
+msgid "Exim: Specify your host's canonical name here:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:15001
+msgid ""
+"This should normally be the fully qualified \"official\" name of your host."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:15001
+msgid ""
+"If this option is not set, the uname() function is called to obtain the "
+"name. In many cases this does the right thing and you need not set anything "
+"explicitly."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:16001
+msgid "Exim: SMTP ports to listen on:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:17001
+msgid ""
+"Exim: Domains that are hosted by your mailserver but not managed by XAMS:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:18001
+msgid "Exim: Domains your mail server should relay to but not managed by XAMS:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:19001
+msgid ""
+"Exim: Hosts your mail server should relay mails for but not managed by XAMS"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:20001
+msgid "Enter your country code:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:20001
+msgid ""
+"TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, "
+"enter your country code (2 letters)."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:21001
+msgid "Enter your state or province name:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:21001
+msgid ""
+"TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, "
+"enter your state or province name (full name)."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:22001
+msgid "Enter your locality name:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:22001
+msgid ""
+"TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, "
+"enter your locality name (eg, city)."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:23001
+msgid "Enter your organization name:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:23001
+msgid ""
+"TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, "
+"enter your organization name (eg, company; recommended)."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:24001
+msgid "Enter your organizational unit name:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:24001
+msgid ""
+"TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, "
+"enter your organizational unit name (optionnal)."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:25001
+msgid ""
+"TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, "
+"enter your email adress."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:26001
+msgid "Courier IMAP: Maximum number of IMAP servers started:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../templates:27001
+msgid ""
+"Courier IMAP: Maximum number of connections to accept from the same IP "
+"adress:"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:28001
+msgid "Do you want to use DNS administration inside XAMS?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../templates:28001
+msgid ""
+"XAMS GUI: Activate or not activate DNS control panel in XAMS. You will need "
+"to install bind9 software if yes."
+msgstr ""

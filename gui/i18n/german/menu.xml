@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2003-02-09">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Navigation menu">Navigationsmenü</title>
+        <msg id="Global Administration">Globale Administration</msg>
+        <msg id="System Administration" />
+        <msg id="Mail Administration" />
+        <msg id="Account Settings">Konto Einstellungen</msg>
+        <msg id="Information">Informationen</msg>
+        <msg id="XAMS Accounts">XAMS Konten</msg>
+        <msg id="Search">Suche</msg>
+        <msg id="Addressbook">Adressbuch</msg>
+        <msg id="Preferences">Einstellungen</msg>
+        <msg id="Event-Log">Ereignis-Log</msg>
+        <msg id="Templates">Vorlagen</msg>
+        <msg id="Users">Benutzer</msg>
+        <msg id="Groups">Gruppen</msg>
+        <msg id="DNS" />
+        <msg id="Sites" />
+        <msg id="Domains" />
+        <msg id="Users">Benutzer</msg>
+        <msg id="Aliases">Aliase</msg>
+        <msg id="System Overview">System Übersicht</msg>
+        <msg id="Database analyse">Datenbank-Analyse</msg>
+        <msg id="Online News"/>
+        <msg id="Logout">Abmelden</msg>
+
+        <msg id="Create or modify XAMS Accounts">Anlegen oder Ändern von XAMS Konten</msg>
+        <msg id="Search the XAMS-System for sites, users, and so on">Im XAMS-System nach Sites, Benutzern, o.ä. suchen</msg>
+        <msg id="Maintain addressbook fields for later use">Verwalten von Addressbuch-Feldern zur späteren Verwendung</msg>
+        <msg id="Setup basic GUI preferences">Grundlegende Einstellungen der GUI</msg>
+        <msg id="See which actions are performed on your system">Einsicht in die auf dem System durchgeführten Aktionen</msg>
+        <msg id="Create or modify Site/User Templates for later use">Anlegen oder Ändern von Site/Benutzer Vorlagen zur späteren Verwendung</msg>
+        <msg id="Maintain DNS-Server zones">Verwalten der DNS-Server Zonen</msg>
+        <msg id="Add a site to the system">Dem System eine Site hinzufügen</msg>
+        <msg id="Add a user to the system (to a site)">Dem System (einer Site) einen Benutzer hinzufügen</msg>
+        <msg id="Add a alias to the system (to a site)">Dem System (einer Site) einen Alias hinzufügen</msg>
+        <msg id="See detailed and compact information of the XAMS-System">Detaillierte und kompakte Informationen über das XAMS-System</msg>
+        <msg id="System/Database information and analyse function">System/Datenbank Informationen und Analyse</msg>
+        <msg id="See what\'s new in the XAMS-World">Was es neues in der XAMS-Welt gibt</msg>
+        <msg id="Edit your account settings">Ändern der eigenen Konto-Einstellungen</msg>
+    </msgs>
+</i18n>

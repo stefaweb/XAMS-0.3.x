@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-16">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="System Overview" />
+        <msg id="System Overview" />
+        <msg id="Showing" />
+        <msg id="Sites" />
+        <msg id="Addressbook available" />
+        <msg id="Zone available" />
+        <msg id="Add new alias to this site" />
+        <msg id="Add new domain to this site" />
+        <msg id="Add new user to this site" />
+        <msg id="XML Output" />
+        <msg id="XHTML Output" />
+        <msg id="Nothing found." />
+        <msg id="is forwarded to" />
+        <msg id="is bounced and forwarded to" />
+        <msg id="Sites" />
+        <msg id="Domains" />
+        <msg id="Users" />
+        <msg id="Delegated" />
+        <msg id="Aliases" />
+        <msg id="No Domains" />
+        <msg id="Create User" />
+        <msg id="Create Alias" />
+        <msg id="LOCKED" />
+        <msg id="LOCKED + BOUNCE" />
+        <msg id="Addressbook available" />
+        <msg id="Incoming Viruscheck" />
+        <msg id="Outgoing Viruscheck" />
+        <msg id="Incoming and Outgoing Viruscheck" />
+        <msg id="Incoming Spamcheck" />
+        <msg id="Outgoing Spamcheck" />
+        <msg id="Incoming and Outgoing Spamcheck" />
+        <msg id="Auto reply enabled" />
+        <msg id="true">Yes</msg>
+        <msg id="false">No</msg>
+    </msgs>
+</i18n>

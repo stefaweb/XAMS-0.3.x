@@ -1,0 +1,197 @@
+XAMS for Debian
+---------------------
+
+INTRODUCTION
+
+  XAMS (eXtended Account Management System) is - at this time - a software
+  which is able to manage e-mail accounts for several domains and sites.
+
+  It interfaces with the Exim MTA from Philip Hazel and the Courier Mail Server
+  Suite from Sam Varshavchik. Combining XAMS with them results in a
+  super flexible, versatile and easy-to-maintain Mail Server Account Managing
+  Solution for Providers dealing with many domains and resellers per domain.
+
+  In its current state Exim is used for SMTP processing, Courier for POP3/IMAP
+  and XAMS as an interface handling the e-mail accounts of all domains, resellers
+  and users your e-mail server is responsible for.
+
+USAGE
+
+  The application will be available at http://localhost/xams/
+  after install if you use one of supported web servers (Apache at time 
+  of writing this). Please note that you need to have enabled PHP
+  support in your webserver (for Apache you can do this by a2enmod php5).
+
+LOGIN
+
+  The default login name and password after installation is:
+
+  Login: admin
+  Password: admin
+
+  Don't forget to change it.
+
+  To start to play with XAMS, you must create a reseller, a site, attach a domain
+  to the site and create a user. You should wait 5 minutes before sending an message
+  to the new mailbox as the accounts are created on disk by a CRON job.
+
+NEEDED DEBIAN PACKAGES
+
+  All Debian packages needed by XAMS are available in Debian Squeeze except
+  libcdb-file-perl only available in Debian backport.
+
+  For convenience, we have loaded libcdb-file-perl in the XAMS repository but
+  do be sure to have the lastest available version, it is better to add 
+  Debian backport to your apt source list.
+
+  You should add this line to /etc/apt/sources.list:
+
+  deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
+
+CONFIGURATION
+
+  The package installs a default configuration in /etc/xams/, including
+  a default apache.conf, which is symlinked from your Apache config in conf.d.
+
+  Starting 0.2.0, XAMS can be configured using dbconfig-common. It creates 
+  a XAMS database and control user on the chosen server and configures 
+  XAMS to use cookie authentication on this server.
+
+  The database autoconfiguration might fail if you do not have local MySQL
+  server installed or you have configured too high priority of which questions
+  should debconf ask. 
+
+  During the first installation of XAMS, only basic questions are presented.
+  If you need to access all the available setup, run dpkg-reconfigure.
+
+  To rerun the XAMS configuration just invoke:
+  
+  dpkg-reconfigure xams
+  
+OPTIONS
+
+  If you want to use a webmail program with XMAS, we suggest to use RoundCube
+  available as a Debian package. Two modules for Roundcube are available in
+  /usr/share/doc/xams/contrib/roundcube.
+
+NOTICE
+
+  XAMS use courier suite for POP and IMAP services but do not use courier-authdaemon
+  for authentification. In place of, XAMS use a dedicated authentification piece
+  of software called authdaemon started with the init.d script xams-authdaemon.
+
+  For this reason, courier-authdaemon is inactivated, placed on "hold" in the dpkg database
+  and never started at boot. Never start courier-authdaemon or you will have a conflict
+  and XAMS will stop to work.
+
+XAMS AND MAILSCANNER
+
+  At install, you have the possibility to select mailscanner as antispam and antivirus
+  engine but you need to configure manualy mailscanner to have a working solution.
+
+  If you want to use mailscanner, an uptodate Debian package is available at http://www.baruwa.org/ 
+
+  In /etc/apt/sources.list add:
+
+  deb http://apt.baruwa.org/debian squeeze main
+
+  and use apt-get install mailscanner
+
+XMU MAINTENANCE UTILITY
+
+xmu is the maintenance utility program to manage various features of XAMS.
+
+A scheduled cron is automaticly installed by the Debian package for basic fonction
+but more commands are available:
+
+        --help             Output this help
+        --version          Print XMU version
+        --cdbdomlist       Creates the cdb-domainlist
+        --homedirs         Creates user home and autoreply directories if they doesn't exists
+        --mscanlist        Creates MailScanner specific files
+        --autoreply        Deletes obsolete autoreply files
+        --update-bind      Update the BIND configuration
+          --rebuild        Rebuild the complete BIND configuration
+        --cleansites       Show directories of obsoletes sites
+          --archive        Archives directories before deleting them
+          --delete         Force deletion of directories of obsoletes sites
+        --delusername      Show obsoletes usernames in sites
+          --delete         Force deletion of obsoletes usernames in sites
+        --eximconfig       Creates EximConfig specific files
+        --quota            Update User quota in XAMS database
+        --verbose          Verbose output
+
+The --verbose parameter can be mixed with any other parameter.
+
+If you want to edit the xams scheduled cron to customise it, go to /etc/cron.d/xams.
+
+DNS BIND USE
+
+  If you selected DNS at install, you will have to modify the crontab for xmu.
+  You should add "--update-bind" to the xmu command line in the cron.
+
+CONTRIBUTIONS
+
+ Contribs can be found in /usr/share/doc/xams/contrib.
+
+ This directory contains some useful files as a vhost for Apache, and the Mailscanner
+ and RoundCube plugins. The export_dns script is used to generate the TLS certificate,
+ and export_dns is an old utility to convert bind files.
+ 
+  ├── contrib
+  │   ├── apache
+  │   │   └── xams-apache
+  │   ├── dns
+  │   │   └── export_dns.pl
+  │   ├── exim
+  │   │   └── exim-gencert
+  │   ├── mailscanner
+  │   │   ├── mailscanner.txt
+  │   │   └── SQLSpamSettingsXAMS.pm.gz
+  │   └── roundcube
+  │       ├── password
+  │       │   ├── README
+  │       │   └── xams.php
+  │       ├── vacation
+  │       │   └── README
+  │       └── virtuser_query
+  │           └── README
+
+  Please follow the README files to install MailScanner and RoundCube plugins.
+
+IN CASE OF PROBLEM
+
+  In case of problem with XAMS, please look inside these log files for details:
+
+  /var/log/exim4/mainlog
+
+  /var/log/auth.log
+
+  /var/log/syslog
+
+  /var/log/clamav/clamav.log
+  
+  /var/log/apache2/error.log
+
+UPGRADE FROM PREVIOUS XAMS INSTALLED FROM SOURCE 
+
+  This Debian package is attended to be installed ONLY on a fresh Debian system. 
+
+  Do not try to install it on a manually installed XAMS server or you will
+  got a none working or unstable system.
+
+  To upgrade your installation to the Debian package, please follow this process:
+
+  - Install the XAMS Debian package on a fresh Debian system
+  - Stop apache, courier and exim services on your old server
+  - On your old server, dump the XAMS database
+  - Stop apache, courier and exim services on your new server
+  - Copy the /var/mail directory from your old server in the new server at the same location
+  - Drop all tables from the default XAMS database on your new server
+  - Load the XAMS database from your old server in the new server 
+    (don't forget to update the database schema if you were using an old version of xams)
+  - Restart apache, courier and exim services on your new server
+
+  It's done!
+
+# END #

@@ -1,0 +1,41 @@
+package Xmod;
+require Exporter;
+
+our @ISA        = qw(Exporter);
+our @EXPORT     = qw(setSection getSetting getDSN);
+our $VERSION    = 0.0.13;
+
+my $ini = Config::IniFiles->new(-file => '@XAMS_CONFIG_DIR@/@XAMS_CONFIG@', -default => 'GUI')
+    or die 'failed to read config file';
+
+sub setSection { $section = $_[0]; }
+
+# returns a string without leading and trailing whitespaces
+sub trim
+{
+    if (defined $_[0])
+    {
+        my $string = $_[0];
+        $string =~ s/^\s*(.*?)\s*$/$1/;
+        return $string;
+    }
+}
+
+# read configuration from @XAMS_CONFIG_DIR@/@XAMS_CONFIG@
+# needs to be done by subs because constants cant be set else in strict mode
+sub getSetting
+{
+    my ($setting, $optional) = @_;
+    my $val = $ini->val($section, $setting, $optional) or
+        die "Needed configuration setting ($setting) not set in section '$section' in @XAMS_CONFIG_DIR@/@XAMS_CONFIG@!";
+
+    return trim($val);
+}
+
+sub getDSN
+{
+    return sprintf('dbi:%s:database=%s;host=%s', getSetting('DBType'), getSetting('DB'), getSetting('DBHost'));
+}
+
+
+1;

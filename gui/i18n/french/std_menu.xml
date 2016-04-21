@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.1.0" file-release="0.1.0" file-revision="1" date="2010-09-05">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Standard menu messages">Menu général des messages</title>
+        <msg id="Date Format">JJ/MM/AAAA</msg>
+        <!-- Translating the Date Format means only ordering the letters
+        in another way - do not use other letters! -->
+
+        <msg id="Access denied.">Accès interdit.</msg>
+        <msg id="Yes">Oui</msg>
+        <msg id="No">Non</msg>
+        <msg id="New">Nouveau</msg>
+        <msg id="Edit">Edition</msg>
+        <msg id="Change">Modifier</msg>
+        <msg id="Update">Mettre à jour</msg>
+        <msg id="Delete">Supprimer</msg>
+        <msg id="Reset">Remettre à zéro</msg>
+        <msg id="Help">Aide</msg>
+        <msg id="Use">Utiliser</msg>
+        <msg id="Limit">Limite</msg>
+        <msg id="none">aucun</msg>
+        <msg id="unlimited">illimité</msg>
+        <msg id="Overview">Vue générale</msg>
+        <msg id="Addressbook">Carnet d'Adresse</msg>
+        <msg id="Next">Suivant</msg>
+        <msg id="Add">Ajouter</msg>
+        <msg id="Save">Enregistrer</msg>
+        <msg id="On">Activer</msg>
+        <msg id="Off">Arrêt</msg>
+        <msg id="The formular was not properly filled out. Point at the question mark.">Le formulaire n'a pas été correctement saisie. Positionnez le pointeur à l'emplacement du point d'interrogation.</msg>
+        <msg id="Do you really want to delete this entry?">Voulez-vous vraiment effacer cette entrée ?</msg>
+    
+        <msg id="XAMS Online help">Aide en ligne XAMS</msg>
+        <msg id="Last modification">Dernière modification le</msg>
+    </msgs>
+</i18n>

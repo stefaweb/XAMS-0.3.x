@@ -1,0 +1,177 @@
+
+h3{
+padding-left:5px;
+}
+
+a:link img, a:visited img, a:active img { border: none; }
+
+.reseller {
+    padding: 0px;
+	/*border-spacing: 0px;*/
+	background-color: #ebf2f8;
+	border: 1px solid #ebf2f8;
+}
+
+.resellerheader {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11pt;
+	font-weight: bold;
+	text-align: left;
+	background-color: #2370b8;
+	height: 30px;
+	color:#FFF;
+}
+
+
+.resellerheadertext, .resellerheadertext:hover {
+	text-decoration: none;
+	text-transform: capitalize;
+	padding-left: 10px;
+	font-weight: bold;
+}
+
+.resellerheadertext {
+	color: #FFF;
+}
+.resellerheadertext:hover {
+	color: #FFF;
+	text-decoration: underline;
+}
+
+.resellerfooter {
+	background-color: #2370b8;
+	padding: 0px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 8pt;
+	text-align: center;
+	border-spacing: 0px;
+	color: #FFF;
+}
+
+.resellerfooter td{
+	border: 1px solid #FFF;
+}
+
+
+.accountdata {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 7pt;
+	color: #000000;
+	/*padding-left: 5px;*/
+}
+
+.defaultsite, .defaultdomain, .defaultuser, .defaultalias,
+.lockedsite, .lockeddomain, .lockeduser, .lockedalias,
+.lockedbouncesite, .lockedbouncedomain, .lockedbounceuser, .lockedbouncealias { background-repeat: repeat; }
+
+.defaultsite   { /*background-image: url(../img/default_site.png);*/ } /*#4DA487*/
+
+.defaultsite a {
+	color: #2370b8;
+}
+
+.defaultuser a:hover {
+	color: #2370b8;
+	text-decoration: underline;
+}
+
+.defaultalias a:hover {
+        color: #2370b8;
+        text-decoration: underline;
+}
+
+.defaultdomain a {
+        color: #2370b8;
+}
+
+.defaultuser {
+	margin-top: 10px;
+	margin-bottom: 10px;	
+}
+
+.defaultuser a {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10pt;
+	color: #2370b8;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;	
+}
+
+.defaultuser a:hover { 
+	color: #FFF;
+	background-color: #2370b8;
+	text-decoration: none;
+}
+
+.defaultalias {
+        margin-top: 10px;
+        margin-bottom: 10px;
+}
+
+.defaultalias a {
+        font-family: Verdana, Arial, sans-serif;
+        font-size: 10pt;
+        color: #2370b8;
+        font-style: normal;
+        line-height: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+}
+
+.defaultalias a:hover {
+        color: #FFF;
+        background-color: #2370b8;
+        text-decoration: none;
+}
+
+.defaultalias  { /*background-image: url(../img/default_alias.png);*/ } /*#C0D7E2*/
+
+.lockedsite   { 
+	background-image: url(../img/locked_site.png); 
+	background-color:#bbb;
+} 
+.lockeddomain { background-image: url(../img/locked_site.png); } /*#C6CA77*/
+.lockeduser   { background-image: url(../img/locked_user.png); } 
+.lockedalias  { background-image: url(../img/locked_user.png); } /*#EBECCE*/
+
+.lockedbouncesite   { background-image: url(../img/bounced_site.png); } /*#FF00FF*/
+.lockedbouncedomain { background-image: url(../img/bounced_site.png); } /*#FF99CC*/
+.lockedbounceuser   { background-image: url(../img/bounced_user.png); } /*#FFCCCC*/
+.lockedbouncealias  { background-image: url(../img/bounced_user.png);/ } /*#FFFFCC*/
+
+.siteshadow {
+
+}
+
+.lockeduser a,  .lockedsite a, .lockedbounceuser a, .lockedbouncesite a, .lockedbouncealias a{ 
+ 	color: #2370b8;
+}
+
+.aliassep {
+	border-top: 1px solid #2370b8;
+	margin-top: 10px;
+	padding-left:0;
+	font-style:italic;
+}
+
+.aliassep a {
+	font-family: Verdana, Arial, sans-serif;
+	font-size: 10pt;
+	color: #2370b8;
+	font-style: normal;
+	line-height: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;	
+	font-style:italic;
+}
+
+.aliassep a:hover{
+	color: #FFF;
+	background-color: #2370b8;
+	text-decoration: none;
+}

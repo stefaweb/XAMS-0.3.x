@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="User-Addressbook Administration" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+    	The XAMS Addressbook is designed to create an Addressbook for Sites,
+    	Users, Aliases, Resellers and Customers. The Fields for the
+    	addressbook (e.g. Name, Street, ...) must be created by you, allowing
+    	you to define exactly the fields you want or need for each system.
+    </information>
+    <section>
+        <head>Fieldname</head>
+        <description>
+        	Enter a fieldname that should be available to your customer.
+        </description>
+    </section>
+    <section>
+        <head>LDAP</head>
+        <description>
+            With LDAP (Lightweight Directory Access Protocol) XAMS provides the
+            ability to export specific addressbook-fields into such database.
+            This LDAP database can be used by different applications as a global
+            addressbook.
+        </description>
+    </section>
+    <section>
+        <head>ACL Reseller</head>
+        <description>
+            The ACL Reseller (Access Control List) is used for limiting access
+            of resellers to this field. The option "None" disables all access
+            rights for the Reseller (no read or write access). "Read" or "Read+Write"
+            allow the Reseller to read or even modify this field.
+        </description>
+    </section>
+    <section>
+        <head>ACL Customer</head>
+        <description>
+            Same as ACL Reseller - you can set access rights for your Customers here.
+        </description>
+    </section>
+    <section>
+        <head>ACL User</head>
+        <description>
+            Same as ACL Reseller - you can set access rights for your Users here.
+        </description>
+    </section>
+    <section>
+        <head>Move Field</head>
+        <description>
+        	This function changes the order of how the fields should appear in
+        	the interface. The selectbox shows every existing Fieldname; select
+        	an entry to move the current field below the selected field.
+        </description>
+    </section>
+    <section>
+        <head>Delete</head>
+        <description>
+        	If you activate the selectbox in any line and click update the selected
+        	lines will be deleted. NOTE: Data of all Sites, that were in those fields
+        	will be deleted!
+        </description>
+    </section>
+</help>

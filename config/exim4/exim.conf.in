@@ -1,0 +1,655 @@
+############################################################################
+# XAMS (eXtended Account Management System)
+# Version: @VERSION@ 
+############################################################################
+
+############################################################################
+#                    Runtime configuration file for Exim                   #
+############################################################################
+
+# Just for reference and scripts. 
+# On Debian systems, the main binary is installed as exim4 to avoid
+# conflicts with the exim 3 packages.
+exim_path = /usr/sbin/exim4
+
+# We do not use absolute paths.
+CONFDIR = @XAMS_CONFIG_DIR@ 
+MAILDIR = @MAILDIR@ 
+
+# This file contains various variables and options
+.include CONFDIR/exim-custom.conf
+
+# This file contains various messages used by Exim
+.ifdef LANG_EN
+   .include CONFDIR/exim-messages_en.conf
+.endif
+.ifdef LANG_FR
+   .include CONFDIR/exim-messages_fr.conf
+.endif
+.ifdef LANG_DE
+   .include CONFDIR/exim-messages_de.conf
+.endif
+
+# Logging options.
+log_selector = \
+        .include CONFDIR/exim-log_options.conf
+
+######################################################################
+#                    MAIN CONFIGURATION SETTINGS                     #
+######################################################################
+
+# trusted users can set envelope-from to arbitrary values
+trusted_users = root : mail : @XAMS_USER@ 
+
+# The next three settings create two lists of domains and one list of hosts.
+# These lists are referred to later in this configuration using the syntax
+# +local_domains, +relay_to_domains, and +relay_from_hosts, respectively. They
+# are all colon-separated lists:
+domainlist local_domains = @:+xams_domains:+custom_local_domains
+domainlist relay_to_domains = +custom_relay_to_domains
+domainlist sender_callback_domains = wildlsearch;CONFDIR/exim-nocallback.conf
+
+# Hots list settings
+hostlist   relay_from_hosts = 127.0.0.1:+custom_relay_from_hosts
+hostlist   hosts_avoid_tls = CONFDIR/exim-notls.conf
+
+# Defines the access control list that is run when an
+# SMTP RCPT command is received.
+acl_smtp_rcpt = acl_check_rcpt
+# Defines the access control list that is run when an
+# SMTP MAIL FROM command is received.
+acl_smtp_mail = acl_check_sender
+
+# No deliveries will ever be run under the uids of these users (a colon-
+# separated list). An attempt to do so causes a panic error to be logged, and
+# the delivery to be deferred. This is a paranoic safety catch. Note that the
+# default setting means you cannot deliver mail addressed to root as if it
+# were a normal user. This isn't usually a problem, as most sites have an alias
+# for root that redirects such mail to a human administrator.
+never_users = root
+
+# The setting below causes Exim to do a reverse DNS lookup on all incoming
+# IP calls, in order to get the true host name. If you feel this is too
+# expensive, you can specify the networks for which a lookup is done, or
+# remove the setting entirely.
+host_lookup = *
+
+# The settings below, which are actually the same as the defaults in the
+# code, cause Exim to make RFC 1413 (ident) callbacks for all incoming SMTP
+# calls. You can limit the hosts to which these calls are made, and/or change
+# the timeout that is used. If you set the timeout to zero, all RFC 1413 calls
+# are disabled. RFC 1413 calls are cheap and can provide useful information
+# for tracing problem messages, but some hosts and firewalls are
+# misconfigured to drop the requests instead of either answering or
+# rejecting them. This can result in a timeout instead of an immediate refused
+# connection, leading to delays on starting up SMTP sessions. (The default was
+# reduced from 30s to 5s for release 4.61.)
+rfc1413_hosts = *
+rfc1413_query_timeout = 5s
+
+# When Exim can neither deliver a message nor return it to sender, it "freezes"
+# the delivery error message (aka "bounce message"). There are also other
+# circumstances in which messages get frozen. They will stay on the queue for
+# ever unless one of the following options is set.
+
+# This option unfreezes frozen bounce messages after two days, tries
+# once more to deliver them, and ignores any delivery failures.
+
+ignore_bounce_errors_after = 2d
+
+# This option cancels (removes) frozen messages that are older than a week.
+timeout_frozen_after = 3d
+
+# Settings for TLS
+# Can be activated in exim-customs.conf
+# exim.crt and exim.key should exist
+# To generate keys use "/usr/share/doc/exim4-base/examples/exim-gencert"
+.ifdef TLS_ENCRYPTION
+  tls_certificate = /etc/exim4/exim.crt
+  tls_privatekey = /etc/exim4/exim.key
+  #tls_advertise_hosts = *
+  tls_advertise_hosts = ${if and { \
+                           {exists {/etc/exim4/exim.crt}} \
+                           {exists {/etc/exim4/exim.key}} \
+                         } {*} {!+hosts_avoid_tls}}
+.endif
+
+# Setting for AV Scanner
+# Can be activated in exim-customs.conf
+.ifdef VIRUS_MODULE
+    # The following ACL entry is used if you want to do content scanning with the
+    # exiscan-acl patch. When you uncomment this line, you must also review the
+    # acl_check_content entry in the ACL section further below.
+    acl_smtp_data = acl_check_content
+.endif
+
+# Activates Mailscanner or normal operation - read
+# xams-0.0.19/docs/install/mailscanner.txt for more information.
+.ifdef MAILSCANNER_INCOMING
+  spool_directory = @MAILSCANNER_INCOMING@ 
+  queue_only = true
+  queue_only_override = false
+.elifdef MAILSCANNER_OUTGOING
+  spool_directory = @MAILSCANNER_OUTGOING@ 
+  log_file_path = @MAILSCANNER_OUTGOING_LOG@/%slog
+.else
+  spool_directory = @EXIM_SPOOL_DIR@ 
+.endif
+
+# Global XAMS configuration settings
+.include CONFDIR/exim-global.conf
+
+# SQL macros for routers, transports and smtp authentication
+.include CONFDIR/exim-sql-macros.conf
+
+
+######################################################################
+#                       ACL CONFIGURATION                            #
+#         Specifies access control lists for incoming SMTP mail      #
+######################################################################
+
+begin acl
+
+# ACL for non-SMTP (I.e:  Locally generated) messages.
+
+check_nonsmtp:
+
+   # Whitelist and ensure that SpamAssassin is not run.
+   warn    message       = X-SA-Do-Not-Run: Yes
+           condition     = ${if eq {SPAMASSASSIN_MODULE}{On} {yes}{no}}
+
+   accept
+
+# ACL for "mail from:" on smtp level to implement port 587
+# submission only when authenticated
+
+acl_check_sender:
+  accept  condition = ${if eq {$interface_port}{587}}
+          authenticated = *
+  deny    message = Only authorised users may use the submission port.
+          condition = ${if eq {$interface_port}{587}}
+  accept
+
+# This access control list is used for every RCPT command in an incoming
+# SMTP message. The tests are run in order until the address is either
+# accepted or denied.
+
+acl_check_rcpt:
+
+  # Accept if the source is local SMTP (i.e. not over TCP/IP). We do this by
+  # testing for an empty sending host field.
+
+  accept  hosts = :
+
+  #############################################################################
+  # The following section of the ACL is concerned with local parts that contain
+  # @ or % or ! or / or | or dots in unusual places.
+  #
+  # The characters other than dots are rarely found in genuine local parts, but
+  # are often tried by people looking to circumvent relaying restrictions.
+  # Therefore, although they are valid in local parts, these rules lock them
+  # out, as a precaution.
+  #
+  # Empty components (two dots in a row) are not valid in RFC 2822, but Exim
+  # allows them because they have been encountered. (Consider local parts
+  # constructed as "firstinitial.secondinitial.familyname" when applied to
+  # someone like me, who has no second initial.) However, a local part starting
+  # with a dot or containing /../ can cause trouble if it is used as part of a
+  # file name (e.g. for a mailing list). This is also true for local parts that
+  # contain slashes. A pipe symbol can also be troublesome if the local part is
+  # incorporated unthinkingly into a shell command line.
+  #
+  # Two different rules are used. The first one is stricter, and is applied to
+  # messages that are addressed to one of the local domains handled by this
+  # host. It blocks local parts that begin with a dot or contain @ % ! / or |.
+  # If you have local accounts that include these characters, you will have to
+  # modify this rule.
+
+  deny    domains       = +local_domains
+          local_parts   = ^[.] : ^.*[@%!/|]
+
+  # The second rule applies to all other domains, and is less strict. This
+  # allows your own users to send outgoing messages to sites that use slashes
+  # and vertical bars in their local parts. It blocks local parts that begin
+  # with a dot, slash, or vertical bar, but allows these characters within the
+  # local part. However, the sequence /../ is barred. The use of @ % and ! is
+  # blocked, as before. The motivation here is to prevent your users (or
+  # your users' viruses) from mounting certain kinds of attack on remote sites.
+
+  deny    domains       = !+local_domains
+          local_parts   = ^[./|] : ^.*[@%!] : ^.*/\\.\\./
+          
+  #############################################################################
+
+  # Accept mail to postmaster in any local domain, regardless of the source,
+  # and without verifying the sender.
+
+  accept  local_parts   = postmaster
+          domains       = +local_domains
+
+  # Deny unless the sender address can be verified.
+
+  require verify        = sender
+
+  # Defer messages if the server load goes to high.
+  defer         message         = Try again later.
+                condition       = ${if >{$load_average}{20000}{1}{0}}
+
+  # Various ACL 
+  warn          condition       = ${if !def:acl_m0 {1}{0} }
+
+                set acl_m0      = $local_part@$domain
+                set acl_m1      = $local_part
+                set acl_m2      = $domain
+                set acl_m3      = $sender_address_local_part@$sender_address_domain
+                set acl_m4      = $sender_address_local_part
+                set acl_m5      = $sender_address_domain
+                # Reset acl
+                set acl_m6      =
+
+  # Messages and lookup for sa-exim and Spamassassin
+
+  warn     local_parts   = postmaster : abuse
+           condition     = ${if eq {SPAMASSASSIN_MODULE}{On} {yes}{no}}
+           message       = X-SA-Do-Not-Rej: Yes
+           log_message   = Flagged as Spam but accepted (abuse or postmaster)
+
+  warn     hosts         = +relay_from_hosts
+           condition     = ${if eq {SPAMASSASSIN_MODULE}{On} {yes}{no}}
+           message       = X-SA-Do-Not-Run: Yes
+           log_message   = Not scanned (Relay autorised)
+
+  warn     authenticated = *
+           condition     = ${if eq {SPAMASSASSIN_MODULE}{On} {yes}{no}}
+           message       = X-SA-Do-Not-Run: Yes
+           log_message   = Not scanned (User authenticated)
+
+  .ifdef SPAMASSASSIN_MODULE 
+  # Perform Spam-Tests (user-dependent)
+
+  # For incoming messages if user wants to
+  warn     condition     = ${if or {{eq{${lookup SQL_SPAM_IN}}{${acl_m0}}}{eq{${lookup SQL_ISALIAS}}{${acl_m1}}}}{0}{1}} 
+           message       = X-SA-Do-Not-Run: Yes
+           log_message   = No scanned (account $acl_m0 off)
+           set acl_m6    = 1
+
+  # For outgoing messages if user wants to
+  warn     condition     = ${if or {{eq{${lookup SQL_SPAM_OUT}}{${acl_m0}}}{eq{${lookup SQL_ISALIAS}}{${acl_m1}}}}{0}{1}} 
+           message       = X-SA-Do-Not-Run: Yes
+           log_message   = No scanned (account $acl_m0 off)
+           set acl_m6    = 1
+
+  # Default tag
+  warn     message       = X-SA-Do-Not-Run: No
+           log_message   = Scanned by default
+           condition     = ${if eq {$acl_m6}{}}
+
+  .endif
+
+  .ifdef SENDER_VERIFY_CALLBACK_DNS
+  # Sender callback verification for hosts with no reverse DNS (PTR) record set.
+  deny    sender_domains  = ! +local_domains : ! +relay_to_domains : ! +sender_callback_domains
+          hosts           = ! +relay_from_hosts
+        ! authenticated   = *
+          log_message     = Reverse DNS lookup failed for $sender_host_address (${if eq{$host_lookup_failed}{1}{failed}{deferred}})
+          message         = Reverse DNS lookup failed for $sender_host_address (${if eq{$host_lookup_failed}{1}{failed}{deferred}})
+          condition       = ${if and{{def:sender_host_address}{!def:sender_host_name}}{yes}{no}}
+        ! verify          = sender/defer_ok/callout=10s,defer_ok
+  .endif
+
+  .ifdef SENDER_VERIFY_CALLBACK_DYNAMIC
+  # Sender callback verification for dynamic hosts (See dynamic_rules)
+  deny    sender_domains  = ! +local_domains : ! +relay_to_domains : ! +sender_callback_domains
+          hosts           = ! +relay_from_hosts
+        ! authenticated   = *
+          log_message     = Potential dynamic host $sender_host_name matched in dynamic_hosts - Callback check forced
+          message         = Sender verification failed
+          condition       = ${if and { \
+                                 {!eq {$sender_host_name}{}} \
+                                 {!eq {${lookup{$sender_host_name}wildlsearch{CONFDIR/exim-dynamic_hosts.conf}{FOUND}{}}}{}} \
+                               } {yes}{no}}
+        ! verify          = sender/defer_ok/callout=10s,defer_ok
+  .endif
+
+  .ifdef SENDER_VERIFY_CALLBACK_RBL
+  # Sender callback verification for hosts/domains blacklisted by RBL
+  deny    sender_domains  = ! +local_domains : ! +relay_to_domains : ! +sender_callback_domains
+          hosts           = ! +relay_from_hosts
+        ! authenticated   = *
+          log_message     = Listed in RBL $dnslist_domain${if !eq {$dnslist_text}{} { ($dnslist_text)}{}} - Callback check forced
+          message         = Sender verification failed
+          dnslists        = RBL_LIST
+        ! verify          = sender/defer_ok/callout=10s,defer_ok
+  .endif
+
+  # Accept if the address is in a local domain, but only if the recipient can
+  # be verified. Otherwise deny. The "endpass" line is the border between
+  # passing on to the next ACL statement (if tests above it fail) or denying
+  # access (if tests below it fail).
+
+  accept  domains       = +local_domains
+          endpass
+          verify        = recipient
+
+  # Accept if the address is in a domain for which we are relaying, but again,
+  # only if the recipient can be verified.
+
+  accept  domains       = +relay_to_domains
+          endpass
+          verify        = recipient
+
+  # If control reaches this point, the domain is neither in +local_domains
+  # nor in +relay_to_domains.
+
+  # Accept if the message comes from one of the hosts for which we are an
+  # outgoing relay. Recipient verification is omitted here, because in many
+  # cases the clients are dumb MUAs that don't cope well with SMTP error
+  # responses. If you are actually relaying out from MTAs, you should probably
+  # add recipient verification here.
+
+  accept  hosts         = +relay_from_hosts
+
+  # Accept if the message arrived over an authenticated connection, from
+  # any host. Again, these messages are usually from MUAs, so recipient
+  # verification is omitted.
+
+  accept  authenticated = *
+
+  # deny if non-authenticated mail comes in on submission port
+
+  deny    message       = Only authorised users may use the submission port.
+          condition     = ${if eq {$interface_port}{587}}
+
+  # Reaching the end of the ACL causes a "deny", but we might as well give
+  # an explicit message.
+
+  deny    message       = Relaying from ${sender_address} to ${local_part}@${domain} denied. 
+
+
+# Setting for AV Scanner
+# Can be activated in exim-customs.conf
+.ifdef VIRUS_MODULE
+######################################################################
+#                     Exim content ACL definitions                   #
+######################################################################
+
+acl_check_content:
+
+  # Don't scan again if already checked
+  accept  condition       = ${if eq {${hmac{md5}{password}{$body_linecount}}}\
+                            {$h_X-Scan-Signature:} {1}{0} }
+
+  # First unpack MIME containers and reject serious errors
+  deny    message         = This message contains a MIME error ($demime_reason)
+          log_message     = Error in message MIME encoding:  $demime_reason
+          demime          = *
+          condition       = ${if >{$demime_errorlevel}{2}{1}{0}}
+
+  # Reject virus infested messages
+  # for outgoing messages
+  deny    message         = This message contains a Virus ($malware_name)
+          log_message     = Virus found in message:  $malware_name ${lookup SQL_VIRUS_OUT}
+          condition       = ${if eq {${lookup SQL_VIRUS_OUT}}{${acl_m3}}{1}{0} }
+          demime          = *
+          malware         = *
+
+  # Reject virus infested messages
+  # for incoming messages
+  deny    message         = X-Virus-Flag: Yes
+          log_message     = Virus found in message:  $malware_name. Adding X-Virus-Flag.
+          # Comment this line to force Virus Scan On for all cases
+          condition       = ${if eq {${lookup SQL_VIRUS_IN}}{${acl_m0}}{1}{0} } 
+          demime          = *
+          malware         = *
+
+  # No Virus check tag
+  warn    message         = No virus scan done or not virus found 
+          log_message     = No virus scan done or not virus found
+        
+  # Add heading to the Message-id if missing
+  warn    condition       = ${if !def:h_Message-Id: {1}}
+          message         = Message-Id: <E$message_id@$primary_hostname>
+          log_message     = Added Message-Id <E$message_id@$primary_hostname>
+
+  # Add crypto signature (see first test)
+  warn    message         = X-Scan-Signature: ${hmac{md5}{password}{$body_linecount}}
+
+  # Finally accept all the rest
+
+  accept 
+
+.endif
+# End of VIRUS_MODULE
+
+######################################################################
+#                      ROUTERS CONFIGURATION                         #
+#               Specifies how addresses are handled                  #
+######################################################################
+#     THE ORDER IN WHICH THE ROUTERS ARE DEFINED IS IMPORTANT!       #
+# An address is passed to each router in turn until it is accepted.  #
+######################################################################
+
+begin routers
+
+.ifdef MAILSCANNER_INCOMING
+defer_router:
+  driver = redirect
+  allow_defer
+  data = :defer: All deliveries are deferred
+  verify = false
+.endif
+
+# This file contains XAMS routers definition
+.include CONFDIR/exim-routers.conf
+
+# This router routes addresses that are not in local domains by doing a DNS
+# lookup on the domain name. Any domain that resolves to 0.0.0.0 or to a
+# loopback interface address (127.0.0.0/8) is treated as if it had no DNS
+# entry. Note that 0.0.0.0 is the same as 0.0.0.0/32, which is commonly treated
+# as the local host inside the network stack. It is not 0.0.0.0/0, the default
+# route. If the DNS lookup fails, no further routers are tried because of
+# the no_more setting, and consequently the address is unrouteable.
+dnslookup:
+  driver = dnslookup
+  domains = ! +local_domains
+  transport = remote_smtp
+  ignore_target_hosts = 0.0.0.0 : 127.0.0.0/8
+  no_more
+
+# The remaining routers handle addresses in the local domain(s).
+
+# This router handles aliasing using a traditional /etc/aliases file.
+#
+##### NB  You must ensure that /etc/aliases exists. It used to be the case
+##### NB  that every Unix had that file, because it was the Sendmail default.
+##### NB  These days, there are systems that don't have it. Your aliases
+##### NB  file should at least contain an alias for "postmaster".
+#
+# If any of your aliases expand to pipes or files, you will need to set
+# up a user and a group for these deliveries to run under. You can do
+# this by uncommenting the "user" option below (changing the user name
+# as appropriate) and adding a "group" option if necessary. Alternatively, you
+# can specify "user" on the transports that are used. Note that the transports
+# listed below are the same as are used for .forward files; you might want
+# to set up different ones for pipe and file deliveries from aliases.
+
+system_aliases:
+  driver = redirect
+  allow_fail
+  allow_defer
+  data = ${lookup{$local_part}lsearch{/etc/aliases}}
+# user = @EXIM_USER@ 
+  file_transport = address_file
+  pipe_transport = address_pipe
+
+# This router handles forwarding using traditional .forward files in users'
+# home directories. If you want it also to allow mail filtering when a forward
+# file starts with the string "# Exim filter", uncomment the "allow_filter"
+# option.
+
+# The no_verify setting means that this router is skipped when Exim is
+# verifying addresses. Similarly, no_expn means that this router is skipped if
+# Exim is processing an EXPN command.
+
+# The check_ancestor option means that if the forward file generates an
+# address that is an ancestor of the current one, the current one gets
+# passed on instead. This covers the case where A is aliased to B and B
+# has a .forward file pointing to A.
+
+# The three transports specified at the end are those that are used when
+# forwarding generates a direct delivery to a file, or to a pipe, or sets
+# up an auto-reply, respectively.
+
+userforward:
+  driver = redirect
+  check_local_user
+  file = $home/.forward
+  no_verify
+  no_expn
+  check_ancestor
+# allow_filter
+  file_transport = address_file
+  pipe_transport = address_pipe
+  reply_transport = address_reply
+
+# This router matches local user mailboxes.
+
+localuser:
+  driver = accept
+  check_local_user
+  transport = local_delivery
+  cannot_route_message = Unknown user
+
+
+######################################################################
+#                      TRANSPORTS CONFIGURATION                      #
+######################################################################
+#                       ORDER DOES NOT MATTER                        #
+#     Only one appropriate transport is called for each delivery.    #
+######################################################################
+
+# A transport is used only when referenced from a router that successfully
+# handles an address.
+
+begin transports
+
+# This file contains XAMS transports definition
+.include CONFDIR/exim-transports.conf
+
+# This transport is used for delivering messages over SMTP connections.
+
+remote_smtp:
+  driver = smtp
+  # This deals with misconfigurations like this one that redirect mail to us
+  # (I.e. 'mail' is unqualified and resolves back to us)
+  # worldclasssportfishing.net      MX      30 mail
+  dns_qualify_single = false
+  # This fixes a problem if TLS is enabled where a misunderstanding on the RFC
+  # can cause communication failure between two hosts
+  hosts_nopass_tls = *
+  hosts_avoid_tls = +hosts_avoid_tls
+
+# This transport is used for local delivery to user mailboxes in traditional
+# BSD mailbox format. By default it will be run under the uid and gid of the
+# local user, and requires the sticky bit to be set on the /var/mail directory.
+# Some systems use the alternative approach of running mail deliveries under a
+# particular group instead of using the sticky bit. The commented options below
+# show how this can be done.
+local_delivery:
+  driver = appendfile
+  file = MAILDIR/$local_part
+  delivery_date_add
+  envelope_to_add
+  return_path_add
+# group = @EXIM_GROUP@ 
+# mode = 0660
+
+# This transport is used for handling pipe deliveries generated by alias or
+# .forward files. If the pipe generates any standard output, it is returned
+# to the sender of the message as a delivery error. Set return_fail_output
+# instead of return_output if you want this to happen only when the pipe fails
+# to complete normally. You can set different transports for aliases and
+# forwards if you want to - see the references to address_pipe in the routers
+# section above.
+address_pipe:
+  driver = pipe
+  return_output
+
+# This transport is used for handling deliveries directly to files that are
+# generated by aliasing or forwarding.
+address_file:
+  driver = appendfile
+  delivery_date_add
+  envelope_to_add
+  return_path_add
+
+# This transport is used for handling autoreplies generated by the filtering
+# option of the userforward router.
+address_reply:
+  driver = autoreply
+
+
+######################################################################
+#                      RETRY CONFIGURATION                           #
+######################################################################
+
+begin retry
+
+# This single retry rule applies to all domains and all errors. It specifies
+# retries every 15 minutes for 2 hours, then increasing retry intervals,
+# starting at 1 hour and increasing each time by a factor of 1.5, up to 16
+# hours, then retries every 6 hours until 4 days have passed since the first
+# failed delivery.
+
+# Domain               Error       Retries
+# ------               -----       -------
+
+*                                  quota
+*                      *           F,2h,15m; G,16h,1h,1.5; F,4d,6h
+
+
+######################################################################
+#                      REWRITE CONFIGURATION                         #
+######################################################################
+
+# There are no rewriting specifications in this default configuration file.
+
+begin rewrite
+
+
+######################################################################
+#                   AUTHENTICATION CONFIGURATION                     #
+######################################################################
+
+begin authenticators
+
+# Because AUTH PLAIN and AUTH LOGIN send the password in clear, we
+# only allow these mechanisms over encrypted connections by default.
+
+plain:
+  driver = plaintext
+  public_name = PLAIN
+  server_condition = ${if !eq {} \
+    {${if eq {} {${domain:$2}} \
+        {${lookup SQL_AUTH_UNIQUE_PLAIN{1}}} \
+        {${lookup SQL_AUTH_PLAIN{1}}} \
+    }} \
+    {yes}{no} \
+  }
+  server_set_id = $2
+
+login:
+  driver = plaintext
+  public_name = LOGIN
+  server_prompts = "Username:: : Password::"
+  server_condition = ${if !eq {} \
+    {${if eq {} {${domain:$1}} \
+        {${lookup SQL_AUTH_UNIQUE_LOGIN{1}}} \
+        {${lookup SQL_AUTH_LOGIN{1}}} \
+    }} \
+    {yes}{no} \
+  }
+  server_set_id = $1
+
+# End of Exim configuration file
+

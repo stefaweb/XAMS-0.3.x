@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Endkunden Verwaltung" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-31">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Einem Endkunden werden von einem Wiederverkäufer
+        (bzw. Administrator) beliebig viele Sites zugewiesen, die dann von
+        diesem verwaltet werden können. Hierbei darf er sich allerdings
+        nur innerhalb der vom Wiederverkäufer (bzw. Administrator)
+        vorgegebenen Limitierungen  bewegen. Es ist ihm erlaubt,
+        gemäß der vorgegebenen Grenzen, beliebig viele Benutzer
+        und Aliases anzulegen und diese zu verwalten. Im Gegensatz zum
+        Wiederverkäufer ist es ihm zusätzlich nicht gestattet, auf
+        die Benutzer oder Aliases eines anderen Endkunden zuzugreifen.
+    </information>
+    <section>
+        <head>Endkunden Name</head>
+        <description>
+            Dies ist der Name des Endkunden, so wie er bspw. auch
+            im Ereignis-Log erscheint.
+        </description>
+    </section>
+    <section>
+        <head>Endkunden Passwort</head>
+        <description>
+            In Verbindung mit dem Namen und diesem Passwort, kann sich ein
+            Endkunde an der XAMS GUI anmelden.
+        </description>
+    </section>
+    <section>
+        <head>Konto gesperrt</head>
+        <description>
+            Mit dieser Option kann ein Administrator oder Wiederverkäufer
+            einen Endkunden sperren.
+            Dadurch kann sich dieser nicht mehr an der XAMS GUI anmelden.
+        </description>
+    </section>
+    <section>
+        <head>Wiederverkäufer</head>
+        <description>
+            Hier wird der Wiederverkäufer bestimmt, zu dem der Endkunde
+            gehört. Je nach Wiederverkäufer ändert sich auch die Auswahl
+            an Sites, die dem Endkunden zur Verfügung stehen.
+        </description>
+    </section>
+    <section>
+        <head>Sites</head>
+        <description>
+            Hier kann ein Administrator bzw. ein Wiederverkäufer
+            eine oder mehrere Sites einem Endkunden zuordnen.
+            Einem Endkunden können jedoch nur die Sites zugewiesen
+            werden, die in der Verantwortung des ihm übergeordnetem
+            Wiederverkäufer stehen.
+        </description>
+    </section>
+</help>

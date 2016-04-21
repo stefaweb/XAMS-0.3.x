@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT group (item+)>
+<!ATTLIST group
+    name CDATA #REQUIRED
+    status CDATA #IMPLIED
+>
+<!ELEMENT groups (group+)>
+<!ATTLIST groups
+    usertype (administrator | reseller | customer | user) #REQUIRED
+>
+<!ELEMENT item EMPTY>
+<!ATTLIST item
+    name CDATA #REQUIRED
+    expl CDATA #REQUIRED
+    link CDATA #REQUIRED
+    pic CDATA #REQUIRED
+>
+<!ELEMENT menu (username, usertype, groups+)>
+<!ELEMENT username (#PCDATA)>
+<!ELEMENT usertype (#PCDATA)>
+<!ELEMENT i18nfile (#PCDATA)>
+<!ELEMENT skindir (#PCDATA)>
+<!ATTLIST i18nfile
+    language CDATA #REQUIRED
+>
+<!ELEMENT menuroot (i18nfile, skindir, menu)>
+<!ATTLIST menuroot
+    xams-release CDATA #REQUIRED
+    file-release CDATA #REQUIRED
+    date CDATA #REQUIRED
+>

@@ -1,0 +1,61 @@
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    padding-top: 90px;
+    text-align: center;
+	color: #216cb3;
+	font-size: 10pt;
+	margin: 0;
+	background-image: url(../img/bg_general.jpg);
+	background-repeat: repeat-y;
+	background-position: center top;
+	background-color: #216cb3;
+}
+
+#version {
+    font-size: 7pt;
+    height: 30px;
+    vertical-align: top;
+    text-align: center;
+}
+
+#intro {
+	border: 2px groove #216cb3;
+	width: 300px;
+	font-size: 13pt;
+    margin-bottom: 10px;
+	text-align: center;
+	color: #216cb3;
+	background-color: white;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+form table {
+    font-size: 10pt;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+th {
+    padding-right: 5px;
+    text-align: left;
+}
+
+table table td {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+#info {
+    color: #216cb3;
+    background-color: transparent;
+}
+
+#error {
+    color: #CC0000;
+    background-color: transparent;
+}

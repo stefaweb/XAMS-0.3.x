@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-05">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="User Management" />
+        <msg id="Account Settings" />
+        <msg id="User Management" />
+        <msg id="Site" />
+        <msg id="Account name (E-Mail)" />
+        <msg id="Unique Login name (optional)" />
+        <msg id="Password" />
+        <msg id="Quota" />
+        <msg id="Type" />
+        <msg id="Viruscheck (Incoming)" />
+        <msg id="Viruscheck (Outgoing)" />
+        <msg id="Spamcheck (Incoming)" />
+        <msg id="Spamcheck (Outgoing)" />
+        <msg id="Spam Score Trigger" />
+        <msg id="Spam Score" />
+        <msg id="High Spam Score" />
+        <msg id="Site dependent" />
+        <msg id="Relay on auth" />
+        <msg id="Relay on check" />
+        <msg id="Auto reply" />
+        <msg id="Status" />
+        <msg id="Filter" />
+        <msg id="Active" />
+        <msg id="Locked" />
+        <msg id="Locked &amp; Bounce" />
+        <msg id="User created" />
+        <msg id="User last updated" />
+        <msg id="This unique username does already exists" />
+        <msg id="This username does already exists" />
+	<msg id="Forbidden characters in username" />
+	<msg id="Forbidden characters in unique name" />
+        <msg id="Subject" />
+        <msg id="Message" />
+        <msg id="Unfortunately no more users can be added. Reseller\'s User-Quota has reached." />
+        <msg id="Unfortunately no more users can be added. The site based User-Quota has reached." />
+        <msg id="Unfortunately no more users can be added. The site based Quota has reached." />
+        <msg id="Unknown error occured." />
+        <msg id="Contain non-numeric Characters" />
+	<msg id="Field has to be filled out" />
+	<msg id="Invalid ID" />
+	<msg id="Select a Site in the drop-down menu." />
+	<msg id="Site does not allow users having incoming viruscheck." />
+	<msg id="Site does not allow users having outgoing viruscheck." />
+	<msg id="Site does not allow users having incoming spamcheck." />
+	<msg id="Site does not allow users having outgoing spamcheck." />
+	<msg id="Selected AddrType is not allowed." />
+	
+	<!-- Errors function -->
+	<msg id="Too short min=('%s')" />
+	<msg id="Too long (min='%s')" />
+        <msg id="Value is too low (min='%s')" />
+	<msg id="Value is too big (max='%s')" />
+        
+        <!-- Status messages -->
+        <msg id="User '%s' was added successfully." />
+        <msg id="User '%s' was updated successfully." />
+        <msg id="User '%s' was deleted successfully." />
+        <msg id="User '%s' could not be added." />
+        <msg id="User '%s' could not be updated." />
+        <msg id="User '%s' could not be deleted." />
+    </msgs>
+</i18n>

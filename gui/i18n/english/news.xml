@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE newsroot SYSTEM "../../include/dtd/news.dtd">
+<newsroot xams-release="0.0.10" file-release="0.0.9" date="">
+    <skindir>{{skindir}}</skindir>
+    <head>
+        Welcome to the XAMS News-System. Unfortunately you don't use
+        the online version from the XAMS web site. You can go to the Preference 
+        menu to activate the Online News system.
+    </head>
+    <news author="Stephane Leclerc" subject="XAMS News-System" date="">
+        In large installations you may use this system for internal news. In
+        this case edit the news.xml and keep it up to date for your users.
+        Otherwise you should enable the online news in the preferences.
+    </news>
+</newsroot>

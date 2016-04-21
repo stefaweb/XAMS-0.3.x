@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.1.0" file-revision="1" date="2008-12-17">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="System Overview">Vue générale</title>
+        <msg id="System Overview">Vue générale</msg>
+        <msg id="Showing">Affichage de</msg>
+        <msg id="Sites">Site(s) </msg>
+        <msg id="Addressbook available">Carnet d'Adresse disponible</msg>
+        <msg id="Zone available">Zone disponible</msg>
+        <msg id="Add new alias to this site">Ajouter un nouvel alias au site</msg>
+        <msg id="Add new domain to this site">Ajouter un nouveau domaine au site</msg>
+        <msg id="Add new user to this site">Ajouter un nouvel utilisateur au site</msg>
+        <msg id="XML Output">Export XML</msg>
+        <msg id="XHTML Output">Export XHTML</msg>
+        <msg id="Nothing found.">Aucune réponse trouvée.</msg>
+        <msg id="is forwarded to">est relayé vers</msg>
+        <msg id="is bounced and forwarded to">est rebondi et relayé vers</msg>
+        <msg id="Sites">Sites </msg>
+        <msg id="Domains">Domaines </msg>
+        <msg id="Users">Utilisateurs </msg>
+        <msg id="Delegated">Délégation </msg>
+        <msg id="Aliases">Alias </msg>
+        <msg id="No Domains">Aucun Domaine</msg>
+        <msg id="Create User">Créer un utilisateur</msg>
+        <msg id="Create Alias">Créer un alias</msg>
+        <msg id="LOCKED">VERROUILLÊ</msg>
+        <msg id="LOCKED + BOUNCE">VERROUILLÊ + REBOND</msg>
+        <msg id="Addressbook available">Carnet d'Adresse non disponible</msg>
+        <msg id="Incoming Viruscheck">Anti-Virus entrant</msg>
+        <msg id="Outgoing Viruscheck">Anti-Virus sortant</msg>
+        <msg id="Incoming and Outgoing Viruscheck">Anti-Virus entrant et sortant</msg>
+        <msg id="Incoming Spamcheck">Anti-Spam entrant</msg>
+        <msg id="Outgoing Spamcheck">Anti-Spam sortant</msg>
+        <msg id="Incoming and Outgoing Spamcheck">Anti-Spam entrant et sortant</msg>
+        <msg id="Auto reply enabled">Réponse automatique activée</msg>
+        <msg id="true">Oui</msg>
+        <msg id="false">Non</msg>
+    </msgs>
+</i18n>

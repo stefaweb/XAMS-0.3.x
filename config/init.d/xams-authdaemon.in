@@ -1,0 +1,50 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          xams-authdaemon
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start xams-authdaemon at boot time
+# Description:       Enable service provided by xams-authdaemon.
+### END INIT INFO
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+NAME=xams-authdaemon
+DAEMON=@XAMS_BINDIR@/authdaemon
+
+set -e
+
+case "$1" in
+    start)
+	if pidof /usr/lib/courier/courier-authlib/authdaemond ; then
+	    /etc/init.d/courier-authdaemon stop > /dev/null
+	    echo courier-authdaemon hold | dpkg --set-selections > /dev/null
+	fi
+        echo -n "Starting XAMS authdaemon: "
+        $DAEMON
+        echo "$NAME."
+        ;;
+    stop)
+        echo -n "Stopping XAMS authdaemon: "
+        if [ -e @XAMS_PID_DIR@/authdaemon-xams.pid ] ; then
+            kill `cat @XAMS_PID_DIR@/authdaemon-xams.pid`
+            echo "$NAME."
+        else
+            echo "no $NAME found running."
+        fi
+        ;;
+    restart|force-reload)
+        $0 stop
+        sleep 1
+        $0 start
+        ;;
+    *)
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart}" >&2
+        exit 1
+        ;;
+esac
+
+exit 0

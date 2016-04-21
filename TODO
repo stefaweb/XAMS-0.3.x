@@ -1,0 +1,50 @@
+XAMS TODO
+---------
+
+Here are the current TODO list for XAMS.
+
+XAMS GUI
+--------
+
+- Database:
+
+  A new option to have a count report of mail accounts per Admin, Reseller, Customers, 
+  and site. Global total per section. Option: CSV export
+
+- XAMS logs: Add user connection IP in the logs.
+
+MAILSCANNER 
+-----------
+
+- Mailscanner and SQLSpamSettingsXAMS.pm:
+
+  SQLSpamSettingsXAMS permit to define alias to NoScan but currently the system do not manage multiple alias and "external alias".
+
+  This doesn't work.
+  -------------------
+
+  SELECT      DISTINCT( LOWER( CONCAT( a.leftpart, '\@', d.name ) )) AS Username, 
+              a.rightpart AS U_rightpart,
+              s.spamcheckin AS S_spamchecking,
+              u.spamcheckin AS U_spamcheckin, 
+              u.name AS U_name
+  FROM        pm_sites AS s
+  INNER JOIN  pm_domains d
+  ON          s.id = d.siteid
+  INNER JOIN  pm_users u
+  ON          s.id = u.siteid
+  INNER JOIN  pm_aliases a
+  ON          s.id = a.siteid
+  WHERE       a.rightpart = u.name
+  AND         s.sitestate != 'lockedbounce'
+  AND         u.spamcheckin  = 'false' OR (s.spamcheckin  = 'false' AND u.spamcheckin = 'false')
+  AND         u.$aliases  = 'false' OR (s.$aliases  = 'false' AND u.$aliases = 'false')
+
+  -------------------
+
+VARIOUS REQUEST
+---------------
+
+- RoudCube modules : mailscanner white/black list for XAMS per email account basis. 
+
+

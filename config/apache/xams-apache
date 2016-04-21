@@ -1,0 +1,39 @@
+# XAMS VHOST
+
+NameVirtualHost 10.0.0.1 
+
+<VirtualHost 10.0.0.1>
+        ServerAdmin webmaster@domain.tld 
+        ServerName xams.domain.tld 
+        DocumentRoot /usr/share/xams
+        <Directory />
+                Options FollowSymLinks
+                AllowOverride None
+        </Directory>
+        <Directory /usr/share/xams>
+                Options FollowSymLinks MultiViews
+                AllowOverride All 
+                #AuthAuthoritative Off
+                Order allow,deny
+                allow from all
+        </Directory>
+
+        ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
+        <Directory "/usr/lib/cgi-bin">
+                AllowOverride None
+                Options ExecCGI -MultiViews +SymLinksIfOwnerMatch
+                Order allow,deny
+                Allow from all
+        </Directory>
+
+        ErrorLog /var/log/xams/xams-error.log 
+
+        # Possible values include: debug, info, notice, warn, error, crit,
+        # alert, emerg.
+        LogLevel warn
+
+        CustomLog /var/log/xams/xams-combined.log combined
+        ServerSignature On
+        AddDefaultCharset off
+
+</VirtualHost>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.1.0" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Site Template Management">Gestion des gabarits de site</title>
+        <msg id="Site-Templates Management">Gestion des gabarits de site</msg>
+        <msg id="Template-Name">Nom du gabarit</msg>
+        <msg id="Sitename (e.g. xams)">Nom du site (pour XAMS)</msg>
+        <msg id="Max. Quota">Quota maximum</msg>
+        <msg id="Max. Quota (per User)">Quota maximum (par utilisateur)</msg>
+        <msg id="Max. Users">Nbr. maximum d'utilisateur</msg>
+        <msg id="Max. Aliases">Nbr. maximum d'alias</msg>
+        <msg id="Type">Protocole</msg>
+        <msg id="Viruscheck">Anti-Virus</msg>
+        <msg id="Spamcheck">Anti-SPAM</msg>
+        <msg id="Incoming">Entrant</msg>
+        <msg id="Outgoing">Sortant</msg>
+        <msg id="Alias">Alias</msg>
+        <msg id="is forwarded to">est renvoyé vers</msg>
+        <msg id="B&amp;F">B&amp;W</msg>
+        <msg id="Template created">Gabarit créé le</msg>
+        <msg id="Template last updated">Gabarit mis à jour le</msg>
+        <msg id="Spam Score Trigger">Réglage des scores de Spam</msg>
+        <msg id="Spam Score">Score de base </msg>
+        <msg id="High Spam Score">Score limite </msg>
+        <msg id="Viruscheck (Incoming)">Anti-Virus (Entrant)</msg>
+        <msg id="Viruscheck (Outgoing)">Anti-Virus (Sortant)</msg>
+        <msg id="Spamcheck (Incoming)">Anti-SPAM (Entrant)</msg>
+        <msg id="Spamcheck (Outgoing)">Anti-SPAM (Sortant)</msg>
+
+        <!-- Status-Meldungen -->
+        <msg id="Site-Template '%s' was added successfully.">Le gabarit de site '%s' a été ajouté avec succès.</msg>
+        <msg id="Site-Template '%s' was updated successfully.">Le gabarit de site '%s' a été mis à jour avec succès.</msg>
+        <msg id="Site-Template '%s' was deleted successfully.">Le gabarit de site '%s' a été effacé avec succès.</msg>
+        <msg id="Site-Template '%s' could not be added.">Le gabarit de site '%s' n'a pas pu être ajouté.</msg>
+        <msg id="Site-Template '%s' could not be updated.">Le gabarit de site '%s' n'a pas pu être mis à jour.</msg>
+        <msg id="Site-Template '%s' could not be deleted.">Le gabarit de site '%s' n'a pas pu être effacé.</msg>
+    </msgs>
+</i18n>

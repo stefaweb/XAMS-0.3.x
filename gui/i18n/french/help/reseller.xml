@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Administration des revendeurs" xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Un Administrateur attribue des sites à un Revendeur. Ces sites peuvent ensuite être administré
+        par ce revendeur. En fonction des limitations définies par l'administrateur, le revendeur peut 
+        définir les clients qui auront accès à ces sites et les gérer.
+        
+        Pa rapport à l'administrateur qui peut tout faire, le revendeur n'a pas accès aux préférences
+        du système, ni aux Carnets d'adresse et il ne peut aussi pas analyser la base de données XAMS. 
+        Il ne peut aussi avoir accès qu'a ses propres cients.
+    </information>
+    <section>
+        <head>Nom du revendeur</head>
+        <description>
+            C'est nom du revendeur tel qu'il apparait dans la gestion des logs. A la connexion, ce nom 
+            doit être précédé par "res_" pour que le système XAMS sache à quelle type d'utilisateur il a affaire.
+        </description>
+    </section>
+    <section>
+        <head>Mot de passe du revendeur</head>
+        <description>
+            Utilisé en même temps que le nom du revendeur, le mot de passe est demandé à la connexion 
+            pour pouvoir accèder à l'interface d'administration du système XAMS.
+        </description>
+    </section>
+    <section>
+        <head>Nbr. maximum de clients</head>
+        <description>
+            Cette valeur permet de définir combien de clients peut créer le revendeur.
+        </description>
+    </section>
+    <section>
+        <head>Nbr. maximum de sites</head>
+        <description>
+            Cette valeur permet de définir combien de sites peut créer le revendeur.
+        </description>
+    </section>
+    <section>
+        <head>Nbr. maximum de domaines</head>
+        <description>
+            Cette valeur permet de définir combien de domaines peut créer le revendeur.
+        </description>
+    </section>
+    <section>
+        <head>Nbr. maximum d'utilisateurs</head>
+        <description>
+            Cette valeur permet de définir le nombre maximum de client qui peuvent être
+            défini pour un même site.
+            
+            Exemple : un revendeur a une limite de 20 utilisateurs. Il peut donc attribuer une limite
+            pour un premier site de 5 utilisateurs et 15 pour un second site. 
+            
+            Le total des utilisateurs attribués ne pouvant excéder le total autorisé. Cette valeur
+            n'affecte pas le total général des utilisateurs qui ne sont pas sous sa reponsabilité.
+        </description>
+    </section>
+    <section>
+        <head>Nbr. maximum d'alias</head>
+        <description>
+            Cette valeur permet de définir combien d'alias peut créer le revendeur.
+        </description>
+    </section>
+    <section>
+        <head>Quota maximum</head>
+        <description>
+            Cette valeur permet de définir le quota maximum général pour l'ensemble des sites
+            que peut créer le revendeur.
+        </description>
+    </section>
+    <section>
+        <head>Quota maximum pour les sites</head>
+        <description>
+            Cette valeur permet de définir le quota maximum qu'un revendeur peut attribuer
+            à un site unique.
+        </description>
+    </section>
+    <section>
+        <head>Quota maximum pour les utilisateurs</head>
+        <description>
+            Cette valeur permet de définir le quota maximum qu'un revendeur peut attribuer
+            à un client unique. Il ne peut bien sur pas excéder le quota général pour le site
+            auquel appartient l'utilisateur.
+        </description>
+    </section>
+    <section>
+        <head>Anti-Virus</head>
+        <description>
+            Si cette option est activée, il est possible de définir si le revendeur peut activer 
+            l'Anti-Virus pour les sites des utilisateurs dont il a la responsabilité.
+        </description>
+    </section>
+    <section>
+        <head>Anti-SPAM</head>
+        <description>
+            Si cette option est activée, il est possible de définir si le revendeur peut activer 
+            l'Anti-SPAM pour les sites des utilisateurs dont il a la responsabilité.
+        </description>
+    </section>
+    <section>
+        <head>Réglage des scores de Spam</head>
+        <description>
+			Ces deux options permettent de définir le niveau de déclenchement des filtres anti-spam. 
+			Le "Score de base" défini le niveau à partir duquel un message pourra être considéré comme un SPAM. 
+			A ce niveau, le message sera mis en quarantaine si le système anti-spam utilise le logiciel Mailscanner. 
+			Le second niveau "Score limite", défini le niveau à partir duquel le message sera considéré comme un SPAM 
+			devant être directement supprimé sans mise en quarantaine ni avertissement. Son score étant considéré
+			comme suffisamment élevé pour qu'il n'y ait aucun risque de faux positif.
+        </description>
+    </section>    
+    <section>
+        <head>Sites (sélection multiple)</head>
+        <description>
+            Avec cette option, un administrateur peut atribuer un ou plusieurs site à un revendeur. Le
+            revendeur peut ensuite attriber ses sites à un plusieurs clients ou les administrer lui même
+            directement.
+        </description>
+    </section>
+    <section>
+        <head>Compte vérouillé</head>
+        <description>
+            Cette option permet à l'administrateur de vérouiller le compte d'un revendeur l'empêchant 
+            ainsi de se connecter au système.
+        </description>
+    </section>
+</help>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.1.0" file-revision="1" date="2006-10-21">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Addressbook Management">Administration du Carnet d'Adresse</title>
+        <msg id="Site Addressbook Administration">Site - Administration du Carnet d'Adresse</msg>
+        <msg id="User Addressbook Administration">Utilisateur - Administration du Carnet d'Adresse</msg>
+        <msg id="Alias Addressbook Administration">Alias - Administration du Carnet d'Adresse</msg>
+        <msg id="Reseller Addressbook Administration">Revendeur - Administration du Carnet d'Adresse</msg>
+        <msg id="Customer Addressbook Administration">Clients - Administration du Carnet d'Adresse</msg>
+        <msg id="Fieldname">Nom du champ</msg>
+        <msg id="LDAP">LDAP</msg>
+        <msg id="ACL Reseller">ACL Revendeur</msg>
+        <msg id="ACL Customer">ACL Client</msg>
+        <msg id="ACL User">ACL Utilisateur</msg>
+        <msg id="Move field">Déplacer le champ</msg>
+        <msg id="None">Aucun</msg>
+        <msg id="Read">Lecture</msg>
+        <msg id="Read+Write">Lecture+Ecriture</msg>
+        <msg id="Add new field to Addressbook">Ajouter un nouveau champ au Carnet d'Adresse</msg>
+        <msg id="Sites">Sites</msg>
+        <msg id="Users">Utilisateurs</msg>
+        <msg id="Aliases">Alias</msg>
+        <msg id="Resellers">Revendeurs</msg>
+        <msg id="Customers">Clients</msg>
+        <msg id="No addressbook fields found.">Aucun Carnet d'Adresse trouvé.</msg>
+    </msgs>
+</i18n>

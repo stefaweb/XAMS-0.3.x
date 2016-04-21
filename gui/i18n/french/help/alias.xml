@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Administration des Alias" xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        Un Alias est une adresse de messagerie virtuelle. Ce n'est pas un compte de messagerie avec login 
+        et mot de passe mais un renvoi automatique vers une autre adresse de messagerie.
+        Ce renvoi pouvant se faire vers une adresse de messagerie interne vers une adresse de messagerie externe.
+    </information>
+    <section>
+        <head>Site</head>
+        <description>
+            Sélectionnez dans cette case le site sur lequel doit être attaché cet Alias.
+            L'alias sera disponible pour l'ensemble du site.
+        </description>
+    </section>
+    <section>
+        <head>Adresse entrante</head>
+        <description>
+            De la même manière qu'une adresse de messagerie normale, un Alias est
+            composé d'une partie avant le symbole @. Vu de l'extérieur du système XAMS,
+            rien ne distingue un alias d'un compte de messagerie normal. Si vous entrez le
+            symbole "*" dans le champ, cet Alias fonctionnera comme une adresse "attrape-tout".
+            Tous les messages envoyés sur ce domaine, et qui ne correspondent pas à un Alias
+            ou à une adresse de messagerie réellement définie, seront renvoyés vers cette adresse.
+            De préférence ne pas utiliser l'option "attrape-tout" à cause des spameurs qui composent
+            des adresses de messagerie aléatoire à partir d'un domaine.
+        </description>
+    </section>
+    <section>
+        <head>Adresse de ré-expédition</head>
+        <description>
+            Les messages envoyés sur cet Alias seront renvoyés vers l'adresse de messagerie
+            spécifiée dans ce champ. Si l'adresse de messagerie de ré-expédition appartient
+            au même site XAMS seulement la première partie avant le symbole "@" doit être saisie dans le champ.
+            Sinon, il faut entrer l'adresse de messagerie complète, en incluant le domaine après
+            le symbole "@". Plusieurs adresses peuvent être saisie en les séparant par des virgules.
+        </description>
+    </section>
+    <section>
+        <head>Rebond et ré-expédition</head>
+        <description>
+            Si cette option est activée, les messages adressés à cet Alias seront renvoyés à
+            l'expéditeur avec un message d'erreur, et en même temps une copie du message
+            d'origine sera envoyé à l'adresse de messagerie spécifié dans le champ
+            "adresse de ré-expédition".
+        </description>
+    </section>
+    <section>
+        <head>Mise à la poubelle automatique</head>
+        <description>
+            Si cette option est activée, les messages adressés à cet alias seront envoyés
+            directement à la poubelle sans aucune possibilité de les récupérer. Cette option
+            est utile si un utilisateur ou un alias reçois trop de SPAM ou doit être supprimé.
+            De préférence supprimer directement cet Alias si il ne sert plus.
+        </description>
+    </section>
+</help>

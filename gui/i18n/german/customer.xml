@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Customer Management">Endkunden Verwaltung</title>
+        <msg id="Account Settings">Konto Einstellungen</msg>
+        <msg id="Customer Management">Endkunden Verwaltung</msg>
+        <msg id="Customer Name">Endkunden Name</msg>
+        <msg id="Customer Password">Endkunden Passwort</msg>
+        <msg id="Password">Passwort</msg>
+        <msg id="Account locked">Konto gesperrt</msg>
+        <msg id="Reseller">Wiederverkäufer</msg>
+        <msg id="Sites" />
+        <msg id="Customer created">Endkunde angelegt</msg>
+        <msg id="Customer last updated">Endkunde zuletzt aktualisiert</msg>
+        <msg id="Unfortunately no more customers can be added. Your Customer-Limit has reached.">Leider können keine weiteren Endkunden hinzugefügt werden. Ihr Endkunden-Limit wurde erreicht.</msg>
+        <msg id="Unfortunately no more customers can be added. The Customer-Limit of the selected Reseller has reached.">Leider können keine weiteren Endkunden hinzugefügt werden. Das Endkunden-Limit des ausgewählten Resellers wurde erreicht</msg>
+
+        <!-- Status-Meldungen -->
+        <msg id="Customer '%s' was added successfully.">Der Endkunde '%s' wurde erfolgreich hinzugefügt.</msg>
+        <msg id="Customer '%s' was updated successfully.">Der Endkunde '%s' wurde erfolgreich aktualisiert.</msg>
+        <msg id="Customer '%s' was deleted successfully.">Der Endkunde '%s' wurde erfolgreich gelöscht.</msg>
+        <msg id="Customer '%s' could not be added.">Der Endkunde '%s' konnte nicht hinzugefügt werden.</msg>
+        <msg id="Customer '%s' could not be updated.">Der Endkunde '%s' konnte nicht aktualisiert werden.</msg>
+        <msg id="Customer '%s' could not be deleted.">Der Endkunde '%s' konnte nicht gelöscht werden.</msg>
+    </msgs>
+</i18n>

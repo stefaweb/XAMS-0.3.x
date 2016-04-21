@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.1.0" file-revision="1" date="2004-05-13">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Preferences">Préférences</title>
+        <msg id="Preferences">Préférences</msg>
+        <msg id="Welcome message at logon">Message de bienvenue à la connexion</msg>
+        <msg id="Default Lines of Event-Log">Nombre de ligne par défaut lors de l'affichage des logs</msg>
+        <msg id="Online News">Accès au menu 'A propos de XAMS'</msg>
+        <msg id="Check for new versions">Vérifier les mises à jour</msg>
+        <msg id="Default Language">Langue par défaut</msg>
+        <msg id="Spam Score Trigger">Réglage des scores de Spam</msg>
+        <msg id="Spam Score">Score de base </msg>
+        <msg id="High Spam Score">Score limite </msg>
+        <!-- Status-Meldungen -->
+        <msg id="Preferences was updated successfully.">Les Préférences ont été mise à jour avec succès.</msg>
+        <msg id="Preferences could not be updated.">Les Préférences ne peuvent être mise à jour.</msg>
+    </msgs>
+</i18n>

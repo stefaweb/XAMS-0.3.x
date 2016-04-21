@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Site Management" />
+        <msg id="Site Management" />
+        <msg id="Unfortunately no more sites can be added. Your Site-Quota has reached." />
+	<msg id="Unfortunately no more domains can be added. Reseller's Domain-Quota has reached." />
+        <msg id="Reseller" />
+        <msg id="Sitename" />
+        <msg id="Domains" />
+        <msg id="Max. Quota" />
+        <msg id="Max. User-Quota" />
+        <msg id="Max. Users" />
+        <msg id="Max. Aliases" />
+        <msg id="Type" />
+        <msg id="Viruscheck" />
+        <msg id="Spamcheck" />
+        <msg id="Incoming" />
+        <msg id="Outgoing" />
+        <msg id="Status" />
+        <msg id="Active" />
+        <msg id="Locked" />
+        <msg id="Locked &amp; Bounce" />
+        <msg id="Site created" />
+        <msg id="This Site does already exists" />
+	<msg id="Forbidden characters in Site name" />
+        <msg id="Site last updated" />
+        <msg id="New User" />
+        <msg id="Spam Score Trigger">Spam Score Trigger</msg>
+        <msg id="Spam Score">Spam Score</msg>
+        <msg id="High Spam Score">High Spam Score</msg>
+	<msg id="Select a Reseller in the drop-down menu" />
+	<msg id="Invalid ID" />
+
+        <!-- Status messages -->
+        <msg id="Site '%s' was added successfully." />
+        <msg id="Site '%s' was updated successfully." />
+        <msg id="Site '%s' was deleted successfully." />
+        <msg id="Site '%s' could not be added." />
+        <msg id="Site '%s' could not be updated." />
+        <msg id="Site '%s' could not be deleted." />
+    </msgs>
+</i18n>

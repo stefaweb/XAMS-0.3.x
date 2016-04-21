@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Administration des clients" xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Un Revendeur (sous la responsabilité d'un Administrateur) assigne des Sites
+        à un Client. Ces sites peuvent ensuite être pleinement administrés par le
+        client. En fonction des limitations définies par le revendeur (sous la responsabilité
+        d'un administrateur), le client peut définir les comptes de messagerie
+        et les Alias de ces sites. Il ne peut bien sûr administrer que des utilisateurs
+        ou des Alias dont il a la responsabilité.
+    </information>
+    <section>
+        <head>Nom du client</head>
+        <description>
+            C'est le nom du client tel qu'il apparaît dans XAMS et notamment
+            dans les logs.
+        </description>
+    </section>
+    <section>
+        <head>Mot de passe du client</head>
+        <description>
+            Utilisé en même temps que le nom du client, le mot de passe de
+            l'administrateur est demandé à la connexion pour pouvoir accèder à
+            l'interface d'administration XAMS.
+        </description>
+    </section>
+    <section>
+        <head>Compte vérouillé</head>
+        <description>
+            Cette option permet à l'administrateur ou le revendeur de vérouiller 
+            le compte d'un client l'empêchant ainsi de se connecter au système.
+        </description>
+    </section>
+    <section>
+        <head>Revendeur</head>
+        <description>
+            Cette option permet d'assigner un client à un revendeur.
+            En fonction du revendeur et de ses attributions, le contenu
+            du menu déroulant change.
+        </description>
+    </section>
+    <section>
+        <head>Sites</head>
+        <description>
+            Avec cette option, un revendeur sous la responsabilité
+            d'un administrateur peut attribuer un ou plusieurs sites à un client.
+            Uniquement les sites disponible pour un revendeur peuvent être
+            assigné à ce client.
+        </description>
+    </section>
+</help>

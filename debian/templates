@@ -1,0 +1,158 @@
+Template: xams/xams_language
+Type: select
+__Choices: English, French, German
+_Default: English
+_Description: Please select the default language for XAMS:
+ This choice can be overridden by individual users in their preferences.
+ .
+ However, the default language will be used for the login screen, the user interface and for some control messages.
+
+Template: xams/mailscanner_module
+Type: boolean
+Default: false
+_Description: MailScanner Option:
+ Do you plan to use MailScanner software on your server?
+ .
+ If you don't use MailScanner, Clamd and Spamassassin software will be used instead. If you use Mailscanner 
+ software, you will have to manualy configure MailScanner to have a working XAMS server.
+
+Template: xams/clamav_module
+Type: boolean
+Default: true
+_Description: ClamAV Option:
+ Do you plan to use ClamAV software on your server?
+
+Template: xams/spamassassin_module
+Type: boolean
+Default: true
+_Description: SpamAssassin Option:
+ Do you plan to use SpamAssassin software on your server?
+
+Template: xams/sys_error_email
+Type: string
+_Description: Enter your email address:
+ Exim: Enter the email address to which system error messages will be sent.
+
+Template: xams/sender_verify_callback_dns
+Type: boolean
+Default: false
+_Description: Exim: Use ACL to check sender when sender's host PTR is wrong:
+
+Template: xams/sender_verify_callback_dynamic
+Type: boolean
+Default: false
+_Description: Exim: Use ACL to check sender when sender's host is using a dynamic IP connections:
+
+Template: xams/sender_verify_callback_rbl
+Type: boolean
+Default: false
+_Description: Exim: Use ACL to check sender when message is positive to RBLs check:
+
+Template: xams/rbl_list
+Type: string
+Default: cbl.abuseat.org : dnsbl.sorbs.net : dnsbl.njabl.org : cbl.abuseat.org
+_Description: Exim: Complete the RBL list according to your needs:
+ Synthaxe: [server name] : [server name] : [...]
+ .
+ Exemple: cbl.abuseat.org : dnsbl.sorbs.net : dnsbl.njabl.org : cbl.abuseat.org
+
+Template: xams/quota_threshold
+Type: string
+Default: 75
+_Description: Exim: Quota warm threshold used to send a warning message:
+
+Template: xams/smtp_accept_max
+Type: string
+Default: 100
+_Description: Exim: Maximum number of simultaneous SMTP connections allowed:
+
+Template: xams/smtp_accept_max_per_host
+Type: string
+Default: 10
+_Description: Exim: Maximum number of simultaneous SMTP connections from a single host:
+
+Template: xams/queue_run_max
+Type: string
+Default: 10
+_Description: Exim: This value increases the number of processes that handle the inbound and outbound emails waiting in the queue:
+
+Template: xams/remote_max_parallel
+Type: string
+Default: 5
+_Description: Exim: This option controls parallel delivery of one message to a number of remote hosts:
+  If the value is less than 2, parallel delivery is disabled, and Exim does all the remote deliveries for a message one by one.
+
+Template: xams/primary_hostname
+Type: string
+_Description: Exim: Specify your host's canonical name here:
+ This should normally be the fully qualified "official" name of your host.
+ .
+ If this option is not set, the uname() function is called to obtain the name.
+ In many cases this does the right thing and you need not set anything explicitly.
+
+Template: xams/daemon_smtp_ports
+Type: string
+Default: smtp : 587
+_Description: Exim: SMTP ports to listen on:
+
+Template: xams/custom_local_domains
+Type: string
+Default:
+_Description: Exim: Domains that are hosted by your mailserver but not managed by XAMS:
+
+Template: xams/custom_relay_to_domains
+Type: string
+Default:
+_Description: Exim: Domains your mail server should relay to but not managed by XAMS:
+
+Template: xams/custom_relay_from_hosts
+Type: string
+Default:
+_Description: Exim: Hosts your mail server should relay mails for but not managed by XAMS
+
+Template: xams/tls_keys_contry_name
+Type: string
+Default: US
+_Description: Enter your country code:
+ TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, enter your country code (2 letters).
+
+Template: xams/tls_keys_state
+Type: string
+_Description: Enter your state or province name:
+ TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, enter your state or province name (full name).
+
+Template: xams/tls_keys_locality_name
+Type: string
+_Description: Enter your locality name:
+ TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, enter your locality name (eg, city).
+
+Template: xams/tls_keys_orga_name
+Type: string
+_Description: Enter your organization name:
+ TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, enter your organization name (eg, company; recommended).
+
+Template: xams/tls_keys_orga_unit_name
+Type: string
+_Description: Enter your organizational unit name:
+ TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, enter your organizational unit name (optionnal).
+
+Template: xams/tls_keys_email_adress
+Type: string
+_Description: Enter your email address:
+ TLS keys: TLS support on Debian is enabled for XAMS. To generate TLS keys, enter your email adress.
+
+Template: xams/maxdaemons
+Type: string
+Default: 40
+_Description: Courier IMAP: Maximum number of IMAP servers started:
+
+Template: xams/maxperip
+Type: string
+Default: 20
+_Description: Courier IMAP: Maximum number of connections to accept from the same IP adress:
+
+Template: xams/dns_admin
+Type: boolean
+Default: false
+_Description: Do you want to use DNS administration inside XAMS?
+ XAMS GUI: Activate or not activate DNS control panel in XAMS. You will need to install bind9 software if yes.

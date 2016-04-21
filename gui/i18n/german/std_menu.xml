@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-12">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <msgs>
+        <title id="Standard menu messages">Standard Menü-Mitteilungen</title>
+        <msg id="Date Format">DD/MM/YYYY</msg>
+        <!-- Translating the Date Format means only ordering the letters
+        in another way - do not use other letters! -->
+
+        <msg id="Access denied.">Zugriff verweigert.</msg>
+        <msg id="Yes">Ja</msg>
+        <msg id="No">Nein</msg>
+        <msg id="New">Neu</msg>
+        <msg id="Edit">Bearbeiten</msg>
+        <msg id="Change">Ändern</msg>
+        <msg id="Update">Aktualisieren</msg>
+        <msg id="Delete">Löschen</msg>
+        <msg id="Reset">Zurücksetzen</msg>
+        <msg id="Help">Hilfe</msg>
+        <msg id="Use">Verwende</msg>
+        <msg id="Limit" />
+        <msg id="none">keine</msg>
+        <msg id="unlimited">unbegrenzt</msg>
+        <msg id="Overview">Übersicht</msg>
+        <msg id="Addressbook">Adressbuch</msg>
+        <msg id="Next">Weiter</msg>
+        <msg id="Add">Hinzufügen</msg>
+        <msg id="Save">Speichern</msg>
+        <msg id="On">Ein</msg>
+        <msg id="Off">Aus</msg>
+        <msg id="The formular was not properly filled out. Point at the question mark.">Das Formular wurde nicht korrekt ausgefüllt. Zeigen Sie auf die Fragezeichen.</msg>
+        <msg id="Do you really want to delete this entry?">Wollen Sie diesen Eintrag wirklich löschen?</msg>
+    
+        <msg id="XAMS Online help">XAMS Online-Hilfe</msg>
+        <msg id="Last modification">Letzte Änderung</msg>
+    </msgs>
+</i18n>

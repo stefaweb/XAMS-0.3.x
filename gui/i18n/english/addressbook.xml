@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.15" file-release="0.0.9" file-revision="1" date="2004-02-12">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Addressbook Administration" />
+        <msg id="Site Addressbook Administration" />
+        <msg id="User Addressbook Administration" />
+        <msg id="Alias Addressbook Administration" />
+        <msg id="Reseller Addressbook Administration" />
+        <msg id="Customer Addressbook Administration" />
+        <msg id="Fieldname" />
+        <msg id="LDAP" />
+        <msg id="ACL Reseller" />
+        <msg id="ACL Customer" />
+        <msg id="ACL User" />
+        <msg id="Move field" />
+        <msg id="None" />
+        <msg id="Read" />
+        <msg id="Read+Write" />
+        <msg id="Add new field to Addressbook" />
+        <msg id="Sites" />
+        <msg id="Users" />
+        <msg id="Aliases" />
+        <msg id="Resellers" />
+        <msg id="Customers" />
+        <msg id="No addressbook fields found." />
+    </msgs>
+</i18n>

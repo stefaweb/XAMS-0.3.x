@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.19" file-release="0.1.0" file-revision="1" date="2008-12-17">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Site Management">Administration du site</title>
+        <msg id="Site Management">Administration du site</msg>
+        <msg id="Unfortunately no more sites can be added. Your Site-Quota has reached.">Désolé, impossible d'ajouter un site de plus. Vous avez atteint votre Quota maximum.</msg>
+        <msg id="Unfortunately no more domains can be added. Reseller's Domain-Quota has reached.">Désolé, impossible d'ajouter un domaine de plus. Vous avez atteint votre Quota maximum.</msg>
+        <msg id="Reseller">Revendeur</msg>
+        <msg id="Sitename">Nom du site</msg>
+        <msg id="Domains">Domaine</msg>
+        <msg id="Max. Quota">Quota maximum</msg>
+        <msg id="Max. User-Quota">Quota maximum d'utilisateur</msg>
+        <msg id="Max. Users">Nbr. d'utilisateur maximum</msg>
+        <msg id="Max. Aliases">Nbr. d'alias maximum</msg>
+        <msg id="Type">Protocole</msg>
+        <msg id="Viruscheck">Anti-Virus</msg>
+        <msg id="Spamcheck">Anti-SPAM</msg>
+        <msg id="Incoming">Entrant</msg>
+        <msg id="Outgoing">Sortant</msg>
+        <msg id="Status">Statut</msg>
+        <msg id="Active">Actif</msg>
+        <msg id="Locked">Vérouillé</msg>
+        <msg id="Locked &amp; Bounce">Vérouillé &amp; Rebond</msg>
+        <msg id="Site created">Site créé le</msg>
+        <msg id="Site last updated">Site mis à jour le</msg>
+        <msg id="This Site does already exists">Un Site de ce nom existe déjà</msg>
+        <msg id="Forbidden characters in Site name">Caractère interdit dans le nom du Site</msg>
+        <msg id="New User">Nouvel utilisateur</msg>
+        <msg id="Spam Score Trigger">Réglage des scores de Spam</msg>
+        <msg id="Spam Score">Score de base </msg>
+        <msg id="High Spam Score">Score limite </msg>
+        <msg id="Contain non-numeric Characters">Contiens des valeurs non numériques</msg>
+        <msg id="Field has to be filled out">Le champ doit être saisie</msg>
+        <msg id="Invalid ID">ID non valide</msg>
+        <msg id="Select a Reseller in the drop-down menu">Sélectionnez un Revendeur dans le menu déroulant</msg>
+
+        <!-- Errors function -->
+	<msg id="Email address invalid">Adresse E-Mail invalide</msg>
+	<msg id="Incoming address invalid">Adresse entrante invalide</msg>
+        <msg id="Too short (min='%s')">Trop court (minimum='%s')</msg>
+        <msg id="Too long (max='%s')">Trop long (max='%s')</msg>
+        <msg id="Value is too low (min='%s')">La valeur est trop longue (minimum='%s')</msg>
+        <msg id="Value is too big (max='%s')">La valeur est trop grande (max='%s')</msg>        
+
+        <!-- Status messages -->
+        <msg id="Site '%s' was added successfully.">Le site '%s' ajouté avec succès.</msg>
+        <msg id="Site '%s' was updated successfully.">Le site '%s' a été mis à jour avec succès.</msg>
+        <msg id="Site '%s' was deleted successfully.">Le site '%s' a été effacé avec succès.</msg>
+        <msg id="Site '%s' could not be added.">Le site '%s' n'a pas pu être ajouté.</msg>
+        <msg id="Site '%s' could not be updated.">Le site '%s' n'a pas pu être mis à jour.</msg>
+        <msg id="Site '%s' could not be deleted.">Le site '%s' n'a pas pu être effacé.</msg>
+    </msgs>
+</i18n>

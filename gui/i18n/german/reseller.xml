@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Reseller Management">Wiederverkäufer Verwaltung</title>
+        <msg id="Account Settings">Konto Einstellungen</msg>
+        <msg id="Reseller Management">Wiederverkäufer Verwaltung</msg>
+        <msg id="Reseller Name">Wiederverkäufer Name</msg>
+        <msg id="Reseller Password">Wiederverkäufer Passwort</msg>
+        <msg id="Password">Passwort</msg>
+        <msg id="Max. Customers">Max. Endkunden</msg>
+        <msg id="Max. Sites" />
+        <msg id="Max. Domains" />
+        <msg id="Max. Users">Max. Benutzer</msg>
+        <msg id="Max. Aliases" />
+        <msg id="Max. Quota">Max. Kontingent</msg>
+        <msg id="Max. Site-Quota">Max. Site-Kontingent</msg>
+        <msg id="Max. User-Quota">Max. Benutzer-Kontingent</msg>
+        <msg id="Viruscheck">Virenprüfung</msg>
+        <msg id="Spamcheck">Spamprüfung</msg>
+        <msg id="Incoming">Eingehend</msg>
+        <msg id="Outgoing">Ausgehend</msg>
+        <msg id="Account locked">Konto gesperrt</msg>
+        <msg id="Sites (multiple selection)">Sites (mehrfachauswahl)</msg>
+        <msg id="No unassigned sites found.">Keine nicht-zugeordneten Sites gefunden.</msg>
+        <msg id="Reseller created">Wiederverkäufer angelegt</msg>
+        <msg id="Reseller last updated">Wiederverkäufer zuletzt aktualisiert</msg>
+
+        <!-- Status-Meldungen -->
+        <msg id="Reseller '%s' was added successfully.">Der Wiederverkäufer '%s' wurde erfolgreich hinzugefügt.</msg>
+        <msg id="Reseller '%s' was updated successfully.">Der Wiederverkäufer '%s' wurde erfolgreich aktualisiert.</msg>
+        <msg id="Reseller '%s' was deleted successfully.">Der Wiederverkäufer '%s' wurde erfolgreich gelöscht.</msg>
+        <msg id="Reseller '%s' could not be added.">Der Wiederverkäufer '%s' konnte nicht hinzugefügt werden.</msg>
+        <msg id="Reseller '%s' could not be updated.">Der Wiederverkäufer '%s' konnte nicht aktualisiert werden.</msg>
+        <msg id="Reseller '%s' could not be deleted.">Der Wiederverkäufer '%s' konnte nicht gelöscht werden.</msg>
+    </msgs>
+</i18n>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Reseller Assignment" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        Any Customer has to be assigned to a specific Reseller, so that
+        XAMS is able to map the Resellers-Quotas to his Customers resp.
+        the Resellers-Quota can be reduced by the sum of all
+        Customer/Site-Quotas.  
+    </information>
+    <section>
+        <head>Reseller</head>
+        <description>
+            Here a Reseller has to be selected to which the Customer should
+            belong to.
+        </description>
+    </section>
+</help>

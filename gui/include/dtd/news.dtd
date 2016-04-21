@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!ELEMENT skindir (#PCDATA)>
+<!ELEMENT head (#PCDATA)>
+<!ELEMENT news (#PCDATA)>
+<!ATTLIST news
+    author CDATA #REQUIRED
+    subject CDATA #REQUIRED
+    date CDATA #REQUIRED
+>
+<!ELEMENT newsroot (skindir, head, news)>
+<!ATTLIST newsroot
+    xams-release CDATA #REQUIRED
+    file-release CDATA #REQUIRED
+    date CDATA #REQUIRED
+>

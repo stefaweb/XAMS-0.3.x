@@ -1,0 +1,11 @@
+etc/xams/archives
+etc/xams/autoreply
+etc/init.d
+usr/share/xams/cache
+usr/lib/perl5
+usr/sbin
+usr/share/doc/xams/contrib/apache
+usr/share/doc/xams/contrib/dns
+usr/share/dbconfig-common/data/xams/install
+var/run/xams
+var/log/xams

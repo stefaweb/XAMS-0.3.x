@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-13">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Login" />
+        <msg id="You have successfully been logged out.">Sie wurden erfolgreich abgemeldet.</msg>
+        <msg id="Logout could not been carried out! Session was not destroyed!">Abmeldung konnte nicht durchgeführt werden! Session wurde nicht zerstört!</msg>
+        <msg id="Login failed!">Anmeldung fehlgeschlagen!</msg>
+        <msg id="Cookies must be enabled past this point!">Ab diesem Punkt müssen Cookies aktiviert sein!</msg>
+        <msg id="Login" />
+        <msg id="Password">Passwort</msg>
+        <msg id="Usertype">Benutzertyp</msg>
+        <msg id="Language">Sprache</msg>
+        <msg id="Enter">Anmelden</msg>
+        <msg id="Administrator" />
+        <msg id="Reseller">Wiederverkäufer</msg>
+        <msg id="Customer">Endkunde</msg>
+        <msg id="User">Benutzer</msg>
+
+        <!-- Languages -->
+        <msg id="english">englisch</msg>
+        <msg id="german">deutsch</msg>
+        <msg id="hungarian">ungarisch</msg>
+        <msg id="italian">italienisch</msg>
+        <msg id="spanish">spanisch</msg>
+        <msg id="french">französisch</msg>
+    </msgs>
+</i18n>

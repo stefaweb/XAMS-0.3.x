@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="english" iso="en" localname="english"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Reseller Management" />
+        <msg id="Account Settings" />
+        <msg id="Reseller Management" />
+        <msg id="Reseller Name" />
+        <msg id="Reseller Password" />
+        <msg id="Password" />
+        <msg id="Max. Customers" />
+        <msg id="Max. Sites" />
+        <msg id="Max. Domains" />
+        <msg id="Max. Users" />
+        <msg id="Max. Aliases" />
+        <msg id="Max. Quota" />
+        <msg id="Max. Site-Quota" />
+        <msg id="Max. User-Quota" />
+        <msg id="Viruscheck" />
+        <msg id="Spamcheck" />
+        <msg id="Incoming" />
+        <msg id="Outgoing" />
+        <msg id="Account locked" />
+        <msg id="Sites (multiple selection)" />
+        <msg id="No unassigned sites found." />
+        <msg id="Reseller created" />
+        <msg id="Reseller last updated" />
+        <msg id="Spam Score Trigger">Spam Score Trigger</msg>
+        <msg id="Spam Score">Spam Score</msg>
+        <msg id="High Spam Score">High Spam Score</msg>
+
+        <!-- Status messages -->
+        <msg id="Reseller '%s' was added successfully." />
+        <msg id="Reseller '%s' was updated successfully." />
+        <msg id="Reseller '%s' was deleted successfully." />
+        <msg id="Reseller '%s' could not be added." />
+        <msg id="Reseller '%s' could not be updated." />
+        <msg id="Reseller '%s' could not be deleted." />
+    </msgs>
+</i18n>

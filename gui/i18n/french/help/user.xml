@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Administration des utilisateurs" xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-30">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        Le Nom du compte de messagerie est défini par la première partie de son adresse E-Mail (ce qu'il y a avant le signe @).
+        
+        Il est possible à un compte d'avoir plusieurs adresses de messagerie qui pointent
+        sur une seule boîte aux lettre de messagerie (un compte POP3 ou IMAP). 
+        
+        Par exemple, il est possible de définir un site nommé "SOCIETE-MAXIMUM". Dans ce site, il est possible de 
+        définir les domaines "maximum.com" ou "maximum.net".
+        
+        Chacun des comptes de messagerie de ce site peuvent n'avoir qu'un seul compte de messagerie et recevoir des
+        messages sur plusieurs adresses de messagerie. Par exemple, si on créé un compte "andre" sur le site,
+        celui-ci pourra recevoir des messages sur "andre@maximum.com" ou "andre@maximum.net".
+        
+        Autre avantage, l'utilisateur n'aura qu'un seul compte de messagerie pour se connecter au système qu'il utilise
+        le protocole POP3, IMAP, SMTP, ou même pour se connecter à l'interface d'administration d'XAMS.
+    </information>
+    <section>
+        <head>Site</head>
+        <description>
+            Cette section est utilisé pour assigné un utilisateur à un site. L'utilisateur se vera atribuer automatiquement
+            une adresse de messagerie par domaine disponible pour le site.
+        </description>
+    </section>
+    <section>
+        <head>Nom du compte (E-Mail)</head>
+        <description>
+            Saisir ici le nom du compte de l'utilisateur (la partie gauche de l'adresse E-Mail sans le "@" et le domaine).
+        </description>
+    </section>
+    <section>
+        <head>Nom de connexion (optionnel)</head>
+        <description>
+            Cette option, permet de définir un "nom de connexion unique" d'utilisateur pour s'authentifier, le "login"
+            (au lieu d'utiliser son adresse de messagerie complète). Cette fonctionnalité est utile si vous migrez 
+            des comptes d'utilisateurs d'un autre système de messagerie ou les nom de login étaient déjà définis. 
+            Cela évite de reconfigurer chacun des postes de travais avec des nouveaux paramètres de connexion. 
+            Nous vous recommandons d'utiliser une syntaxe normalisée comme par exemple "andre_votretld".
+        </description>
+    </section>
+    <section>
+        <head>Mot de passe</head>
+        <description>
+            Avec ce mot de passe, l'utilisateur peut recevoir ou envoyer des E-Mails.
+            Il permet aussi d'accèder à l'interface d'administration du système XAMS.
+        </description>
+    </section>
+    <section>
+        <head>Quota</head>
+        <description>
+            Permet de définir la taille de la boîte aux lettres de l'utilisateur. Si un message dépassant 
+            la taille maximum autorisé est réceptionné, celui-ci sera ignoré et un message d'erreur envoyé à l'expéditeur. 
+            Il est bien sûr possible d'affecter un quota plus petit ou plus grand mais dans les limites maximum définies 
+            au niveau du site.
+        </description>
+    </section>
+    <section>
+        <head>Protocole</head>
+        <description>
+            Cette option permet de configurer le type d'accés de boîte aux lettres que peut avoir un utilisateur.
+            Si par exemple, seul le type POP3 est activé, il ne sera pas possible que l'utilisateur possède
+            une boîte aux lettres au format IMAP pour ce site. les autres options permettent pour SMTP d'autroriser
+            l'accès de l'utilisateur via le protocole SMTP au serveur avec authentification, et avec XAMS de
+            se connecter à l'administration XAMS.
+        </description>
+    </section>
+    <section>
+        <head>Anti-Virus (Entrant / Sortant)</head>
+        <description>
+            Si cette option est activée, il est possible de définir si on veut activer la fonction Anti-Virus
+            sur les messages entrants et sortants d'un utilisateur.
+        </description>
+    </section>
+    <section>
+        <head>Anti-SPAM (Entrant / Sortant)</head>
+        <description>
+            Si cette option est activée, il est possible de définir si on veut activer la fonction Anti-SPAM
+            sur les messages entrants et sortants d'un utilisateur (par un programme externe).
+        </description>
+    </section>
+    <section>
+        <head>Réglage des scores de Spam</head>
+        <description>
+			Ces deux options permettent de définir le niveau de déclenchement des filtres anti-spam. 
+			Le "Score de base" défini le niveau à partir duquel un message pourra être considéré comme un SPAM. 
+			A ce niveau, le message sera mis en quarantaine si le système anti-spam utilise le logiciel Mailscanner. 
+			Le second niveau "Score limite", défini le niveau à partir duquel le message sera considéré comme un SPAM 
+			devant être directement supprimé sans mise en quarantaine ni avertissement. Son score étant considéré
+			comme suffisamment élevé pour qu'il n'y ait aucun risque de faux positif.
+        </description>
+    </section>
+    <section>
+        <head>Relais sur autorisation</head>
+        <description>
+            Cette option permet à un utilisateur d'envoyer des messages par le protocole SMTP via ce serveur.
+            Il a besoin pour cela de s'authentifier lui-même sur le serveur (avec les mêmes données que pour
+            lire ces messages). Si le serveur SMTP de ce serveur opère comme un "relais ouvert", cette option 
+            est sans effet.
+        </description>
+    </section>
+    <section>
+        <head>Relais sur vérification</head>
+        <description>
+            Cette option permet à un utilisateur d'envoyer des messages par le protocole SMTP via ce serveur.
+            Il a besoin pour cela de s'authentifier lui-même sur le serveur (avec les mêmes données que pour
+            lire ces messages). A la différence de l'option d'avant, l'utilisateur a besoin en plus de
+            s'authentifier lui-même avec le protocole POP3 ou IMAP (Cette fonctionnalité est appelé en anglais
+            SMTP-after-POP ou SMTP-after-IMAP). Si le serveur SMTP de ce serveur opère comme un "relais ouvert", 
+            cette option est sans effet.
+        </description>
+    </section>
+    <section>
+        <head>Statut</head>
+        <description>
+            Cette option permet de renseigner le statut de l'utilisateur. "Actif" veut dire que tout est normal
+            et que l'utilisateur peut pleinement utiliser son compte. "Verrouillé" veut dire que l'utilisateur ne pourra
+            recevoir aucun message (que ce soit par POP3 ou IMAP). Les messages seront quand même enregistré dans
+            le système (dans la limite des quotas) mais ils ne seront pas accessible à l'utilisateur.
+            "Verrouillé &amp; Rebond" correspond à "Verrouillé" avec en plus le fait que les expéditeurs recevront un
+            message les informants que l'utilisateur n'est pas joignables.
+        </description>
+    </section>
+    <section>
+        <head>Filtre</head>
+        <description>
+            Ce menu est utilisé pour configuré un filtre utilisateur spécifique. Cette option n'est disponible que
+            si l'Administrateur l'autorise.
+        </description>
+    </section>
+</help>

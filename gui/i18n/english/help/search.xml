@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Search" xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2002-11-29">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>    
+    <information>
+        The XAMS-search helps you finding Sites, Domains, Users und Aliases
+        by different search criterias.
+    </information>
+    <section>
+        <head>Sitename</head>
+        <description>
+            Name of the Site container. It must be a systemwide unique name, which
+            is set by an administrator or a reseller. A reseller can manage this container
+            and can delegate it to an Customer. the contingents of the site can only be managed by 
+            an administrator or a reseller.
+        </description>
+    </section>
+    <section>
+        <head>Max. Quota in KB (each User)</head>
+        <description>
+            The maximum size of a mailbox of a single user in the site. Emails bigger than
+            the size-limit will not be saved. The sender will get an according error message.
+            A Customer can set a lower size limit to his users, but the maximum is this setting.
+        </description>
+    </section>
+    <section>
+        <head>Max. Users</head>
+        <description>
+            This limits the number of Users a site is allowed to handle.
+        </description>
+    </section>
+    <section>
+        <head>Max. Aliases</head>
+        <description>
+            The same as "Max. Users", but it limits the number of aliases.
+        </description>
+    </section>
+    <section>
+        <head>Domainname</head>
+        <description>
+             Search-routine that filters by domainname (e.g. xams.org)
+        </description>
+    </section>
+    <section>
+        <head>Username</head>
+        <description>
+            Usually the email address of the user (the string he uses to login)
+        </description>
+    </section>
+    <section>
+        <head>E-Mail Address</head>
+        <description>
+            Enter the full email address using the complete syntax
+        </description>
+    </section>
+    <section>
+        <head>Alias Name (Left Part)</head>
+        <description>
+            The string before the @-sign.
+        </description>
+    </section>
+    <section>
+        <head>Alias Ziel (Right Part)</head>
+        <description>
+            Target address where the emails get redirected to if an alias was the
+            actual address. if the target address is within the same site you can only
+            set the local part (the string before the @ sign). else you should set the complete email address.
+            You can also set multiple addresses delimited by a comma.
+        </description>
+    </section>
+</help>

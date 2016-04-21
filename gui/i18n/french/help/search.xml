@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Recherche" xams-release="0.0.19" file-release="0.0.9" file-revision="1" date="2008-12-03">
+    <lngspec name="french" iso="fr" localname="french"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>ACTION-WEB</name>
+            <email>xams@actionweb.fr</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        La fonction de recherche de XAMS vous permet d'effectuer des recherches sur les sites,
+        les domaines, les utilisateurs ou les alias en utilisant différent critères de recherche.
+    </information>
+    <section>
+        <head>Nom du site</head>
+        <description>
+            Ce champ peut contenir le nom d'un site. Il doit être un nom de site unique tel qu'il
+            a été défini par un administrateur ou un revendeur. Un revendeur ou un client peuvent utiliser
+            le système de recherche mais les résultats dépendrons de leur droits d'accès aux différents sites,
+            clients ou utilisateurs.
+        </description>
+    </section>
+    <section>
+        <head>Quota maximum en KB (par utilisateur)</head>
+        <description>
+            Cette valeur contient la taille maximum en KB pour une boîte aux lettres de messagerie
+            pour un utilisateur. Tout message reçu dépassant cette taille sera refusé par le système
+            et un message d'erreur envoyé à l'expéditeur. Il est bien sûr possible de configurer
+            spécifiquement la taille d'une boîte aux lettre d'un utilisateur avec une valeur inférieure
+            mais celle-ci ne pourra excéder la valeur définie.
+        </description>
+    </section>
+    <section>
+        <head>Nbr. maximum d'utilisateur</head>
+        <description>
+            La limite maximum d'utilisateur qu'un site est autorisé à utiliser.
+        </description>
+    </section>
+    <section>
+        <head>Nbr. maximum d'alias</head>
+        <description>
+            La limite maximum d'alias qu'un site est autorisé à utiliser.
+        </description>
+    </section>
+    <section>
+        <head>Nom du domaine</head>
+        <description>
+             Recherche par domaine (exemple : xams.org).
+        </description>
+    </section>
+    <section>
+        <head>Nom du compte</head>
+        <description>
+            Le compte de messagerie d'un utilisateur (la partie gauche avant le "@").
+        </description>
+    </section>
+    <section>
+        <head>Adresse E-Mail</head>
+        <description>
+            L'adresse de messagerie électronique complete d'un utilisateur.
+        </description>
+    </section>
+    <section>
+        <head>Alias (partie gauche)</head>
+        <description>
+            La partie avant le signe "@" qui compose un Alias.
+        </description>
+    </section>
+    <section>
+        <head>Alias (partie droite)</head>
+        <description>
+            La partie après le signe "@" qui compose un Alias. Vous pouvez aussi saisir plusieurs adresses
+            en les séparant par des virgules.
+        </description>
+    </section>
+</help>

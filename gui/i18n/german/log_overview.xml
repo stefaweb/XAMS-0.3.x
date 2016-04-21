@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE i18n SYSTEM "../../include/dtd/i18n.dtd">
+<i18n xams-release="0.0.9" file-release="0.0.9" file-revision="1" date="2003-02-09">
+    <lngspec name="german" iso="de" localname="deutsch"/>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <msgs>
+        <title id="Log Overview">Log-Übersicht</title>
+        <msg id="Log Overview">Log-Übersicht</msg>
+        <msg id="Date (MM/DD/YYYY)">Datum (TT.MM.JJJJ)</msg>
+        <msg id="Resource">Ressource</msg>
+        <msg id="Search">Suche</msg>
+        <msg id="UserType">Benutzertyp</msg>
+        <msg id="Admin" />
+        <msg id="Reseller">Wiederverkäufer</msg>
+        <msg id="Customer">Endkunde</msg>
+        <msg id="User">Benutzer</msg>
+        <msg id="Type">Typ</msg>
+        <msg id="Login" />
+        <msg id="Selection">Abfrage</msg>
+        <msg id="Update">Aktualisierung</msg>
+        <msg id="Insertion">Einfügung</msg>
+        <msg id="Deletion">Löschung</msg>
+        <msg id="Username">Benutzername</msg>
+        <msg id="Status" />
+        <msg id="OK" />
+        <msg id="FAILED">Fehlgeschlagen</msg>
+        <msg id="Event">Ereignis</msg>
+        <msg id="Selection contains %d entries">Abfrage enthält %s einträge</msg>
+        <msg id="Showing maximum %d entries per page - Page: %d / %d">Zeige max. %d einträge pro Seite - Seite: %d / %d</msg>
+        <msg id="Page: %d / %d">Seite: %d / %d</msg>
+        <msg id="Entries per page">Einträge pro Seite</msg>
+        <msg id="Refresh">Aktualisieren</msg>
+        <msg id="Date">Datum</msg>
+        <msg id="Time">Zeit</msg>
+        <msg id="No log entries found">Keine Log-Einträge gefunden</msg>
+        <msg id="Delete Log-Entries older than">Delete Log-Entries older than</msg>
+    </msgs>
+</i18n>

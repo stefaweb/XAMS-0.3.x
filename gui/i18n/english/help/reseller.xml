@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE help SYSTEM "../../../include/dtd/help.dtd">
+<help title="Reseller Management" xams-release="0.0.16" file-release="0.0.9" file-revision="1" date="2004-05-18">
+    <lngspec name="english" iso="en" localname="english"/>
+    <skindir>{{skindir}}</skindir>
+    <maintainers>
+        <maintainer>
+            <name>XAMS Core-Team</name>
+            <email>info@xams.org</email>
+        </maintainer>
+    </maintainers>
+    <information>
+        An Administrator assigns any desired sites definitely to
+        one Reseller. These sites then can be just administrated by this special Reseller.
+        Here, he has to keep to the limitations given by the Administrator. He may
+        apply - according to the limits - any desired Customers and also manage
+        them.
+        In contrast to the Administrator, he cannot take up changes to the
+        system settings, to the field-configuration in the addressbook and
+        it is not possible for him to analyse the database.
+        In addition to that he cannot gain access to the customers belonging
+        to another Reseller of course.
+    </information>
+    <section>
+        <head>Reseller Name</head>
+        <description>
+            This is the Name of the Reseller as it is e.g. shown
+            in the Event-Log. At login this name has to be prefixed by
+            "res_", so that XAMS knows wich kind of user it has to
+            validate.
+        </description>
+    </section>
+    <section>
+        <head>Reseller Password</head>
+        <description>
+            In conjunction with the Name and this Password, the Reseller
+            can login to the XAMS GUI.
+        </description>
+    </section>
+    <section>
+        <head>Max. Customers</head>
+        <description>
+            This value defines, how much Customers a Reseller can create.
+        </description>
+    </section>
+    <section>
+        <head>Max. Sites</head>
+        <description>
+            This value defines, how much Sites a Reseller can create.
+        </description>
+    </section>
+    <section>
+        <head>Max. Domains</head>
+        <description>
+            This value defines, how much Domains a Reseller can create.
+        </description>
+    </section>
+    <section>
+        <head>Max. Users</head>
+        <description>
+            This value defines, how high a reseller can set the User-Limit
+            on Site-Level.
+            Example: A Reseller has a limit of 20 Users, so he can set
+            the User-Limit of one Site to 5 and of another Site to
+            15. So, the sum of all User-Limits on Site-Level can not exceed
+            this limit.
+            This value does only affects the maximum amount of Reseller's
+            Users indirect.
+        </description>
+    </section>
+    <section>
+        <head>Max. Aliases</head>
+        <description>
+            Analog zu den Benutzern kann hier darüber bestimmt werden, wie hoch
+            das Alias-Limit aller Sites eines Wiederverkäufers sein darf.
+        </description>
+    </section>
+    <section>
+        <head>Max. Quota</head>
+        <description>
+            The "Max. Quota" defines the maximum site of all Site-Quotas
+            (resp. the sum of them) of a reseller.
+        </description>
+    </section>
+    <section>
+        <head>Max. Site-Quota</head>
+        <description>
+            This value defines, how much Site-Quota a Reseller can
+            assign to a Site.
+        </description>
+    </section>
+    <section>
+        <head>Max. User-Quota</head>
+        <description>
+            This value defines, how much User-Quota a Reseller can
+            assign to a user. Thereby the Site-Level Quota can not
+            be exceeded.
+        </description>
+    </section>
+    <section>
+        <head>Viruscheck</head>
+        <description>
+            Here can be determined if this Reseller can enable
+            Viruschecking for his Sites resp. their users.
+        </description>
+    </section>
+    <section>
+        <head>Spamcheck</head>
+        <description>
+            Here can be determined if this Reseller can enable
+            Spamchecking for his Sites resp. their users.
+        </description>
+    </section>
+    <section>
+        <head>Sites</head>
+        <description>
+            Here, an Administrator can assign one or several Sites
+            to a specific Reseller. The Reseller can then assign
+            these Sites to his Customers or administrate them by
+            himself.
+        </description>
+    </section>
+    <section>
+        <head>Account locked</head>
+        <description>
+            Using this option, an Administrator can lock Resellers.
+            Thereby he can't login the XAMS GUI anymore.
+        </description>
+    </section>
+</help>
