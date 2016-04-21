@@ -1,4 +1,4 @@
-VERSION                  = 0.2.4
+VERSION                  = 0.3.0
 XAMS_USER                = xams
 XAMS_PID_DIR             = /var/run/xams
 XAMS_BINDIR              = /usr/sbin

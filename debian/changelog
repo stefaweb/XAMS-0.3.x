@@ -1,3 +1,13 @@
+xams (0.3.0~1) stable; urgency=low
+
+  * Maintenance release to 0.3.0.
+  * Works with Debian 8 (Jessie) but not previous version due to many system changes.
+  * Changes to work with Apache 2.4
+  * Changes to works with new /run mechanism (tmpfiles.d)
+  * Apache default xams.conf now in /etc/apache2/conf-available instead of /etc/apache2/conf.d
+
+ -- Stéphane Leclerc <sleclerc@actionweb.fr>  Fri, 22 Apr 2016 17:06:36 +0100
+ 
 xams (0.2.4~1) stable; urgency=low
 
   * Maintenance release to 0.2.4.
