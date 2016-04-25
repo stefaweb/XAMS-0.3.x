@@ -18,7 +18,7 @@ INTRODUCTION
 USAGE
 
   The application will be available at http://localhost/xams/
-  after install if you use one of supported web servers (Apache at time 
+  after install if you use one of supported web servers (Apache at time
   of writing this). Please note that you need to have enabled PHP
   support in your webserver (for Apache you can do this by a2enmod php5).
 
@@ -35,39 +35,26 @@ LOGIN
   to the site and create a user. You should wait 5 minutes before sending an message
   to the new mailbox as the accounts are created on disk by a CRON job.
 
-NEEDED DEBIAN PACKAGES
-
-  All Debian packages needed by XAMS are available in Debian Squeeze except
-  libcdb-file-perl only available in Debian backport.
-
-  For convenience, we have loaded libcdb-file-perl in the XAMS repository but
-  do be sure to have the lastest available version, it is better to add 
-  Debian backport to your apt source list.
-
-  You should add this line to /etc/apt/sources.list:
-
-  deb http://backports.debian.org/debian-backports squeeze-backports main contrib non-free
-
 CONFIGURATION
 
   The package installs a default configuration in /etc/xams/, including
   a default apache.conf, which is symlinked from your Apache config in conf.d.
 
-  Starting 0.2.0, XAMS can be configured using dbconfig-common. It creates 
-  a XAMS database and control user on the chosen server and configures 
+  Starting 0.2.0, XAMS can be configured using dbconfig-common. It creates
+  a XAMS database and control user on the chosen server and configures
   XAMS to use cookie authentication on this server.
 
   The database autoconfiguration might fail if you do not have local MySQL
   server installed or you have configured too high priority of which questions
-  should debconf ask. 
+  should debconf ask.
 
   During the first installation of XAMS, only basic questions are presented.
   If you need to access all the available setup, run dpkg-reconfigure.
 
   To rerun the XAMS configuration just invoke:
-  
+
   dpkg-reconfigure xams
-  
+
 OPTIONS
 
   If you want to use a webmail program with XMAS, we suggest to use RoundCube
@@ -89,13 +76,7 @@ XAMS AND MAILSCANNER
   At install, you have the possibility to select mailscanner as antispam and antivirus
   engine but you need to configure manualy mailscanner to have a working solution.
 
-  If you want to use mailscanner, an uptodate Debian package is available at http://www.baruwa.org/ 
-
-  In /etc/apt/sources.list add:
-
-  deb http://apt.baruwa.org/debian squeeze main
-
-  and use apt-get install mailscanner
+  If you want to use mailscanner, the Debian package is available at https://www.mailscanner.info/downloads/
 
 XMU MAINTENANCE UTILITY
 
@@ -137,7 +118,7 @@ CONTRIBUTIONS
  This directory contains some useful files as a vhost for Apache, and the Mailscanner
  and RoundCube plugins. The export_dns script is used to generate the TLS certificate,
  and export_dns is an old utility to convert bind files.
- 
+
   ├── contrib
   │   ├── apache
   │   │   └── xams-apache
@@ -170,12 +151,12 @@ IN CASE OF PROBLEM
   /var/log/syslog
 
   /var/log/clamav/clamav.log
-  
+
   /var/log/apache2/error.log
 
-UPGRADE FROM PREVIOUS XAMS INSTALLED FROM SOURCE 
+UPGRADE FROM PREVIOUS XAMS INSTALLED FROM SOURCE
 
-  This Debian package is attended to be installed ONLY on a fresh Debian system. 
+  This Debian package is attended to be installed ONLY on a fresh Debian system.
 
   Do not try to install it on a manually installed XAMS server or you will
   got a none working or unstable system.
@@ -188,7 +169,7 @@ UPGRADE FROM PREVIOUS XAMS INSTALLED FROM SOURCE
   - Stop apache, courier and exim services on your new server
   - Copy the /var/mail directory from your old server in the new server at the same location
   - Drop all tables from the default XAMS database on your new server
-  - Load the XAMS database from your old server in the new server 
+  - Load the XAMS database from your old server in the new server
     (don't forget to update the database schema if you were using an old version of xams)
   - Restart apache, courier and exim services on your new server
 

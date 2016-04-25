@@ -171,7 +171,7 @@ case "$1" in
 
     # The following only on a new install
     if [ "$2" = "" ]; then
-        # Create xams UID and GID
+    # Create xams UID and GID
 	adduser --home /usr/share/xams --shel /bin/false --disabled-password --no-create-home xams --gecos GECOS > /dev/null 2>&1 || true
 	usermod -G mail Debian-exim || true
 	usermod -G xams www-data || true
@@ -186,7 +186,7 @@ case "$1" in
     else
 	COUNTRY_NAME=$RET
     fi
-    
+
     db_get xams/tls_keys_state || true
     if [ -z $RET ]; then
 	STATE_OR_PROVINCE_NAME="."
@@ -244,7 +244,7 @@ case "$1" in
     /etc/init.d/exim4 stop > /dev/null 2>&1 || true
 
     if [ "$2" = "" ]; then
-	update-rc.d -f courier-authdaemon remove > /dev/null 2>&1
+	insserv -r courier-authdaemon > /dev/null 2>&1
     fi
     sed -i 's/IMAP_MAILBOX_SANITY_CHECK=.*/IMAP_MAILBOX_SANITY_CHECK=0/g' /etc/courier/imapd
 
@@ -266,7 +266,8 @@ case "$1" in
 	chmod 640 /etc/xams/*.conf
 	chmod 2775 /var/mail
 	chmod 644 /etc/xams/sa-exim.conf || true
-	ln -s /etc/xams/apache.conf /etc/apache2/conf.d/xams
+	ln -s /etc/xams/apache.conf /etc/apache2/conf-available/xams.conf
+	a2enconf xams.conf
 	if [ -e /etc/exim4/sa-exim.conf ]; then
 	    mv /etc/exim4/sa-exim.conf /etc/exim4/sa-exim.conf.dist
 	fi
@@ -276,13 +277,13 @@ case "$1" in
 	chown Debian-exim.Debian-exim /var/run/xams /etc/xams/autoreply
 	chgrp Debian-exim /var/run/courier/authdaemon
 	chown www-data.www-data /var/log/xams
-	update-rc.d xams-authdaemon defaults > /dev/null 2>&1
+	insserv xams-authdaemon > /dev/null 2>&1
 
 	# Courier
 	chown Debian-exim.Debian-exim /etc/xams/archives
 	chmod g+w /var/run/courier/authdaemon
     fi
-	
+
     /etc/init.d/courier-imap start > /dev/null 2>&1 || true
     /etc/init.d/courier-imap-ssl start > /dev/null 2>&1 || true
     /etc/init.d/courier-pop start > /dev/null 2>&1 || true
@@ -304,14 +305,14 @@ case "$1" in
 	    sed -i 's/.*\(LANG_DE = On\)/\#\1/g' /etc/xams/exim-custom.conf
 	    sed -i 's/.*\(LANG_EN = On\)/\1/g' /etc/xams/exim-custom.conf
 	    ;;
-	
+
 	French)
 	    mysql -u $sql_user -p$sql_password $sql_database -e "UPDATE pm_preferences SET defaultlanguage = 'french', LoginWelcome = 'Bienvenue sur XAMS';"
 	    sed -i 's/.*\(LANG_DE = On\)/\#\1/g' /etc/xams/exim-custom.conf
 	    sed -i 's/.*\(LANG_EN = On\)/\#\1/g' /etc/xams/exim-custom.conf
 	    sed -i 's/.*\(LANG_FR = On\)/\1/g' /etc/xams/exim-custom.conf
 	    ;;
-	
+
 	German)
 	    mysql -u $sql_user -p$sql_password $sql_database -e "UPDATE pm_preferences SET defaultlanguage = 'german', LoginWelcome = 'Willkommen bei XAMS';"
 	    sed -i 's/.*\(LANG_EN = On\)/\#\1/g' /etc/xams/exim-custom.conf
@@ -320,7 +321,7 @@ case "$1" in
 	    ;;
     esac
 
-    if [ "$2" = "" ]; then	
+    if [ "$2" = "" ]; then
 	echo "   "
 	echo "XAMS has been installed and started succesfully. Use your web browser to go to:"
 	echo "   "

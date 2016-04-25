@@ -114,6 +114,10 @@ helo_try_verify_hosts = *
 # to check the result of that query in ACL... but the logs will tell you ;)
 helo_lookup_domains = *
 
+# Define default environnement
+keep_environment =
+add_environment = PATH=/usr/local/sbin::/usr/local/bin::/sbin::/bin::/usr/sbin::/usr/bin::/sbin::/bin
+
 # Definition path for AV Scanner
 # Do not use this features if Mailscanner is activated
 .ifdef VIRUS_MODULE

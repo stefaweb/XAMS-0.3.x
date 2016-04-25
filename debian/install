@@ -1,22 +1,22 @@
-
-config/apache/apache.conf			etc/xams
-config/apache/xams-apache			usr/share/doc/xams/contrib/apache
-config/bind/*					etc/xams
-config/exim4/*					etc/xams
+config/apache/apache.conf					etc/xams
+config/apache/xams-apache					usr/share/doc/xams/contrib/apache
+config/bind/*								etc/xams
+config/exim4/*								etc/xams
 config/eximconfig/eximconfig_route_manual	etc/xams
-config/init.d/xams-authdaemon			etc/init.d
-config/xams/xams.conf				etc/xams
-config/cron.d/xams				etc/cron.d
+config/init.d/xams-authdaemon				etc/init.d
+config/xams/xams.conf						etc/xams
+config/cron.d/xams							etc/cron.d
+config/tmpfiles.d/xams.conf					/usr/lib/tmpfiles.d
 
-database/mysql/mysql				usr/share/dbconfig-common/data/xams/install/
+database/mysql/mysql						usr/share/dbconfig-common/data/xams/install/
 
-contrib						usr/share/doc/xams
-gui/*						usr/share/xams
-gui/.htaccess					usr/share/xams
+contrib										usr/share/doc/xams
+gui/*										usr/share/xams
+gui/.htaccess								usr/share/xams
 
-docs/install/mailscanner			usr/share/doc/xams/contrib
+docs/install/mailscanner					usr/share/doc/xams/contrib
 
-scripts/Xmod.pm					usr/lib/perl5
-scripts/authdaemon				usr/sbin
-scripts/export_dns.pl				usr/share/doc/xams/contrib/dns
-scripts/xmu					usr/sbin
+scripts/Xmod.pm								usr/share/perl5
+scripts/authdaemon							usr/sbin
+scripts/export_dns.pl						usr/share/doc/xams/contrib/dns
+scripts/xmu									usr/sbin
