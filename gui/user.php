@@ -411,4 +411,7 @@ function changeValue(){
 	document.getElementById('highspamscore').value=highspamscore;
 }
 </script>
+<script>
+	$('form').attr('autocomplete','off');
+</script>
 <?php include 'footer.php' ?>

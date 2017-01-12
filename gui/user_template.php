@@ -293,4 +293,7 @@
     </div>
     <div class="menu3"></div>
 </form>
+<script>
+	$('form').attr('autocomplete','off');
+</script>
 <?php include 'footer.php' ?>
