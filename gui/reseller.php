@@ -104,7 +104,7 @@
 ?>
 <h1><?php echo $tl->get('Reseller Management'); ?></h1>
 <?php if ($myReseller->formular_errors) echo '<p class="formerror"><img src="'. _SKIN. '/img/critical.png" alt="Error" height="25" width="25" />'. $tl->get('The formular was not properly filled out. Point at the question mark.'). '</p>'; ?>
-<form method="post" autocomplete="off" action="<?php echo $_SERVER['PHP_SELF']?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
     <div class="menu1"></div>
     <div class="menu2">
         <table width="680" class="tbl_global">
@@ -132,7 +132,7 @@
             <tr>
                 <th><?php echo $tl->get("Reseller Password")?></th>
                 <td>
-                    <input type="password" name="password" value="" maxlength="100" size="50" class="textfield" />
+                    <input class="password" type="text" name="password" value="" maxlength="100" size="50" class="textfield" />
                 </td>
                 <td><?php echo $myReseller->show_field_property("password")?></td>
             </tr>
@@ -309,7 +309,4 @@
     </div>
     <div class="menu3"></div>
 </form>
-<script>
-	$('form').attr('autocomplete','off');
-</script>
 <?php include 'footer.php' ?>

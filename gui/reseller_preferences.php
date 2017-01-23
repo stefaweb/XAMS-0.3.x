@@ -58,7 +58,7 @@
             <tr>
                 <th><?php echo $tl->get('Password')?></th>
                 <td>
-                    <input type="password" name="password" value="" maxlength="100" size="30" class="textfield" />
+                    <input class="password" type="text" name="password" value="" maxlength="100" size="30" class="textfield" />
                 </td>
                 <td><?php echo $myReseller->show_field_property('password')?></td>
             </tr>

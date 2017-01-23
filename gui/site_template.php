@@ -90,7 +90,7 @@
 ?>
 <h1><?php echo $tl->get('Site-Templates Management'); ?></h1>
 <?php if ($mySite->formular_errors) echo '<p class="formerror"><img src="'. _SKIN. '/img/critical.png" alt="Error" height="25" width="25" />'. $tl->get('The formular was not properly filled out. Point at the question mark.'). '</p>'; ?>
-<form method="post" autocomplete="off" action="<?php echo $_SERVER['PHP_SELF']?>">
+<form method="post" action="<?php echo $_SERVER['PHP_SELF']?>">
     <div class="menu1"></div>
     <div class="menu2">
         <table width="680" class="tbl_global">
