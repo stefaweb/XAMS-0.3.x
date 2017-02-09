@@ -2,7 +2,7 @@
 #   MailScanner Custom Module SQLSpamSettingsXAMS
 #   To be used with XAMS mail system (http://www.xams.org/)
 #
-#   SQLSpamSettingsXAMS.pm - 1.3 - 19/01/2017
+#   SQLSpamSettingsXAMS.pm - 1.3 - 9/02/2017
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -46,10 +46,10 @@ use DBI;
 
 my (%LowSpamScores, %HighSpamScores);
 my (%ScanList);
-my ($stime, $htime, $ntime);
+#my ($stime, $htime, $ntime);
 
 # Default values
-my ($refresh_time) = 15;         # Time in minutes before lists are refreshed
+my ($refresh_time) = 5;         # Time in minutes before lists are refreshed
 my ($DefaultScoreName) = "default";
 my ($DefaultScore) = 5;          # Default score list
 my ($DefaultHighScore) = 15;     # Default high score list
@@ -87,13 +87,13 @@ sub InitSQLNoScan {
 #
 sub SQLSpamScores {
   # Do we need to refresh the data?
-#  if ( (time() - $stime) >= ($refresh_time * 60) ) {
-#   MailScanner::Log::InfoLog("XAMS SQLSpamSettings: SpamScores refresh time reached");
-#   InitSQLSpamScores();
-#  }
+  if ( (time() - $stime) >= ($refresh_time * 60) ) {
+   MailScanner::Log::InfoLog("XAMS SQLSpamSettings: SpamScores refresh time reached");
+   InitSQLSpamScores();
+  }
   my ($message) = @_;
   my ($score)   = LookupScoreList($message, \%LowSpamScores);
-  MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Returning %d from SQLSpamScores", $score);
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Returning %d from SQLSpamScores", $score);
   return $score;
 }
 
@@ -105,7 +105,7 @@ sub SQLHighSpamScores {
   }
   my ($message) = @_;
   my ($score)   = LookupScoreList($message, \%HighSpamScores);
-  MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Returning %d from SQLHighSpamScores", $score);
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Returning %d from SQLHighSpamScores", $score);
   return $score;
 }
 
@@ -120,7 +120,7 @@ sub SQLNoScan {
   }
   my ($message) = @_;
   my ($noscan)  = LookupNoScanList($message, \%ScanList);
-  MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Returning %d from SQLNoScan", $noscan);
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Returning %d from SQLNoScan", $noscan);
   return $noscan;
 }
 
@@ -164,6 +164,7 @@ sub CreateScoreList
             $DBI::errstr);
         return;
   }
+
   # Store default value
   if ($default eq "spamscore") {
         #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Using default %s values.",$default);
@@ -174,8 +175,6 @@ sub CreateScoreList
          #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Using default %s values.",$default);
          $UserList->{lc($DefaultScoreName)} = $DefaultHighScore; # Store entry
          $count++;
-  }
-         return $count;
   }
 
   # SQL query in the XAMS database
@@ -356,11 +355,11 @@ sub LookupScoreList {
   @to         = @{$message->{to}};
   $to         = $to[0];
 
-  MailScanner::Log::InfoLog("XAMS SQLSpamSettings: LookupScoreList");
-  MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------to-message : %s", @to);
-  MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------to : %s", $to);
-  MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------LowHigh : %s", $LowHigh->{$to});
-  MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------Default value LowHigh : %s", $LowHigh->{"default"});
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: LookupScoreList");
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------to-message : %s", @to);
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------to : %s", $to);
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------LowHigh : %s", $LowHigh->{$to});
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------Default value LowHigh : %s", $LowHigh->{"default"});
 
   # It is in the list with the exact address? if not found,
   # if that's not found,  get the system default otherwise return a high
@@ -371,6 +370,7 @@ sub LookupScoreList {
 
   # There are no Spam scores to return if we made it this far, so let the email through.
   #return 999;
+
 }
 
 # Based on the address it is going to, decide whether or not to scan.
