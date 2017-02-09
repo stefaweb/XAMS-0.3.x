@@ -166,13 +166,15 @@ sub CreateScoreList
   }
 
   $dbh->do('SET NAMES utf8');
-
+  
   # Store default value
   if ($default eq "spamscore") {
+        #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Using default %s values.",$default);
         $UserList->{lc($DefaultScoreName)} = $DefaultScore; # Store entry
         $count++;
   }
   if ($default eq "highspamscore") {
+         #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Using default %s values.",$default);
          $UserList->{lc($DefaultScoreName)} = $DefaultHighScore; # Store entry
          $count++;
   }
@@ -186,12 +188,16 @@ sub CreateScoreList
   INNER JOIN  pm_users u ON s.id = u.siteid \
   ";
 
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: SQL request ScoreList Default value = %s", $sql);
+
   $sth = $dbh->prepare($sql);
   $sth->execute;
   $sth->bind_columns(undef, \$username, \$type);
   $count = 0;
   while($sth->fetch())
   {
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------username : %s", $username);
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------score : %s", $type);
     $UserList->{lc($username)} = $type; # Store entry
     $count++;
   }
@@ -207,11 +213,15 @@ sub CreateScoreList
   WHERE       a.rightpart = u.name \
   ";
 
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: SQL request ScoreList Default value = %s", $sql);
+
   $sth = $dbh->prepare($sql);
   $sth->execute;
   $sth->bind_columns(undef, \$username, \$type);
   while($sth->fetch())
   {
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------username-Aliases : %s", $username);
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------score : %s", $type);
     $UserList->{lc($username)} = $type; # Store entry
     $count++;
   }
@@ -223,11 +233,15 @@ sub CreateScoreList
   FROM        pm_preferences AS p \
   ";
 
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: SQL request ScoreList Default value = %s", $sql);
+
   $sth = $dbh->prepare($sql);
   $sth->execute;
   $sth->bind_columns(undef, \$username, \$type);
   while($sth->fetch())
   {
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------username-Admin : %s", $username);
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------type : %s", $type);
     $UserList->{lc($username)} = $type; # Store entry
     $count++;
   }
@@ -260,7 +274,7 @@ sub CreateNoScanList {
   }
 
   $dbh->do('SET NAMES utf8');
-  
+
   # SQL query in the XAMS database
   # For users of NoScanList
   $sql = " \
@@ -271,12 +285,16 @@ sub CreateNoScanList {
   WHERE       ((s.$type  = 'false' OR s.$type IS NULL) OR u.$type != 'true') \
   ";
 
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: SQL request ScoreList Default value = %s", $sql);
+
   $sth = $dbh->prepare($sql);
   $sth->execute;
   $sth->bind_columns(undef, \$username, \$type);
   $count = 0;
   while($sth->fetch())
   {
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------username-NoScan : %s", $username);
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------type : %s", $type);
     $NoScanList->{lc($username)} = 1; # Store entry
     $count++;
   }
@@ -292,16 +310,25 @@ sub CreateNoScanList {
   WHERE       a.rightpart = u.name \
  ";
 
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: SQL request ScoreList Default value = %s", $sql);
+
   $sth = $dbh->prepare($sql);
   $sth->execute;
   $sth->bind_columns(undef, \$username, \$ustatus, \$sstatus);
   while($sth->fetch())
   {
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------username-NoScan-Aliases : %s", $username);
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------Sstatus : %s", $sstatus);
+    #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: -----------------------Ustatus : %s", $ustatus);
     if ( $sstatus eq "false" ) {
+       #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------username-NoScan-Aliases-stored : %s", $username);
+       #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------type : %s", $type);
        $NoScanList->{lc($username)} = 1; # Store entry
        $count++;
     } else {
       if ( $ustatus eq "false" ) {
+         #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------username-NoScan-Aliases-stored : %s", $username);
+         #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------type : %s", $type);
          $NoScanList->{lc($username)} = 1; # Store entry
          $count++;
       }
@@ -332,12 +359,21 @@ sub LookupScoreList {
   @to         = @{$message->{to}};
   $to         = $to[0];
 
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: LookupScoreList");
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------to-message : %s", @to);
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------to : %s", $to);
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------LowHigh : %s", $LowHigh->{$to});
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------Default value LowHigh : %s", $LowHigh->{"default"});
+
   # It is in the list with the exact address? if not found,
   # if that's not found,  get the system default otherwise return a high
   # value to just let the email through.
   return $LowHigh->{$to}         if $LowHigh->{$to};
   return $LowHigh->{"admin"}     if $LowHigh->{"admin"};
   return $LowHigh->{"default"}   if $LowHigh->{"default"};
+
+  # There are no Spam scores to return if we made it this far, so let the email through.
+  #return 999;
 
 }
 
@@ -352,6 +388,10 @@ sub LookupNoScanList {
   my (@to, $to);
   @to         = @{$message->{to}};
   $to         = $to[0];
+
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------to-message : %s", @to);
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------to : %s", $to);
+  #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: ---------------NoScan : %s", $NoScan->{$to});
 
   # It is in the list with the exact address?
   # if that's not found, return 0
