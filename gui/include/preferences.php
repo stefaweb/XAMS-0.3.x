@@ -2,23 +2,24 @@
 
 include_once 'include/xclass.php';
 
-class Preferences extends xclass
+class preferences extends xclass
 {
-    var $objname = 'preferences';
-    var $notice;
-    var $lngbase = 'preferences';
+    public $objname = 'preferences';
+    public $notice;
+    public $lngbase = 'preferences';
 
-    function Preferences($init=true)
+    public function Preferences($init = true)
     {
         xclass::xclass($init);
     }
 
     // Check which actions the logged in user can perform on preferences
-    function Authenticate()
+    public function Authenticate()
     {
-        if ($this->authenticated) return $this->getAuthMode();
-        switch (USERT)
-        {
+        if ($this->authenticated) {
+            return $this->getAuthMode();
+        }
+        switch (USERT) {
             case _ADMIN:
                 $this->setAuthMode(_AUTH_ALL);
                 break;
@@ -28,10 +29,11 @@ class Preferences extends xclass
                 break;
         }
         xclass::Authenticate(true);
+
         return $this->getAuthMode();
     }
 
-    function Load($log=true)
+    public function Load($log = true)
     {
         $this->Authenticate();
         $sql = 'SELECT loglevel, loglines, newversioncheck, lastversioncheck,
@@ -42,27 +44,22 @@ class Preferences extends xclass
 
         xclass::Load($sql, null);
 
-        if ($log)
+        if ($log) {
             $this->XAMS_Log('Selection', 'Selected Preferences');
+        }
     }
 
-    function Update()
+    public function Update()
     {
         $sql = $this->create_sql_update('pm_preferences', $vals);
         $result = $this->db->query($sql, $vals);
 
-        if ($result)
-        {
+        if ($result) {
             $this->notice = $this->i18n->get('Preferences was updated successfully.');
             $this->XAMS_Log('Update', 'Updated Preferences');
-        }
-        else
-        {
+        } else {
             $this->notice = $this->i18n->get('Preferences could not be updated.');
             $this->XAMS_Log('Update', 'Failed updating Preferences', 'failed');
         }
     }
-
 }
-
-?>

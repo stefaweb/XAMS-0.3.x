@@ -7,11 +7,17 @@
     // Get $_POST[] vars
     function gpost($var)
     {
-        if (!isset($_POST[$var])) return null;
-        if (is_array($_POST[$var]))
-            foreach ($_POST[$var] as $k => $e) $ret[$k] = mas($e);
-        else
+        if (!isset($_POST[$var])) {
+            return;
+        }
+        if (is_array($_POST[$var])) {
+            foreach ($_POST[$var] as $k => $e) {
+                $ret[$k] = mas($e);
+            }
+        } else {
             $ret = mas($_POST[$var]);
+        }
+
         return $ret;
     }
 
@@ -44,13 +50,15 @@
         $ret = false;
         $fh = @fopen($file, 'r');
 
-        if ($fh)
-        {
+        if ($fh) {
             $data = null;
-            while (!feof($fh)) $data .= fread($fh, 1024);
+            while (!feof($fh)) {
+                $data .= fread($fh, 1024);
+            }
             fclose($fh);
-            if ($data)
+            if ($data) {
                 $ret = $data;
+            }
         }
 
         return $ret;
@@ -61,8 +69,7 @@
         $ret = false;
         $fh = fopen($file, 'w');
 
-        if ($fh)
-        {
+        if ($fh) {
             $ret = fwrite($fh, $data);
             fclose($fh);
         }
@@ -71,12 +78,11 @@
     }
 
     // recursive mkdir()
-    function mkdir_p($target, $mode=0777)
+    function mkdir_p($target, $mode = 0777)
     {
-        if (file_exists($target))
-            return (is_dir($target) || (is_link($target) && is_dir(readlink($target))));
-        else
+        if (file_exists($target)) {
+            return is_dir($target) || (is_link($target) && is_dir(readlink($target)));
+        } else {
             return (!empty($target) && mkdir_p(substr($target, 0, (strrpos($target, '/'))), $mode)) ? (mkdir($target, $mode)) : 0;
+        }
     }
-
-?>

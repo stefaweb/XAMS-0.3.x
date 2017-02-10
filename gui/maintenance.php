@@ -1,6 +1,6 @@
 <?php
     include 'include/config.php';
-    
+
     $msg = 'System is down for maintenance. Please try again later.';
 
     include 'header.php';

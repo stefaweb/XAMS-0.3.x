@@ -1,14 +1,13 @@
 <?php
-    header("Content-Type: text/html; charset=UTF-8");
+    header('Content-Type: text/html; charset=UTF-8');
     require 'include/config.php';
     session_start();
-    if (session_destroy())
-    {
+    if (session_destroy()) {
         header('Location: login.php?logout=1');
         exit;
     }
     include 'include/i18n.php';
-    $tl =& i18n::singleton();
+    $tl = &i18n::singleton();
     $tl->LoadLngBase('login');
 ?>
 <?php echo '<?xml version="1.0" encoding="utf-8"?'.">\n"?>

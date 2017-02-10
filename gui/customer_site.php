@@ -8,35 +8,35 @@
 
     $myAB = new Site_Addressbook();
     $mySite = new Sites();
-    $tl =& $mySite->i18n;
+    $tl = &$mySite->i18n;
 
     $id = greq('id');
     $button = gpost('button');
     $mode = 'update';
     $info = gget('info');
 
-    if ($id)
-    {
+    if ($id) {
         $mySite->Load($id);
-        if (!$mySite->isAuthLoad())
+        if (!$mySite->isAuthLoad()) {
             die('Access denied.');
+        }
     }
 
-    if ($button)
-    {
-        $mySite->Assign2Object(array('id', 'addressbook_', 'mode'));
+    if ($button) {
+        $mySite->Assign2Object(['id', 'addressbook_', 'mode']);
 
         $mySite->Update();
         $info = $tl->get($mySite->notice);
         $mySite->Load(); // For update-field
-    }    
+    }
 
     $mySite->CalcQuotaUnits(true);
 
-    if ($id)
+    if ($id) {
         $myAB->Load($id);
+    }
 
-    $units = array('KB', 'MB', 'GB');
+    $units = ['KB', 'MB', 'GB'];
 
     include 'header.php';
 ?>
@@ -58,7 +58,7 @@
                 </td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Sitename") ?></th>
+                <th><?php echo $tl->get('Sitename') ?></th>
                 <td>
                     <?php
                         echo $mySite->name;
@@ -67,7 +67,7 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Domains") ?></th>
+                <th><?php echo $tl->get('Domains') ?></th>
                 <td>
                     <?php
                         echo implode(', ', $mySite->myDomains->domainnames);
@@ -76,25 +76,25 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Max. Quota")?></th>
+                <th><?php echo $tl->get('Max. Quota')?></th>
                 <td>
                     <?php
-                        echo ($mySite->maxquota < 0) ? $tl->get('unlimited') : $mySite->maxquota. ' '. $units[$mySite->quotaunit];
+                        echo ($mySite->maxquota < 0) ? $tl->get('unlimited') : $mySite->maxquota.' '.$units[$mySite->quotaunit];
                     ?>
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Max. User-Quota") ?></th>
+                <th><?php echo $tl->get('Max. User-Quota') ?></th>
                 <td>
                     <?php
-                        echo ($mySite->maxuserquota < 0) ? $tl->get('unlimited') : $mySite->maxuserquota. ' '. $units[$mySite->userquotaunit];
+                        echo ($mySite->maxuserquota < 0) ? $tl->get('unlimited') : $mySite->maxuserquota.' '.$units[$mySite->userquotaunit];
                     ?>
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Max. Users") ?></th>
+                <th><?php echo $tl->get('Max. Users') ?></th>
                 <td>
                     <?php
                         echo ($mySite->maxaddr < 0) ? $tl->get('unlimited') : $mySite->maxaddr;
@@ -103,7 +103,7 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Max. Aliases") ?></th>
+                <th><?php echo $tl->get('Max. Aliases') ?></th>
                 <td>
                     <?php
                         echo ($mySite->maxaliases < 0) ? $tl->get('unlimited') : $mySite->maxaliases;
@@ -112,37 +112,49 @@
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Type") ?></th>
+                <th><?php echo $tl->get('Type') ?></th>
                 <td>
                     <?php
-                        $var = array();
-                        if ($mySite->addrtype & _SMTP) $var[] = 'SMTP';
-                        if ($mySite->addrtype & _POP) $var[] = 'POP3';
-                        if ($mySite->addrtype & _IMAP) $var[] = 'IMAP';
-                        if ($mySite->addrtype & _XAMS) $var[] = 'XAMS';
+                        $var = [];
+                        if ($mySite->addrtype & _SMTP) {
+                            $var[] = 'SMTP';
+                        }
+                        if ($mySite->addrtype & _POP) {
+                            $var[] = 'POP3';
+                        }
+                        if ($mySite->addrtype & _IMAP) {
+                            $var[] = 'IMAP';
+                        }
+                        if ($mySite->addrtype & _XAMS) {
+                            $var[] = 'XAMS';
+                        }
                         echo implode(', ', $var);
                     ?>
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Viruscheck") ?></th>
+                <th><?php echo $tl->get('Viruscheck') ?></th>
                 <td>
                     <?php
-                        $var = array();
-                        if (isTrue($mySite->viruscheckin)) $var[] = $tl->get('Incoming');
-                        if (isTrue($mySite->viruscheckout)) $var[] = $tl->get('Outgoing');
+                        $var = [];
+                        if (isTrue($mySite->viruscheckin)) {
+                            $var[] = $tl->get('Incoming');
+                        }
+                        if (isTrue($mySite->viruscheckout)) {
+                            $var[] = $tl->get('Outgoing');
+                        }
                         echo implode(', ', $var);
                     ?>
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Status") ?></th>
+                <th><?php echo $tl->get('Status') ?></th>
                 <td>
                     <?php
-                        $var = array('default'=>'Active', 'locked'=>'Locked', 'lockedbounce'=>'Locked &amp; Bounce');
-                        echo $tl->get($var[$mySite->sitestate]) ;
+                        $var = ['default'=>'Active', 'locked'=>'Locked', 'lockedbounce'=>'Locked &amp; Bounce'];
+                        echo $tl->get($var[$mySite->sitestate]);
                     ?>
                 </td>
                 <td>&nbsp;</td>
@@ -152,9 +164,9 @@
                 <td></td>
                 <td colspan="2">
                     <p><br/></p>
-                    <input type="submit" name="button" value="<?php echo $tl->get("Save") ?>" class="button" />
-                    <input type="reset" name="button" value="<?php echo $tl->get("Reset") ?>" class="button" />
-                    <input type="button" name="help" value="<?php echo $tl->get("Help") ?>" class="helpbutton" onclick="window.open('help.php?help=site&amp;mode=<?php echo $mode ?>', '', 'scrollbars=yes, height=500, width=920');" />
+                    <input type="submit" name="button" value="<?php echo $tl->get('Save') ?>" class="button" />
+                    <input type="reset" name="button" value="<?php echo $tl->get('Reset') ?>" class="button" />
+                    <input type="button" name="help" value="<?php echo $tl->get('Help') ?>" class="helpbutton" onclick="window.open('help.php?help=site&amp;mode=<?php echo $mode ?>', '', 'scrollbars=yes, height=500, width=920');" />
                 </td>
             </tr>
         </table>

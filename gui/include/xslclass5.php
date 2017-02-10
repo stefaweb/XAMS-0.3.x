@@ -2,36 +2,33 @@
 
 class xslclass5 extends xslclass
 {
+    public $dom;
 
-    var $dom;
-
-    function load_xsl($xsl_file)
+    public function load_xsl($xsl_file)
     {
         $this->dom = new domDocument();
         $ret = $this->dom->load($xsl_file);
-        if (!$ret)
-        {
+        if (!$ret) {
             die('Error while parsing XSL data');
         }
+
         return $ret;
     }
 
-    function transform()
+    public function transform()
     {
-        if ($this->transformed)
+        if ($this->transformed) {
             return true;
+        }
 
         $doc = new domDocument();
         $doc->loadxml($this->xml_data);
 
-        $proc = new xsltprocessor;
+        $proc = new xsltprocessor();
         $xsl = $proc->importStylesheet($this->dom);
 
         $this->data = $proc->transformToXml($doc);
         //unset($this->doc);
         return $this->transformed = true;
     }
-
 }
-
-?>
