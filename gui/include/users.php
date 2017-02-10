@@ -319,7 +319,7 @@ class Users extends xclass
 		}
 	    }
 	    if ($flag == 1)
-	    $this->db->query('UPDATE pm_aliases SET rightpart = \'' . implode(", ", $tmp) . '\' WHERE id = ?', $donnees["id"]);
+	    $this->db->query('UPDATE pm_aliases SET rightpart = \'' . mysql_real_escape_string(implode(", ", $tmp)) . '\' WHERE id = ?', $donnees["id"]);
  	}
 
 	// Delete User
