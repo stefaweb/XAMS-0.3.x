@@ -54,8 +54,8 @@ class dns extends xclass
                     }
                 }
             }
+            while (true);
         }
-        while (true);
     }
 
     public function multiply()
