@@ -10,12 +10,6 @@
  */
 class i18n
 {
-    public $instance;
-    
-    public function __construct()
-    {
-        $instance = new $class();
-    }
 
     public function &factory()
     {
@@ -27,11 +21,12 @@ class i18n
         include $class.'.php';
 
         if (class_exists($class)) {
+            $instance = new $class();
             
             return $instance;
         }
         } else {
-            die('Class definition of ' . $class . ' not found.');
+            die('Class definition of ' . $class .' not found.');
     }
 
     public function &singleton()
