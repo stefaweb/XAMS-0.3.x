@@ -46,7 +46,7 @@ class dns extends xclass
             for ($i = 5; $i >= 0; $i--) {
                 do {
                     if ($this->$elem % $this->multiplier[$i] == 0) {
-                        $this->{$elem.'_unit'} = $i;
+                        $this->{$elem . '_unit'} = $i;
                         $this->$elem /= $this->multiplier[$i];
                         break 2;
                     } else {
