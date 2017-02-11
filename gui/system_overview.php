@@ -201,8 +201,8 @@
         if (gget('xmloutput') == 1) {
             xmlout(1, '<i18nfile language="'.$_SESSION['SESSION_LANGUAGE'].'">http://'.$_SERVER['HTTP_HOST'].'/i18n/'.$_SESSION['SESSION_LANGUAGE'].'/system_overview.xml</i18nfile>');
         } else {
-        xmlout(1, '<i18nfile language="'.$_SESSION['SESSION_LANGUAGE'].'">file://'.realpath('i18n/'.$_SESSION['SESSION_LANGUAGE'].'/system_overview.xml').'</i18nfile>');
-    }
+            xmlout(1, '<i18nfile language="'.$_SESSION['SESSION_LANGUAGE'].'">file://'.realpath('i18n/'.$_SESSION['SESSION_LANGUAGE'].'/system_overview.xml').'</i18nfile>');
+        }
 
     tagout(1, 'skindir', _SKIN);
 
