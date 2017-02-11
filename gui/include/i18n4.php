@@ -4,141 +4,148 @@
  */
 
 /**
- * Internationalization (i18n) management class
+ * Internationalization (i18n) management class.
  *
  * This class is responsible for the whole internationalization management.
- * @package default
- * @access public
  */
 class i18n4 extends i18n
 {
-
     /**
-     * Element that is currently being parsed
-     * @access private
+     * Element that is currently being parsed.
+     *
      * @var string
      */
-    var $act_element = null;
+    public $act_element = null;
 
     /**
-     * Array that contains all finished elements (won't add further data)
-     * @access private
+     * Array that contains all finished elements (won't add further data).
+     *
      * @var array
      */
-    var $finished_elements = array();
+    public $finished_elements = [];
 
     /**
      * Array used to work around of a XML-Parser error which
      * causes multiple adds to the i18n-string if the xml-element
      * contains a &-char.
+     *
      * @var array
      */
-    var $i18n_handler_count = array();
+    public $i18n_handler_count = [];
 
     // Current i18n array
-    var $cur_array;
+    public $cur_array;
 
     /**
-     * Handler for XML-Start-Element
+     * Handler for XML-Start-Element.
      *
      * This handler is called if a new XML element starts.
-     * @param obj $parser The PHP/XML-Parser-object
-     * @param string $name The name of the new xml tag
-     * @param array $attrs The attributes of the new xml tag
-     * @access private
+     *
+     * @param obj    $parser The PHP/XML-Parser-object
+     * @param string $name   The name of the new xml tag
+     * @param array  $attrs  The attributes of the new xml tag
      */
-    function startElement($parser, $name, &$attrs)
+    public function startElement($parser, $name, &$attrs)
     {
-        if ($name == 'MSG')
+        if ($name == 'MSG') {
             $this->act_element = (isset($attrs['ID'])) ? $attrs['ID'] : null;
+        }
     }
 
     /**
-     * Handler for XML-End-Element
+     * Handler for XML-End-Element.
      *
      * This handler is called if a XML element ends.
-     * @param obj $parser The PHP/XML-Parser-object
-     * @param string $name The name of the xml tag that ends
-     * @access private
+     *
+     * @param obj    $parser The PHP/XML-Parser-object
+     * @param string $name   The name of the xml tag that ends
      */
-    function endElement($parser, $name)
+    public function endElement($parser, $name)
     {
-        if (!strlen($this->act_element)) return;
+        if (!strlen($this->act_element)) {
+            return;
+        }
 
         $this->finished_elements[] = $this->act_element;
         $this->act_element = null;
     }
 
     /**
-     * Handler for reading data of current XML-Element
+     * Handler for reading data of current XML-Element.
      *
      * This handler is called if a new XML element has started and
      * we have to load the data in this element.
-     * @param obj $parser The PHP/XML-Parser-object
-     * @param string $data The data of the xml element
-     * @access private
+     *
+     * @param obj    $parser The PHP/XML-Parser-object
+     * @param string $data   The data of the xml element
      */
-    function dataElement($parser, &$data)
+    public function dataElement($parser, &$data)
     {
-        if (!strlen($data) || !strlen($this->act_element)) return;
+        if (!strlen($data) || !strlen($this->act_element)) {
+            return;
+        }
 
-        if (!isset($this->cur_array[$this->act_element]))
+        if (!isset($this->cur_array[$this->act_element])) {
             $this->cur_array[$this->act_element] = null;
+        }
 
-        if (!in_array($this->act_element, $this->finished_elements))
+        if (!in_array($this->act_element, $this->finished_elements)) {
             $this->cur_array[$this->act_element] .= $data;
+        }
     }
 
     /**
-     * Loads one or more language package(s)
+     * Loads one or more language package(s).
      *
      * @param string $files_csv Comma seperated list of i18n-files to load
-     * @param string $lng language to use
-     * @access public
+     * @param string $lng       language to use
      */
-    function LoadLngBase($files, $lng=null)
+    public function LoadLngBase($files, $lng = null)
     {
-        if (isset($lng) && !empty($lng))
+        if (isset($lng) && !empty($lng)) {
             $this->lng = $lng;
-        elseif (isset($_SESSION['SESSION_LANGUAGE']) && !empty($_SESSION['SESSION_LANGUAGE']))
+        } elseif (isset($_SESSION['SESSION_LANGUAGE']) && !empty($_SESSION['SESSION_LANGUAGE'])) {
             $this->lng = $_SESSION['SESSION_LANGUAGE'];
+        }
 
-        if (!is_array($files))
-            $files = array($files);
+        if (!is_array($files)) {
+            $files = [$files];
+        }
 
         $files[] = 'std_menu';
-            
-        foreach ($files as $filename)
-        {
-            if (isset($this->loaded_lng_bases[$filename]))
+
+        foreach ($files as $filename) {
+            if (isset($this->loaded_lng_bases[$filename])) {
                 continue;
+            }
 
             $file = sprintf('i18n/%s/%s.xml', $this->lng, $filename);
-            if (!file_exists($file))
+            if (!file_exists($file)) {
                 $file = sprintf('i18n/english/%s.xml', $filename);
+            }
 
-            if (!file_exists($file)) continue;
+            if (!file_exists($file)) {
+                continue;
+            }
 
             $data = implode(null, file($file));
 
-            $this->i18n_array[$filename] = array();
-            $this->cur_array =& $this->i18n_array[$filename];
+            $this->i18n_array[$filename] = [];
+            $this->cur_array = &$this->i18n_array[$filename];
 
             $parser = xml_parser_create();
             xml_set_object($parser, $this);
             xml_set_element_handler($parser, 'startElement', 'endElement');
             xml_set_character_data_handler($parser, 'dataElement');
 
-            if (!xml_parse($parser, $data))
+            if (!xml_parse($parser, $data)) {
                 die(sprintf('XML error: %s at line %d',
                             xml_error_string(xml_get_error_code($parser)),
                             xml_get_current_line_number($parser)));
+            }
             xml_parser_free($parser);
 
             $this->loaded_lng_bases[$filename] = $this->lng;
-
         }
     }
 }
-
-?>

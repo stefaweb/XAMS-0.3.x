@@ -6,7 +6,7 @@
     header('Cache-Control: no-store, no-cache, must-revalidate');
     header('Cache-Control: post-check=0, pre-check=0', false);
     header('Pragma: no-cache');
-	
+
     echo "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
     include_once 'include/config.php';
 ?>
@@ -23,8 +23,9 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
     <script type="text/javascript" src="iframe.js"></script>
 	<?php
-        if (isset($CSS_ADD))
+        if (isset($CSS_ADD)) {
             echo $CSS_ADD;
+        }
     ?>
 	<style type="text/css">
 		#container{

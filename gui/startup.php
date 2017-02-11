@@ -6,7 +6,7 @@
    include_once 'include/preferences.php';
    $db = new xclass();
    $db->i18n->LoadLngBase('startup');
-   $tl =& $db->i18n;
+   $tl = &$db->i18n;
 
     $myPREFS = new Preferences();
     $myPREFS->Load(false);
@@ -15,35 +15,32 @@
     function checked_today()
     {
         global $myPREFS;
-        if ($myPREFS->lastversioncheck == date('Y-m-d'))
+        if ($myPREFS->lastversioncheck == date('Y-m-d')) {
             $ret = true;
-        else
-        {
+        } else {
             $myPREFS->assign('lastversioncheck', date('Y-m-d'));
             $myPREFS->Update();
             $ret = false;
         }
+
         return $ret;
     }
 
     if (isADMIN &&
         !preg_match('/pre/i', _XAMS_VERSION) &&
         isTrue($myPREFS->newversioncheck) &&
-        !checked_today())
-    {
-        $current_version = rfile(_XAMS_ONLINE_SERVER. '/VERSION');
-        if ($current_version && version_compare($current_version, _XAMS_VERSION) == 1)
-        {
-            $data = rfile(_XAMS_ONLINE_SERVER. '/version_announcement.php?lng='. $_SESSION['SESSION_LANGUAGE']);
+        !checked_today()) {
+        $current_version = rfile(_XAMS_ONLINE_SERVER.'/VERSION');
+        if ($current_version && version_compare($current_version, _XAMS_VERSION) == 1) {
+            $data = rfile(_XAMS_ONLINE_SERVER.'/version_announcement.php?lng='.$_SESSION['SESSION_LANGUAGE']);
             echo preg_replace('/LOCAL_VERSION/s', _XAMS_VERSION, $data);
             include 'footer.php';
             exit;
         }
     }
-    
+
     $sql = null;
-    if (isCUSTOMER)
-    {
+    if (isCUSTOMER) {
         $sql = 'SELECT      r.name resellername, r.id resellerid, NULL raddressbook,
                             r.maxsites ms, r.maxdomains md, r.maxusers mu,
                             r.maxaliases ma, s.id, s.name, s.sitestate, s.maxaddr, s.maxaliases,
@@ -57,12 +54,10 @@
                 ON          psi.siteid = s.id
                 LEFT JOIN   pm_sites_c_customers scc
                 ON          scc.siteid = s.id
-                WHERE       scc.customerid = '. USERID. "
+                WHERE       scc.customerid = '.USERID.'
                 GROUP BY    id
-                ORDER BY    name";
-    }
-    elseif (isRESELLER)
-    {
+                ORDER BY    name';
+    } elseif (isRESELLER) {
         $sql = 'SELECT      r.name resellername, r.id resellerid, COUNT(rsi.value) raddressbook,
                             r.maxsites ms, r.maxdomains md, r.maxusers mu,
                             r.maxaliases ma, s.id, s.name, s.sitestate, s.maxaddr, s.maxaliases,
@@ -77,13 +72,11 @@
                 LEFT JOIN   pm_reseller_info rsi
                 ON          rsi.resellerid = r.id
                 WHERE       s.resellerid = r.id
-                AND         r.id = '. USERID. "
+                AND         r.id = '.USERID.'
                 GROUP BY    id
-                ORDER BY    name";
-    }
-    elseif (isADMIN)
-    {
-        $sql = "SELECT      r.name resellername, r.id resellerid, COUNT(rsi.value) raddressbook,
+                ORDER BY    name';
+    } elseif (isADMIN) {
+        $sql = 'SELECT      r.name resellername, r.id resellerid, COUNT(rsi.value) raddressbook,
                             r.maxsites ms, r.maxdomains md, r.maxusers mu,
                             r.maxaliases ma, s.id, s.name, s.sitestate, s.maxaddr, s.maxaliases,
                             s.maxquota, s.maxuserquota, s.addrtype, s.viruscheckin, s.viruscheckout,
@@ -98,10 +91,11 @@
                 ON          rsi.resellerid = r.id
                 WHERE       s.resellerid = r.id
                 GROUP BY    id
-                ORDER BY    resellername, name";
+                ORDER BY    resellername, name';
     }
-    if ($sql)
+    if ($sql) {
         $sites = $db->db->query($sql);
+    }
 
     include 'header.php';
 ?>
@@ -117,14 +111,14 @@
     <tfoot></tfoot>
     <tbody>
     <?php
-    if ($sql)
-    while ($sr = $sites->fetchRow(DB_FETCHMODE_ASSOC))
-    {
-        printf('<tr>
+    if ($sql) {
+        while ($sr = $sites->fetchRow(DB_FETCHMODE_ASSOC)) {
+            printf('<tr>
         <td>%s</td>
         <td><a href="system_overview.php?siteid=%s">%s</a></td>', $sr['resellername'], $sr['id'], $sr['name']);
-        printf('<td><a href="user.php?mode=new&siteid=%s">[%s]</a></td>', $sr['id'], $tl->get('Add User'));
-        printf('<td><a href="alias.php?mode=new&siteid=%s">[%s]</a></td>', $sr['id'], $tl->get('Add Alias'));
+            printf('<td><a href="user.php?mode=new&siteid=%s">[%s]</a></td>', $sr['id'], $tl->get('Add User'));
+            printf('<td><a href="alias.php?mode=new&siteid=%s">[%s]</a></td>', $sr['id'], $tl->get('Add Alias'));
+        }
     }
     ?>
     </tbody>

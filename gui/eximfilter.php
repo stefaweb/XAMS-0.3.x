@@ -6,41 +6,37 @@
     include 'include/filters.php';
 
     $myFilter = new Filters();
-    $tl =& $myFilter->i18n;
+    $tl = &$myFilter->i18n;
 
     $userid = greq('userid');
     //$mode = greq('mode');
     $button = gpost('button');
     $info = null;
 
-    if ($userid)
-    {
+    if ($userid) {
         $myFilter->Load($userid);
-        if (!$myFilter->isAuthLoad())
+        if (!$myFilter->isAuthLoad()) {
             die($tl->get('Access denied.'));
-    }
-    else
+        }
+    } else {
         die('No userid given.');
+    }
 
     $mode = ($myFilter->added) ? 'update' : 'new';
 
-    if ($button)
-    {
-        if ($button == $tl->get('Delete'))
-        {
+    if ($button) {
+        if ($button == $tl->get('Delete')) {
             $myFilter->Delete();
             $myFilter->status($myFilter->notice);
             exit;
         }
 
-        $myFilter->Assign2Object(array('userid', 'filter', 'active', 'mode'));
+        $myFilter->Assign2Object(['userid', 'filter', 'active', 'mode']);
 
         $myFilter->check_formular($mode);
 
-        if (!$myFilter->formular_errors)
-        {
-            switch ($button)
-            {
+        if (!$myFilter->formular_errors) {
+            switch ($button) {
                 case $tl->get('Save'):
                     $myFilter->Add();
                     $info = $myFilter->notice;
@@ -61,7 +57,9 @@
 ?>
 <h1><?php echo $tl->get('Exim-Filter Configuration'); ?></h1>
 <p class="forminfo"><?php echo stripcslashes($info)?></p>
-<?php if ($myFilter->formular_errors) echo '<p class="formerror"><img src="'. _SKIN. '/img/critical.png" alt="Error" height="25" width="25" />'. $tl->get('The formular was not properly filled out. Point at the question mark.'). '</p>'; ?>
+<?php if ($myFilter->formular_errors) {
+    echo '<p class="formerror"><img src="'._SKIN.'/img/critical.png" alt="Error" height="25" width="25" />'.$tl->get('The formular was not properly filled out. Point at the question mark.').'</p>';
+} ?>
 <form method="post" action="<?php echo $_SERVER['PHP_SELF'] ?>">
     <div class="menu1"></div>
     <div class="menu2">
@@ -78,45 +76,51 @@
                 </td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Filter") ?></th>
+                <th><?php echo $tl->get('Filter') ?></th>
                 <td>
                     <textarea name="filter" cols="50" rows="10" class="textfield"><?php echo stripslashes($myFilter->filter) ?></textarea>
                 </td>
-                <td><?php echo $myFilter->show_field_property("filter") ?></td>
+                <td><?php echo $myFilter->show_field_property('filter') ?></td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Active") ?></th>
+                <th><?php echo $tl->get('Active') ?></th>
                 <td>
-                    <input type="checkbox" name="active" class="checkbox" value="true"<?php if (isTrue($myFilter->active)) echo ' checked="checked"'; ?> /> <?php echo $tl->get("Yes") ?>
+                    <input type="checkbox" name="active" class="checkbox" value="true"<?php if (isTrue($myFilter->active)) {
+    echo ' checked="checked"';
+} ?> /> <?php echo $tl->get('Yes') ?>
                 </td>
                 <td>&nbsp;</td>
             </tr>
-    <?php if ($mode == 'update') { ?>
+    <?php if ($mode == 'update') {
+    ?>
             <tr>
-                <th><?php echo $tl->get("Filter created") ?></th>
+                <th><?php echo $tl->get('Filter created') ?></th>
                 <td>
                     <input type="text" name="created" value="<?php echo $myFilter->added ?>" size="<?php echo strlen($myFilter->added)?>" class="textfield" disabled="disabled">
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Filter last updated") ?></th>
+                <th><?php echo $tl->get('Filter last updated') ?></th>
                 <td>
                     <input type="text" name="updated" value="<?php echo $myFilter->updated ?>" size="<?php echo strlen($myFilter->updated)?>" class="textfield" disabled="disabled">
                 </td>
                 <td>&nbsp;</td>
             </tr>
-    <?php } ?>
+    <?php 
+} ?>
             <tr>
                 <td></td>
                 <td colspan="2">
                     <p><br/></p>
                     <input type="submit" name="button" class="button" value="<?php echo $tl->get("$button") ?>" />
-                    <input type="submit" name="button" value="<?php echo $tl->get("Delete") ?>" class="button" />
-                    <input type="reset" name="button" class="button" value="<?php echo $tl->get("Reset") ?>" />
-                    <?php if (USERT > _USER) { ?>
-                    <input type="button" name="help" value="<?php echo $tl->get("Help") ?>" class="helpbutton" onclick="window.open('help.php?help=user&amp;mode=<?php echo $mode?>', '', 'scrollbars=yes, height=500, width=920');" />
-                    <?php } ?>
+                    <input type="submit" name="button" value="<?php echo $tl->get('Delete') ?>" class="button" />
+                    <input type="reset" name="button" class="button" value="<?php echo $tl->get('Reset') ?>" />
+                    <?php if (USERT > _USER) {
+    ?>
+                    <input type="button" name="help" value="<?php echo $tl->get('Help') ?>" class="helpbutton" onclick="window.open('help.php?help=user&amp;mode=<?php echo $mode?>', '', 'scrollbars=yes, height=500, width=920');" />
+                    <?php 
+} ?>
                 </td>
             </tr>
         </table>

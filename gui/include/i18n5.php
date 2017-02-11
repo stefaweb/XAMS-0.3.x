@@ -4,60 +4,60 @@
  */
 
 /**
- * Internationalization (i18n) management class
+ * Internationalization (i18n) management class.
  *
  * This class is responsible for the whole internationalization management.
- * @package default
- * @access public
  */
 class i18n5 extends i18n
 {
+    public $dom;
 
-    var $dom;
-
-    function __construct()
+    public function __construct()
     {
         $this->dom = new DomDocument();
     }
 
     /**
-     * Loads one or more language package(s)
+     * Loads one or more language package(s).
      *
      * @param string $files_csv Comma seperated list of i18n-files to load
-     * @param string $lng language to use
-     * @access public
+     * @param string $lng       language to use
      */
-    function LoadLngBase($files, $lng=null)
+    public function LoadLngBase($files, $lng = null)
     {
-        if (isset($lng) && !empty($lng))
+        if (isset($lng) && !empty($lng)) {
             $this->lng = $lng;
-        elseif (isset($_SESSION['SESSION_LANGUAGE']) && !empty($_SESSION['SESSION_LANGUAGE']))
+        } elseif (isset($_SESSION['SESSION_LANGUAGE']) && !empty($_SESSION['SESSION_LANGUAGE'])) {
             $this->lng = $_SESSION['SESSION_LANGUAGE'];
+        }
 
-        if (!is_array($files))
-            $files = array($files);
+        if (!is_array($files)) {
+            $files = [$files];
+        }
 
         $files[] = 'std_menu';
 
-        foreach ($files as $filename)
-        {
-            if (isset($this->loaded_lng_bases[$filename]))
+        foreach ($files as $filename) {
+            if (isset($this->loaded_lng_bases[$filename])) {
                 continue;
+            }
 
             $file = sprintf('i18n/%s/%s.xml', $this->lng, $filename);
-            if (!file_exists($file))
+            if (!file_exists($file)) {
                 $file = sprintf('i18n/english/%s.xml', $filename);
+            }
 
-            if (!file_exists($file)) continue;
+            if (!file_exists($file)) {
+                continue;
+            }
 
             $this->dom->load($file);
 
-            foreach ($this->dom->getElementsByTagName('msg') as $msgtag)
+            foreach ($this->dom->getElementsByTagName('msg') as $msgtag) {
                 $this->i18n_array[$filename][$msgtag->getAttribute('id')] = $msgtag->nodeValue;
+            }
 
             $this->loaded_lng_bases[$filename] = $this->lng;
         }
     }
 }
-
-?>

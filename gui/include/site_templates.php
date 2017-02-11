@@ -5,28 +5,30 @@ include_once 'include/i18n.php';
 
 class Site_Templates extends xclass
 {
-    var $objname = 'site_templates';
-    var $notice;
-    var $lngbase = 'site_template';
-    var $tablename = 'pm_site_templates';
+    public $objname = 'site_templates';
+    public $notice;
+    public $lngbase = 'site_template';
+    public $tablename = 'pm_site_templates';
 
-    function Site_Templates($init=true)
+    public function Site_Templates($init = true)
     {
         xclass::xclass($init);
     }
 
     // Check which actions the logged in user can perform on this site-template
-    function Authenticate()
+    public function Authenticate()
     {
-        if ($this->authenticated) return $this->getAuthMode();
-        switch (USERT)
-        {
+        if ($this->authenticated) {
+            return $this->getAuthMode();
+        }
+        switch (USERT) {
             case _ADMIN:
                 $this->setAuthMode(_AUTH_ALL);
                 break;
             case _RESELLER:
-                if ($this->resellerid === USERID)
+                if ($this->resellerid === USERID) {
                     $this->setAuthMode(_AUTH_ALL);
+                }
                 break;
             case _CUSTOMER:
             case _USER:
@@ -34,20 +36,28 @@ class Site_Templates extends xclass
                 break;
         }
         xclass::Authenticate(true);
+
         return $this->getAuthMode();
     }
 
-    function GetName($id=false)
+    public function GetName($id = false)
     {
-        if ($id) $this->id = $id;
-        $name = $this->db->getOne('SELECT templatename FROM pm_site_templates WHERE id = ?', array($this->id));
+        if ($id) {
+            $this->id = $id;
+        }
+        $name = $this->db->getOne('SELECT templatename FROM pm_site_templates WHERE id = ?', [$this->id]);
+
         return $name;
     }
 
-    function Load($id=false)
+    public function Load($id = false)
     {
-        if ($id) $this->id = $id;
-        if (empty($this->id)) die($this->objname. '->Load() - Have no ID to load!');
+        if ($id) {
+            $this->id = $id;
+        }
+        if (empty($this->id)) {
+            die($this->objname.'->Load() - Have no ID to load!');
+        }
         $sql = 'SELECT adminid, resellerid, templatename,
                        name, maxquota, maxuserquota, maxaddr, maxaliases,
                        addrtype, viruscheckin, viruscheckout,
@@ -62,64 +72,52 @@ class Site_Templates extends xclass
                 FROM   pm_site_templates
                 WHERE  id = ?';
 
-        $val = array($this->date_format, $this->date_format, $this->id);
+        $val = [$this->date_format, $this->date_format, $this->id];
 
         xclass::Load($sql, $val);
 
-        $this->XAMS_Log("Selection", "Selected Site-Template $this->templatename [$this->id]");
+        $this->XAMS_Log('Selection', "Selected Site-Template $this->templatename [$this->id]");
 
         $this->Authenticate();
     }
 
-    function Add()
+    public function Add()
     {
         $this->Authenticate();
         $result = xclass::Add();
 
-        if ($result)
-        {
+        if ($result) {
             $this->notice = sprintf($this->i18n->get("Site-Template '%s' was added successfully."), $this->templatename);
-            $this->XAMS_Log("Insertion", "Added Site-Template $this->templatename");
-        }
-        else
-        {
+            $this->XAMS_Log('Insertion', "Added Site-Template $this->templatename");
+        } else {
             $this->notice = sprintf($this->i18n->get("Site-Template '%s' could not be added."), $this->templatename);
-            $this->XAMS_Log("Insertion", "Failed adding Site-Template $this->templatename", "failed");
+            $this->XAMS_Log('Insertion', "Failed adding Site-Template $this->templatename", 'failed');
         }
     }
 
-    function Update()
+    public function Update()
     {
         $result = xclass::Update();
 
-        if ($result)
-        {
+        if ($result) {
             $this->notice = sprintf($this->i18n->get("Site-Template '%s' was updated successfully."), $this->templatename);
-            $this->XAMS_Log("Update", "Updated Site-Template $this->templatename");
-        }
-        else
-        {
+            $this->XAMS_Log('Update', "Updated Site-Template $this->templatename");
+        } else {
             $this->notice = sprintf($this->i18n->get("Site-Template '%s' could not be updated."), $this->templatename);
-            $this->XAMS_Log("Update", "Failed updating Site-Template $this->templatename", "failed");
+            $this->XAMS_Log('Update', "Failed updating Site-Template $this->templatename", 'failed');
         }
     }
 
-    function Delete()
+    public function Delete()
     {
         $result = xclass::Delete();
 
-        if ($result)
-        {
+        if ($result) {
             $this->notice = sprintf($this->i18n->get("Site-Template '%s' was deleted successfully."), $this->templatename);
-            $this->XAMS_Log("Deletion", "Deleted Site-Template $this->templatename");
-        }
-        else
-        {
+            $this->XAMS_Log('Deletion', "Deleted Site-Template $this->templatename");
+        } else {
             $this->notice = sprintf($this->i18n->get("Site-Template '%s' could not be deleted."), $this->templatename);
-            $this->XAMS_Log("Deletion", "Failed updating Site-Template $this->templatename", "failed");
+            $this->XAMS_Log('Deletion', "Failed updating Site-Template $this->templatename", 'failed');
         }
     }
-
 }
-
-?>

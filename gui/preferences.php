@@ -6,17 +6,16 @@
 
     include 'include/preferences.php';
     $myPREF = new Preferences(false);
-    $tl =& $myPREF->i18n;
+    $tl = &$myPREF->i18n;
     $tl->LoadLngBase('login');
 
     $info = null;
     $button = gpost('button');
 
     $myPREF->Load();
-    if (!empty($button))
-    {
-        $myPREF->Assign2Object(array('loginwelcome', 'loglines', 'onlinenews',
-        'newversioncheck', 'defaultlanguage', 'spamscore', 'highspamscore'));
+    if (!empty($button)) {
+        $myPREF->Assign2Object(['loginwelcome', 'loglines', 'onlinenews',
+        'newversioncheck', 'defaultlanguage', 'spamscore', 'highspamscore', ]);
 
         $myPREF->Update();
         $info = $myPREF->notice;
@@ -27,14 +26,12 @@
     function language_list()
     {
         global $myPREF, $tl;
-        $handle = opendir('i18n'); 
-        while (false !== ($file = readdir($handle)))
-        {
-            if (!preg_match('/^\.+|^CVS$/', $file) && is_dir("i18n/$file"))
-            {
+        $handle = opendir('i18n');
+        while (false !== ($file = readdir($handle))) {
+            if (!preg_match('/^\.+|^CVS$/', $file) && is_dir("i18n/$file")) {
                 $sel = ($file == $myPREF->defaultlanguage) ? ' selected="selected"' : null;
                 printf("<option value=\"%s\"%s>%s</option>\n", $file, $sel, $tl->get($file));
-            } 
+            }
         }
         closedir($handle);
     }
@@ -53,35 +50,39 @@
                 <col width="40" />
             </colgroup>
             <tr>
-                <th><?php echo $tl->get("Welcome message at logon")?></th>
+                <th><?php echo $tl->get('Welcome message at logon')?></th>
                 <td>
-                    <input type="text" size="30" maxlength="50" name="loginwelcome" value="<?php echo ($myPREF->loginwelcome)?>" class="textfield" /> 
+                    <input type="text" size="30" maxlength="50" name="loginwelcome" value="<?php echo $myPREF->loginwelcome?>" class="textfield" /> 
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Default Lines of Event-Log")?></th>
+                <th><?php echo $tl->get('Default Lines of Event-Log')?></th>
                 <td>
-                    <input type="text" size="3" maxlength="3" name="loglines" value="<?php echo ($myPREF->loglines)?>" class="textfield" /> 
+                    <input type="text" size="3" maxlength="3" name="loglines" value="<?php echo $myPREF->loglines?>" class="textfield" /> 
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Online News")?></th>
+                <th><?php echo $tl->get('Online News')?></th>
                 <td>
-                    <input type="checkbox" name="onlinenews" class="checkbox" value="true"<?php if (isTrue($myPREF->onlinenews)) echo ' checked="checked"' ?> /> 
+                    <input type="checkbox" name="onlinenews" class="checkbox" value="true"<?php if (isTrue($myPREF->onlinenews)) {
+    echo ' checked="checked"';
+} ?> /> 
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Check for new versions")?></th>
+                <th><?php echo $tl->get('Check for new versions')?></th>
                 <td>
-                    <input type="checkbox" name="newversioncheck" class="checkbox" value="true"<?php if (isTrue($myPREF->newversioncheck)) echo ' checked="checked"' ?> /> 
+                    <input type="checkbox" name="newversioncheck" class="checkbox" value="true"<?php if (isTrue($myPREF->newversioncheck)) {
+    echo ' checked="checked"';
+} ?> /> 
                 </td>
                 <td>&nbsp;</td>
             </tr>
             <tr>
-                <th><?php echo $tl->get("Default Language")?></th>
+                <th><?php echo $tl->get('Default Language')?></th>
                 <td>
                     <select name="defaultlanguage">
                         <?php language_list() ?>
@@ -90,11 +91,11 @@
                 <td>&nbsp;</td>
             </tr>
 <tr>
-<th><?php echo $tl->get("Spam Score Trigger")?></th>
+<th><?php echo $tl->get('Spam Score Trigger')?></th>
         <td>
-        <?php echo $tl->get("Spam Score")?>:
+        <?php echo $tl->get('Spam Score')?>:
         <input type="text" name="spamscore" value="<?php echo $myPREF->spamscore?>" maxlength="3" size="3" class="textfield" />
-        <?php echo $tl->get("High Spam Score")?>:
+        <?php echo $tl->get('High Spam Score')?>:
         <input type="text" name="highspamscore" value="<?php echo $myPREF->highspamscore?>" maxlength="3" size="3" class="textfield" />
         </td>
 </tr>
@@ -102,8 +103,8 @@
                 <td></td>
                 <td colspan="2">
                     <p>
-                        <input type="submit" class="button" name="button" value="<?php echo $tl->get("Update")?>" /> 
-                        <input type="button" name="help" value="<?php echo $tl->get("Help")?>" class="helpbutton" onclick="window.open('help.php?help=preferences', '', 'scrollbars=yes, height=500, width=920');" />
+                        <input type="submit" class="button" name="button" value="<?php echo $tl->get('Update')?>" /> 
+                        <input type="button" name="help" value="<?php echo $tl->get('Help')?>" class="helpbutton" onclick="window.open('help.php?help=preferences', '', 'scrollbars=yes, height=500, width=920');" />
                     </p>
                 </td>
             </tr>

@@ -2,50 +2,50 @@
 
 include_once 'include/xclass.php';
 
-class Admins extends xclass
+class admins extends xclass
 {
-    var $objname = 'admins';
-    var $lngbase = 'administrator';
-    var $tablename = 'pm_admins';
+    public $objname = 'admins';
+    public $lngbase = 'administrator';
+    public $tablename = 'pm_admins';
 
-    var $notice;
+    public $notice;
 
-    function Admins($init=true)
+    public function Admins($init = true)
     {
         xclass::xclass($init);
     }
 
-    function Load($id=false, $Load4Login=false)
+    public function Load($id = false, $Load4Login = false)
     {
-        if ($id) $this->id = $id;
+        if ($id) {
+            $this->id = $id;
+        }
 
         $sql = 'SELECT name, locked,
                        DATE_FORMAT(added, ?) as added,
                        DATE_FORMAT(updated, ?) as updated
                 FROM   pm_admins
                 WHERE  id = ?';
-        $val = array($this->date_format, $this->date_format, $this->id);
+        $val = [$this->date_format, $this->date_format, $this->id];
 
         xclass::Load($sql, $val);
 
-        if ($Load4Login)
-        {
-            $this->XAMS_Log("Selection", "Selected Admin $this->name", "ok", $this->id, _ADMIN);
-        }
-        else
-        {
-            $this->XAMS_Log("Selection", "Selected Admin $this->name");
+        if ($Load4Login) {
+            $this->XAMS_Log('Selection', "Selected Admin $this->name", 'ok', $this->id, _ADMIN);
+        } else {
+            $this->XAMS_Log('Selection', "Selected Admin $this->name");
         }
 
         $this->Authenticate();
     }
 
     // Check which actions the logged in user can perform on this administrator
-    function Authenticate()
+    public function Authenticate()
     {
-        if ($this->authenticated) return $this->getAuthMode();
-        switch (USERT)
-        {
+        if ($this->authenticated) {
+            return $this->getAuthMode();
+        }
+        switch (USERT) {
             case _ADMIN:
                 $this->setAuthMode(_AUTH_ALL);
                 break;
@@ -55,47 +55,44 @@ class Admins extends xclass
                 break;
         }
         xclass::Authenticate(true);
+
         return $this->getAuthMode();
     }
 
-    function Add()
+    public function Add()
     {
         $this->Authenticate();
         $this->password = md5($this->password);
 
         $result = xclass::Add();
 
-        if ($result)
-        {
+        if ($result) {
             $this->notice = sprintf($this->i18n->get("Admin '%s' was added successfully."), $this->name);
-            $this->XAMS_Log("Insertion", "Added Admin $this->name");
-        }
-        else
-        {
+            $this->XAMS_Log('Insertion', "Added Admin $this->name");
+        } else {
             $this->notice = sprintf($this->i18n->get("Admin '%s' could not be added."), $this->name);
-            $this->XAMS_Log("Insertion", "Failed adding Admin $this->name", "failed");
+            $this->XAMS_Log('Insertion', "Failed adding Admin $this->name", 'failed');
         }
     }
 
-    function Update()
+    public function Update()
     {
-        if (!empty($this->password)) $this->password = md5($this->password);
+        if (!empty($this->password)) {
+            $this->password = md5($this->password);
+        }
 
         $result = xclass::Update();
 
-        if ($result)
-        {
+        if ($result) {
             $this->notice = sprintf($this->i18n->get("Admin '%s' was updated successfully."), $this->name);
-            $this->XAMS_Log("Update", "Updated Admin $this->name");
-        }
-        else
-        {
+            $this->XAMS_Log('Update', "Updated Admin $this->name");
+        } else {
             $this->notice = sprintf($this->i18n->get("Admin '%s' could not be updated."), $this->name);
-            $this->XAMS_Log("Update", "Failed updating Admin $this->name", "failed");
+            $this->XAMS_Log('Update', "Failed updating Admin $this->name", 'failed');
         }
     }
 
-    function Delete()
+    public function Delete()
     {
         // Delete Administrator
         $result = xclass::Delete();
@@ -106,16 +103,12 @@ class Admins extends xclass
         // Delete User-Templates of Administrator
         $this->db->query('DELETE FROM pm_user_templates WHERE adminid = ?', $this->id);
 
-        if ($result)
-        {
+        if ($result) {
             $this->notice = sprintf($this->i18n->get("Admin '%s' was deleted successfully."), $this->name);
-            $this->XAMS_Log("Deletion", "Deleted Admin $this->name");
-        }
-        else
-        {
+            $this->XAMS_Log('Deletion', "Deleted Admin $this->name");
+        } else {
             $this->notice = sprintf($this->i18n->get("Admin '%s' could not be deleted."), $this->name);
-            $this->XAMS_Log("Deletion", "Failed deleting Admin $this->name", "failed");
+            $this->XAMS_Log('Deletion', "Failed deleting Admin $this->name", 'failed');
         }
     }
 }
-?>

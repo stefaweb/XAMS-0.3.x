@@ -10,16 +10,14 @@
 
     include 'include/xclass.php';
     $db = new xclass();
-    $tl =& $db->i18n;
+    $tl = &$db->i18n;
     $tl->LoadLngBase('dns');
 
-    if ($button == $tl->get('New'). ' >>')
-    {
+    if ($button == $tl->get('New').' >>') {
         header('Location: dns_zone.php?mode=new');
         exit;
-    } 
-    if (!empty($dnsid))
-    {
+    }
+    if (!empty($dnsid)) {
         header("Location: dns_zone.php?dnsid=$dnsid");
         exit;
     }
@@ -36,7 +34,9 @@
 <hr />
 <p>
     <ul>
-        <?php foreach ($domains as $elem) echo "<li><a href=\"dns_zone.php?mode=update&dnsid=$elem[id]\">$elem[name]</a></li>\n"; ?>
+        <?php foreach ($domains as $elem) {
+    echo "<li><a href=\"dns_zone.php?mode=update&dnsid=$elem[id]\">$elem[name]</a></li>\n";
+} ?>
     </ul>
 </p>
 <?php include 'footer.php' ?>
