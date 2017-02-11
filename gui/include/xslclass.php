@@ -77,7 +77,7 @@ class xslclass
 
         if (class_exists($class))
         {
-            $instance =& new $class();
+            $instance = new $class();
             return $instance;
         }
         else
