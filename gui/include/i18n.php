@@ -4,38 +4,34 @@
  */
 
 /**
- * Internationalization (i18n) management class
+ * Internationalization (i18n) management class.
  *
  * This class is responsible for the whole internationalization management.
- * @package default
- * @access public
  */
 class i18n
 {
 
-    function &factory()
+    public function &factory()
     {
         list($major, $minor) = explode('.', phpversion());
         $ver = $major . $minor;
         $ver = ($ver < 50) ? '4' : '5';
 
-        $class = 'i18n' . $ver;
-        include $class . '.php';
+        $class = 'i18n'.$ver;
+        include $class.'.php';
 
-        if (class_exists($class))
-        {
+        if (class_exists($class)) {
             $instance = new $class();
+            
             return $instance;
         }
-        else
-        {
-            die('Class definition of ' . $class . ' not found.');
-        }
+        } else {
+            die('Class definition of '.$class.' not found.');
     }
 
-    function &singleton()
+    public function &singleton()
     {
-        static $instances = array();
+        static $instances = [];
 
         $signature = 'theone';
 
