@@ -24,12 +24,7 @@ class i18n
 
         if (class_exists($class))
         {
-        	protected $instance;
-        	
-        	function __construct()
-        	{
-        		$instance =& new $class();
-        	}
+            $instance =& new $class();
             return $instance;
         }
         else
