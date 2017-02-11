@@ -41,18 +41,21 @@ class dns extends xclass
 
     public function CalcUnits()
     {
+        // Calculate units (minutes,hours,days,weeks,months)
         foreach ($this->units as $elem) {
             for ($i = 5; $i >= 0; $i--) {
                 do {
                     if ($this->$elem % $this->multiplier[$i] == 0) {
                         $this->{$elem.'_unit'} = $i;
-                         $this->$elem /= $this->multiplier[$i];
-                         break 2;
+                        $this->$elem /= $this->multiplier[$i];
+                        break 2;
                     } else {
                         break;
                     }
-                 }
-            while (true) {
+                }
+            }
+        }
+        while (true);
     }
 
     public function multiply()
