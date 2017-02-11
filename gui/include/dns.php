@@ -52,9 +52,7 @@ class dns extends xclass
                         break;
                     }
                  }
-            }
-        }
-        while (true) {
+            while (true) {
     }
 
     public function multiply()
