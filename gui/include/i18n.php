@@ -26,7 +26,7 @@ class i18n
             return $instance;
         }
         } else {
-            die('Class definition of '.$class.' not found.');
+            die('Class definition of ' . $class . ' not found.');
     }
 
     public function &singleton()
