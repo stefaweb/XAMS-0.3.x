@@ -73,15 +73,6 @@ class xclass
         }
     }
 
-    public function Authenticate($mode = false)
-    {
-        if ($mode) {
-            $this->authenticated = true;
-        } elseif (!$this->authenticated) {
-            die("Object ($this->objname) hasn't authenticated before Load/Add/Update/Delete!");
-        }
-    }
-
     public function setAuthMode($mode = _AUTH_NONE)
     {
         $this->auth_mode = $mode;
