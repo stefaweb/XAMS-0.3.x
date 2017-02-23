@@ -87,3 +87,9 @@ named_slave_template = @XAMS_CONFIG_DIR@/named_slave_template
 ;ec_master_smarthost = master-smarthost.domain.tld 
 ;ec_smarthost = smarthost.domain.tld 
 
+; Exim Debian configuration
+;exim_relay_domains = /etc/xams/exim_relay_domains
+;exim_hubbed_hosts = /etc/xams/exim_hubbed_hosts
+;exim_hubbed_hosts_manual = /etc/xams/exim_hubbed_hosts_manual
+;exim_ec_master_smarthost = master-smarthost.domain.tld
+;exim_ec_smarthost = smarthost.domain.tld
