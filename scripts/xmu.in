@@ -1,8 +1,8 @@
 #!@PERL_PATH@ -w
 # XMU
-# Date: 8/09/2009
+# Date: 23/02/2017
 # XMU - the XAMS Maintenance Utility
-# 
+#
 
 use strict;
 use DBI;
@@ -26,7 +26,8 @@ my ($mail_dir);
 my ($opt_help, $opt_version, $opt_cdbdomlist, $opt_homedirs,
     $opt_mscanlist, $opt_autoreply, $opt_updatebind,
     $opt_rebuild, $opt_cleansites, $opt_archive,
-    $opt_delete, $opt_delusername, $opt_verbose, $opt_eximconfig, $opt_quota) = 0;
+    $opt_delete, $opt_delusername, $opt_verbose, $opt_eximconfig,
+    $opt_exim, $opt_quota) = 0;
 my $dbh;
 
 printhelp() if ($#ARGV < 0);
@@ -35,9 +36,10 @@ my %options = ('help', \$opt_help, 'version', \$opt_version, 'cdbdomlist', \$opt
                'homedirs', \$opt_homedirs, 'mscanlist', \$opt_mscanlist,
                'autoreply', \$opt_autoreply, 'update-bind', \$opt_updatebind,
                'rebuild', \$opt_rebuild, 'cleansites', \$opt_cleansites,
-               'archive', \$opt_archive, 'delete', \$opt_delete, 
-               'delusername', \$opt_delusername, 'verbose', \$opt_verbose, 
-               'eximconfig', \$opt_eximconfig, 'quota', \$opt_quota);
+               'archive', \$opt_archive, 'delete', \$opt_delete,
+               'delusername', \$opt_delusername, 'verbose', \$opt_verbose,
+               'eximconfig', \$opt_eximconfig, 'exim', \$opt_exim,
+               'quota', \$opt_quota);
 GetOptions(%options);
 
 print "Unknown option $_\n" foreach (@ARGV);
@@ -76,6 +78,7 @@ sub printhelp
     print "\t--delusername      Show obsoletes usernames in sites\n";
     print "\t  --delete         Force deletion of obsoletes usernames in sites\n";
     print "\t--eximconfig       Creates EximConfig specific files\n";
+    print "\t--exim             Creates Exim Debian specific files\n";
     print "\t--quota            Update User quota in XAMS database\n";
     print "\t--verbose          Verbose output\n";
     print "\n";
@@ -85,7 +88,7 @@ sub printhelp
 
 sub printversion
 {
-    print "XMU - the XAMS Maintenance Utility ". $version. "\n\n"; 
+    print "XMU - the XAMS Maintenance Utility ". $version. "\n\n";
     exit;
 }
 
@@ -178,23 +181,23 @@ sub eximconfig
     my $last_start = '*';
     my $ec_master_smarthost = getSetting('ec_master_smarthost');
     my $ec_smarthost = getSetting('ec_smarthost');
-    
+
     open(DMAN, '<'. $eximconfig_route_manual)
         or die "Could not open manual route relay file '".$eximconfig_route_manual."': $!\n";
-    while (<DMAN>) 
+    while (<DMAN>)
     {
-       if (substr($_, 0, 1) eq '#')  
+       if (substr($_, 0, 1) eq '#')
        {
           $dman .= $_;
        }
        else
        {
           $dman .= $_;
-	  push @manuallist, $_;
-	  my @dm = grep {!/^\s*$/} split(/\s+/, $_);  
-	  my $dm = shift(@dm);
-	  push @manualdomain, $dm;
-       } 
+      push @manuallist, $_;
+      my @dm = grep {!/^\s*$/} split(/\s+/, $_);
+      my $dm = shift(@dm);
+      push @manualdomain, $dm;
+       }
     }
     close(DMAN);
     @manuallist = sort @manuallist;
@@ -211,7 +214,7 @@ sub eximconfig
                            ON        d.siteid = s.id
                            WHERE     sitestate != 'lockedbounce'
                            AND       d.name IS NOT NULL
-			   ORDER BY  d.name]);
+                           ORDER BY  d.name]);
     $sth->execute();
 
     open(PLAIN, ">". $eximconfig_domains_relay)
@@ -230,7 +233,7 @@ sub eximconfig
             $oldsname = $sname;
             print "\nSite: ". $sname. "\n" if $opt_verbose;
         }
-	print PLAIN $dname."\n" if not defined(first {$_ eq $dname} @manualdomain);
+    print PLAIN $dname."\n" if not defined(first {$_ eq $dname} @manualdomain);
         print "\t$dname\n" if $opt_verbose;
         $i++;
     }
@@ -248,12 +251,12 @@ sub eximconfig
                            ON        d.siteid = s.id
                            WHERE     sitestate != 'lockedbounce'
                            AND       d.name IS NOT NULL
-			   ORDER BY  d.name]);
+                           ORDER BY  d.name]);
     $sth->execute();
 
     open(PLAIN, ">". $eximconfig_route_relay)
         or die "Could not create route relay file '".$eximconfig_route_relay."': $!\n";
-    
+
     print "\nCreating domain routing list(s)...";
     print PLAIN "# Domain routing list for relayed domain names (domains/relay)  -  Mail sent\n";
     print PLAIN "# to these domains will be routed via the specified mail server(s).\n";
@@ -271,14 +274,135 @@ sub eximconfig
             $oldsname = $sname;
             print "\nSite: ". $sname. "\n" if $opt_verbose;
         }
-	print PLAIN $dname. "\t\t\t". $ec_master_smarthost. "\n" if not defined(first {$_ eq $dname} @manualdomain); 
-	print "\t$dname\n" if $opt_verbose;
+    print PLAIN $dname. "\t\t\t". $ec_master_smarthost. "\n" if not defined(first {$_ eq $dname} @manualdomain);
+    print "\t$dname\n" if $opt_verbose;
         $i++;
     }
     $sth->finish();
     print PLAIN $dman;
-    print PLAIN "# Default route relay\n"; 
+    print PLAIN "# Default route relay\n";
     print PLAIN $last_start. "\t\t\t\t". $ec_smarthost. "\n";
+    close(PLAIN);
+    print "Done ($i domains created).\n\n";
+}
+
+# List domains and create Exim Debian files
+# Works with Default Exim config for Debian
+sub exim
+{
+    my $date=`date +%d-%m-%Y`;
+    my $sth;
+    my ($sname, $dname, $dman);
+    my $oldsname = '';
+    my @manuallist = ();
+    my @manualdomain = ();
+    my $exim_relay_domains = getSetting('exim_relay_domains');
+    my $exim_hubbed_hosts = getSetting('exim_hubbed_hosts');
+    my $exim_hubbed_hosts_manual = getSetting('exim_hubbed_hosts_manual');
+    my $last_start = '*';
+    my $exim_ec_master_smarthost = getSetting('exim_ec_master_smarthost');
+    my $exim_ec_smarthost = getSetting('exim_ec_smarthost');
+
+    open(DMAN, '<'. $exim_hubbed_hosts_manual)
+        or die "Could not open Exim manual route relay file '".$exim_hubbed_hosts_manual."': $!\n";
+    while (<DMAN>)
+    {
+       if (substr($_, 0, 1) eq '#')
+       {
+          $dman .= $_;
+       }
+       else
+       {
+          $dman .= $_;
+      push @manuallist, $_;
+      my @dm = grep {!/^\s*$/} split(/\:/, $_);
+      my $dm = shift(@dm);
+      push @manualdomain, $dm;
+       }
+    }
+    close(DMAN);
+    @manuallist = sort @manuallist;
+    @manualdomain = sort @manualdomain;
+
+    #print "Manual list: ". $_ foreach @manuallist;
+    #print "Manual domain list: ". $_. "\n" foreach @manualdomain;
+
+    dbConnect();
+    $sth = $dbh->prepare(q[SELECT    s.name AS sname,
+                                     LOWER(d.name) AS dname
+                           FROM      pm_sites s
+                           LEFT JOIN pm_domains d
+                           ON        d.siteid = s.id
+                           WHERE     sitestate != 'lockedbounce'
+                           AND       d.name IS NOT NULL
+                           ORDER BY  d.name]);
+    $sth->execute();
+
+    open(PLAIN, ">". $exim_relay_domains)
+        or die "Could not create Exim relay domains file '".$exim_relay_domains."': $!\n";
+
+    print "\nCreating Exim relay domains list(s)...\n";
+    print PLAIN "# List of Exim domain names accepted for relaying\n";
+    print PLAIN "# Created by xams - ". $date;
+    print PLAIN "#\n";
+
+    my $i = 0;
+    while (($sname, $dname) = $sth->fetchrow_array)
+    {
+        if ($sname ne $oldsname)
+        {
+            $oldsname = $sname;
+            print "\nSite: ". $sname. "\n" if $opt_verbose;
+        }
+    print PLAIN $dname."\n" if not defined(first {$_ eq $dname} @manualdomain);
+        print "\t$dname\n" if $opt_verbose;
+        $i++;
+    }
+    print PLAIN "# Manual Exim relay domains list\n";
+    print PLAIN $_. "\n" foreach @manualdomain;
+    close(PLAIN);
+    $sth->finish();
+    print "Done ($i domains created).\n";
+
+    dbConnect();
+    $sth = $dbh->prepare(q[SELECT    s.name AS sname,
+                                     LOWER(d.name) AS dname
+                           FROM      pm_sites s
+                           LEFT JOIN pm_domains d
+                           ON        d.siteid = s.id
+                           WHERE     sitestate != 'lockedbounce'
+                           AND       d.name IS NOT NULL
+                           ORDER BY  d.name]);
+    $sth->execute();
+
+    open(PLAIN, ">". $exim_hubbed_hosts)
+        or die "Could not create Exim Hubbed Hosts file '".$exim_hubbed_hosts."': $!\n";
+
+    print "\nCreating Exim Hubbed Hosts list(s)...\n";
+    print PLAIN "# Domain routing list for relayed domain names (domains/relay)  -  Mail sent\n";
+    print PLAIN "# to these domains will be routed via the specified mail server(s).\n";
+    print PLAIN "# Created by xams - ". $date;
+    print PLAIN "#\n";
+    print PLAIN "# FORMAT:  domain:      smarthost[: smarthost[: ...]]\n";
+    print PLAIN "#          *:           smarthost[: smarthost[: ...]]   (Default)\n";
+    print PLAIN "#\n";
+
+    $i = 0;
+    while (($sname, $dname) = $sth->fetchrow_array)
+    {
+        if ($sname ne $oldsname)
+        {
+            $oldsname = $sname;
+            print "\nSite: ". $sname. "\n" if $opt_verbose;
+        }
+    print PLAIN $dname. ": ". $exim_ec_master_smarthost. "\n" if not defined(first {$_ eq $dname} @manualdomain);
+    print "\t$dname\n" if $opt_verbose;
+        $i++;
+    }
+    $sth->finish();
+    print PLAIN $dman;
+    print PLAIN "# Default Exim Hubbed Hosts route relay\n";
+    print PLAIN $last_start. ": ". $exim_ec_smarthost. "\n";
     close(PLAIN);
     print "Done ($i domains created).\n\n";
 }
@@ -594,7 +718,7 @@ sub cleansites
 sub delusername
 {
     my $sth;
-    
+
     my @dirsitelist = ();
     my @usernamelist = ();
     my ($username_dir, $usite);
@@ -619,7 +743,7 @@ sub delusername
     closedir(DIRHANDLE);
 
     print "Deleting obsoletes usernames...\n";
-    
+
     foreach (@dirsitelist)
     {
         if (-d "$mail_dir/$_") {
@@ -638,16 +762,16 @@ sub delusername
 
            my %usernamehash;
            foreach (@{$usernamelist}) { $usernamehash{$$_[0]} = 1 }
-           
+
            my $i = 0;
            opendir(DIRHANDLE, $username_dir) || die "Cannot opendir $username_dir: $!";
-           
+
            foreach my $dirusername (readdir(DIRHANDLE))
            {
            push @usernamelist, $dirusername if ($dirusername !~ /^\.\.?/ && !$usernamehash{$dirusername});
            }
            closedir(DIRHANDLE);
-           
+
            foreach (@usernamelist)
            {
               if (-d "$username_dir/$_") {
@@ -665,26 +789,26 @@ sub delusername
 sub quota
 {
     my ($sth, $sth_up);
-    
+
     my ($username_dir, $usite, $sname, $uname, $idname, $mboxsize);
     my $maildirfile =  "maildirsize";
 
     dbConnect();
     $sth = $dbh->prepare(q[SELECT      s.name AS sname,
-			  		LOWER(u.name) AS uname,
-				        u.id AS idname
-			  FROM          pm_sites s
-			  INNER JOIN    pm_users u
-			  ON            s.id = u.siteid]);
+                      LOWER(u.name) AS uname,
+                                    u.id AS idname
+                      FROM          pm_sites s
+                      INNER JOIN    pm_users u
+                      ON            s.id = u.siteid]);
     $sth->execute();
 
     while (($sname, $uname, $idname) = $sth->fetchrow_array)
     {
         my $maildirloc = "$mail_dir/$sname/$uname/$maildirfile";
 
-	if (-e $maildirloc) {
-	   open(MDSIZE, "<". $maildirloc) 
-	   or die "Could not open maildirsize file '".$maildirloc."': $!\n";
+    if (-e $maildirloc) {
+       open(MDSIZE, "<". $maildirloc)
+       or die "Could not open maildirsize file '".$maildirloc."': $!\n";
            my $line = <MDSIZE>;
 
            if (defined($line) && $line =~ /^\s*(\d+)S/) {
@@ -695,12 +819,12 @@ sub quota
                }
            }
         close(MDSIZE);
-	$mboxsize = $mboxsize / 1024;
-	$sth_up = $dbh->prepare("UPDATE pm_users SET UsedQuota=$mboxsize WHERE ID=$idname");
-	$sth_up->execute();
-	$sth_up->finish();	
-	print "Quota for username $uname in site $sname updated.\n" if $opt_verbose;
-	}
+    $mboxsize = $mboxsize / 1024;
+    $sth_up = $dbh->prepare("UPDATE pm_users SET UsedQuota=$mboxsize WHERE ID=$idname");
+    $sth_up->execute();
+    $sth_up->finish();
+    print "Quota for username $uname in site $sname updated.\n" if $opt_verbose;
+    }
     }
     $sth->finish();
 }
@@ -710,6 +834,7 @@ printversion  if $opt_version;
 domainlist(0) if $opt_cdbdomlist;
 domainlist(1) if $opt_mscanlist;
 eximconfig    if $opt_eximconfig;
+exim          if $opt_exim;
 autoreply     if $opt_autoreply;
 homedirs      if $opt_homedirs;
 updatebind    if $opt_updatebind;
@@ -720,4 +845,3 @@ quota         if $opt_quota;
 $dbh->disconnect() if ($dbh);
 
 # END
-
