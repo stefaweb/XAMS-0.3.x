@@ -2,7 +2,7 @@
 #   MailScanner Custom Module SQLSpamSettingsXAMS
 #   To be used with XAMS mail system (http://www.xams.org/)
 #
-#   SQLSpamSettingsXAMS.pm - 1.3 - 9/02/2017
+#   SQLSpamSettingsXAMS.pm - 1.3 - 03/03/2017
 #
 #   This program is free software; you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
@@ -46,7 +46,7 @@ use DBI;
 
 my (%LowSpamScores, %HighSpamScores);
 my (%ScanList);
-#my ($stime, $htime, $ntime);
+my ($stime, $htime, $ntime);
 
 # Default values
 my ($refresh_time) = 5;         # Time in minutes before lists are refreshed
@@ -160,21 +160,24 @@ sub CreateScoreList
   # then generate a warning and return to MailScanner so it can continue processing.
   if (!$dbh)
   {
-        MailScanner::Log::InfoLog("XAMS SQLSpamSettings: CreateList Unable to initialise database connection: %s",
-            $DBI::errstr);
-        return;
-  }
-
-  $dbh->do('SET NAMES utf8');
-
-  # Store default value
-  if ($default eq "spamscore") {
-        $UserList->{lc($DefaultScoreName)} = $DefaultScore; # Store entry
-        $count++;
-  }
-  if ($default eq "highspamscore") {
-         $UserList->{lc($DefaultScoreName)} = $DefaultHighScore; # Store entry
-         $count++;
+		MailScanner::Log::InfoLog("XAMS SQLSpamSettings: CreateList Unable to initialise database connection: %s",
+		      $DBI::errstr);
+		return;
+		
+		$dbh->do('SET NAMES utf8');
+		
+		# Store default value
+		if ($default eq "spamscore") {
+		      #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Using default %s values.",$default);
+		      $UserList->{lc($DefaultScoreName)} = $DefaultScore; # Store entry
+		      $count++;
+		}
+		if ($default eq "highspamscore") {
+		       #MailScanner::Log::InfoLog("XAMS SQLSpamSettings: Using default %s values.",$default);
+		       $UserList->{lc($DefaultScoreName)} = $DefaultHighScore; # Store entry
+		       $count++;
+		}
+        return $count;
   }
 
   # SQL query in the XAMS database
@@ -260,7 +263,7 @@ sub CreateNoScanList {
   }
 
   $dbh->do('SET NAMES utf8');
-  
+
   # SQL query in the XAMS database
   # For users of NoScanList
   $sql = " \
@@ -339,6 +342,8 @@ sub LookupScoreList {
   return $LowHigh->{"admin"}     if $LowHigh->{"admin"};
   return $LowHigh->{"default"}   if $LowHigh->{"default"};
 
+  # There are no Spam scores to return if we made it this far, so let the email through.
+  return 999;
 }
 
 # Based on the address it is going to, decide whether or not to scan.
