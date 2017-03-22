@@ -7,6 +7,9 @@ hide mysql_servers = @EXIM_SQL_HOST@/@EXIM_SQL_DATABASE@/@EXIM_SQL_USER@/@EXIM_S
 
 # Here you can enable different Features of Exim and XAMS
 
+# Ports to listen
+daemon_smtp_ports = 25 : 587
+
 # Activate the right language user messages
 # exim-messages_xx.conf files 
 LANG_EN = On
@@ -57,14 +60,14 @@ TLS_ENCRYPTION = On
 QUOTA_THRESHOLD = 75%
 
 # Maximum number of simultaneous SMTP connections allowed.
-smtp_accept_max = 100
+#smtp_accept_max = 20
 
 # Maximum number of simultaneous SMTP connections from a single host.
-smtp_accept_max_per_host = 10
+#smtp_accept_max_per_host = 10
 
 # This increases the number of processes that handle
 # the inbound and outbound emails waiting in the queue.
-queue_run_max = 5
+#queue_run_max = 5
 
 # This forces outbound messages to only be delivered to
 # 10 destinations simultaneously. This works on a per-mail
