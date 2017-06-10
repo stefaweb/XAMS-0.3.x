@@ -12,6 +12,7 @@ Key:
     + Changes to work with Apache 2.4
     + Changes to works with /run mechanism (tmpfiles.d)
     * Apache default xams.conf now in /etc/apache2/conf-available instead of /etc/apache2/conf.d
+    + Added exim-host_reserved.conf
     
 2014-09-29 Stephane Leclerc  sleclerc@actionweb.fr
     * Version 0.2.4
