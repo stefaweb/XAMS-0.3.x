@@ -60,10 +60,16 @@ TLS_ENCRYPTION = On
 QUOTA_THRESHOLD = 75%
 
 # Maximum number of simultaneous SMTP connections allowed.
-#smtp_accept_max = 20
+#smtp_accept_max = 100
 
 # Maximum number of simultaneous SMTP connections from a single host.
 #smtp_accept_max_per_host = 10
+
+# This option specifies a number of SMTP connections that are reserved for connections
+# from the hosts that are specified in smtp_reserve_hosts.
+# The value set in smtp_accept_max includes this reserve pool.
+#smtp_accept_reserve = 20
+#smtp_reserve_hosts = +local_relay_hosts : CONFIGDIR/exim-host_reserved.conf
 
 # This increases the number of processes that handle
 # the inbound and outbound emails waiting in the queue.
