@@ -69,7 +69,7 @@ QUOTA_THRESHOLD = 75%
 # from the hosts that are specified in smtp_reserve_hosts.
 # The value set in smtp_accept_max includes this reserve pool.
 #smtp_accept_reserve = 20
-#smtp_reserve_hosts = +local_relay_hosts : CONFIGDIR/exim-host_reserved.conf
+#smtp_reserve_hosts = 
 
 # This increases the number of processes that handle
 # the inbound and outbound emails waiting in the queue.
