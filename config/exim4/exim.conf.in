@@ -325,6 +325,10 @@ acl_check_rcpt:
         ! verify          = sender/defer_ok/callout=10s,defer_ok
   .endif
 
+  # Log all senders' rates
+  warn ratelimit = 0 / 1h / strict
+       log_message = Sender rate $sender_rate / $sender_rate_period
+
   # Accept if the address is in a local domain, but only if the recipient can
   # be verified. Otherwise deny. The "endpass" line is the border between
   # passing on to the next ACL statement (if tests above it fail) or denying
@@ -368,6 +372,21 @@ acl_check_rcpt:
 
   deny    message       = Relaying from ${sender_address} to ${local_part}@${domain} denied. 
 
+  .ifdef AUTHENTICATED_RATE_LIMIT
+  # Keep authenticated users under control
+  deny authenticated = *
+       ratelimit = RATE / 1d / strict / $authenticated_id
+       message = X-Warning: Sender rate limit of RATE messages per day for $authenticated_id reached
+       log_message = Sender rate limit for $authenticated_id reached
+  .endif
+
+  .ifdef AUTHENTICATED_RBL
+  # Reject authenticated sender if in a blacklist
+  deny authenticated = *
+       message = X-Warning: $sender_host_address is listed at $dnslist_domain ($dnslist_value: $dnslist_text)
+       log_message = $sender_host_address is listed at $dnslist_domain ($dnslist_value: $dnslist_text
+       dnslists = RBL_LIST
+  .endif
 
 # Setting for AV Scanner
 # Can be activated in exim-customs.conf
