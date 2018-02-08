@@ -53,10 +53,10 @@ VIRUS_MODULE = On
 # You should check and complete this RBL list according to your needs.
 RBL_LIST = b.barracudacentral.org : dnsbl.sorbs.net : zen.spamhaus.org : bl.spamcop.net
 
-# Limit authenticated users message per day
+# Limit authenticated users message per hour
 AUTHENTICATED_RATE_LIMIT = true
-# Rate limit
-RATE = 100
+# Rate limit per hour
+RATE = 20
 
 # Reject authenticated sender if in a blacklist
 AUTHENTICATED_RBL = true
